@@ -1,5 +1,10 @@
+# `Docker` 配置 `zookeeper` 集群
+
 #docker #zookeeper
-## docker-compose.yaml
+
+集群编排文件（基于宝塔面板构建）
+## 1. `docker-compose.yaml`
+
 ```yaml
 services:
   zk1:
@@ -64,7 +69,8 @@ networks:
     external: true
 ```
 
-## .env
+## 2. `.env`
+
 ```env
 VERSION=latest
 CONTAINER_NAME=zk

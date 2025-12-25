@@ -1,9 +1,11 @@
-#Linux #Ubuntu  
-环境：Ubuntu   
-其他环境使用对应命令即可
-原文链接：[Linux 全局安装配置 zsh + oh-my-zsh](https://sysin.org/blog/linux-zsh-all/)
+# 全局配置 `Zsh & Oh My Zsh`
 
-# root 密码配置
+#Linux #Ubuntu  
+环境：`Ubuntu`   
+其他环境使用对应命令即可      
+原文链接：[Linux 全局安装配置 zsh + oh-my-zsh](https://sysin.org/blog/linux-zsh-all/)，本文按照个人使用习惯稍作更改。
+
+## root 密码配置
 ```bash
 sudo passwd
 passwd [选项] [用户名]
@@ -14,7 +16,7 @@ passwd [选项] [用户名]
 - `-d`：删除指定用户的密码，使用户可以无密码登录。
 - `-e`：强制用户下次登录时更改密码。
 
-# 安装 zsh 并为所有用户配置
+## 安装 zsh 并为所有用户配置
 - 查看当前 shell
 ```bash
 echo $SHELL
@@ -40,7 +42,7 @@ sudo apt update
 # 已安装则更新到系统默认源里的最新版本；未安装则安装。
 sudo apt install git
 ```
-# 全局配置 Oh My Zsh
+## 全局配置 Oh My Zsh
 - 切换 root
 ```bash 
 su # 切换 root，pwd 不变  
@@ -72,7 +74,7 @@ sed -i '/^ZSH_THEME=.*/c ZSH_THEME="ys"' /etc/skel/.zshrc
 sed -i 's|# zstyle ':omz:update' mode disabled|zstyle ':omz:update' mode disabled|g' /etc/skel/.zshrc
 ```
 
-# 全局插件配置
+## 全局插件配置
 将插件克隆到全局插件目录 `/etc/oh-my-zsh/custom/plugins/`，然后在 `/etc/skel/.zshrc` 中启用。
 
 -   **zsh-syntax-highlighting**：命令语法高亮
@@ -106,11 +108,11 @@ curl -fsSL https://mimosa-pudica.net/src/incr-0.2.zsh -o /etc/oh-my-zsh/custom/p
 echo "source /etc/oh-my-zsh/custom/plugins/incr/incr.zsh" >> /etc/skel/.zshrc
 ```
 
-# 用户配置
-## 新用户
+## 用户配置
+### 新用户
 编辑 `/etc/default/useradd` 文件，将 `SHELL=/bin/sh` 修改为 `SHELL=/bin/zsh`。这样新创建的用户将自动使用 Zsh 和全局配置。
 
-## 已有用户
+### 已有用户
 对于已存在的用户，需要手动配置。
 
 -   复制全局配置文件到用户主目录

@@ -5,12 +5,8 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "types": ["vite/client"],
-    "allowJs": true,
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitAny": true
+    "strict": true
   },
-  "include": ["./.vitepress/**/*.ts", "./.vitepress/**/*.vue"],
+  "include": ["./.vitepress/**/*.ts"],
   "exclude": ["node_modules"]
 }

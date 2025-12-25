@@ -23,7 +23,7 @@ username.github.io/
 ## 第 2 步：配置项目依赖和脚本
 
 ### `package.json`
-在仓库的**根目录**下创建了 `package.json` 文件，用来管理所有必需的依赖包和运行脚本。
+在仓库的**根目录**下创建了 `/package.json` 文件，用来管理所有必需的依赖包和运行脚本。
 
 ```json
 {
@@ -44,7 +44,7 @@ username.github.io/
 ```
 
 ### `tsconfig.json`
-在 `docs` 目录内创建 `tsconfig.json` 让 VitePress 正确处理 TypeScript 文件。
+在 `docs` 目录内创建 `/docs/tsconfig.json` 让 VitePress 正确处理 TypeScript 文件。
 
 ```json
 {
