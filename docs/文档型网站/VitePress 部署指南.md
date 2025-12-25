@@ -1,9 +1,11 @@
 # VitePress 文档网站部署指南
 
 ## 第 1 步：准备项目文件
+
 创建 `username.github.io (public)` 仓库，并在根目录下创建 `docs` 目录存放 `markdown` 文件。确保 `docs` 目录中只包含希望公开发布的内容。
 
 最终公开仓库 `username.github.io` 中的项目结构如下：
+
 ```text
 username.github.io/
 ├── .github/
@@ -19,8 +21,10 @@ username.github.io/
 ```
 
 ## 第 2 步：配置项目依赖和脚本
+
 ### `package.json`
 在仓库的**根目录**下创建了 `package.json` 文件，用来管理所有必需的依赖包和运行脚本。
+
 ```json
 {
   "name": "tiamatxu-github-io",
@@ -40,7 +44,8 @@ username.github.io/
 ```
 
 ### `tsconfig.json`
-为了让 VitePress 正确处理 TypeScript 文件，我在 `docs` 目录内创建了 `tsconfig.json`。
+在 `docs` 目录内创建 `tsconfig.json` 让 VitePress 正确处理 TypeScript 文件。
+
 ```json
 {
   "compilerOptions": {
@@ -57,7 +62,7 @@ username.github.io/
 ```
 
 ### `config.ts`
-最后，我修改了 `docs/.vitepress/config.ts` 文件，让网站的导航和侧边栏只显示我的 `笔记` 内容。
+修改 `docs/.vitepress/config.ts` 文件，配置网站的导航和侧边栏显示内容。
 
 ```typescript
 import { defineConfig } from 'vitepress'
@@ -89,7 +94,7 @@ export default defineConfig({
 
 ## 第 3 步：设置自动化工作流
 
-这是实现自动部署最关键的一步。我在 `.github/workflows/` 目录下创建了 `deploy.yml` 文件。
+**自动部署关键**: 在 `.github/workflows/` 目录下创建 `deploy.yml` 文件。
 
 这个工作流使用了 GitHub 官方推荐的 `actions/deploy-pages` 动作，它非常适合在仓库内部署 GitHub Pages，并且更加安全、简洁。
 
@@ -144,16 +149,9 @@ jobs:
 
 ## 第 4 步：配置 GitHub Pages
 
-最后一步是在 `TiamatXu.github.io` 仓库的设置中，告诉 GitHub Pages 使用我刚刚创建的 Actions 来部署网站。
+最后一步是在 `username.github.io` 仓库的设置中，告诉 GitHub Pages 使用刚刚创建的 Actions 来部署网站。
 
-1.  我进入仓库的 `Settings` -> `Pages`。
-2.  在 `Build and deployment` -> `Source` 选项中，我选择了 **`GitHub Actions`**。
+1.  进入仓库的 `Settings` -> `Pages`。
+2.  在 `Build and deployment` -> `Source` 选项中，选择 **`GitHub Actions`**。
 
-### 总结
-
-做完以上所有步骤后，整个流程就变得非常简单和自动化了：
-1.  我在本地 `docs/笔记` 目录下修改或添加文档。
-2.  我将代码 `push` 到 `TiamatXu.github.io` 仓库的 `main` 分支。
-3.  GitHub Actions 会自动接管一切，完成网站的构建和发布。
-
-这个方案让我可以安心地只维护一个公开的文档仓库，而我所有的私密日记都安全地存放在另一个完全独立的私有仓库中。
+## Done!
