@@ -63,9 +63,9 @@ export default defineConfig({
       copyright: 'Copyright © 2024-present Your Name'
     },
     
-    // search: {
-    //   provider: 'local'
-    // },
+    search: {
+      provider: 'local'
+    },
     
     editLink: {
       pattern: 'https://github.com/your-github-username/your-repo/edit/main/docs/:path',
