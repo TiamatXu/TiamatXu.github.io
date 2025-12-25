@@ -110,7 +110,7 @@ export default defineConfig(async () => {
     
       // Social media links
       socialLinks: [
-        { icon: 'github', link: 'https://github.com/your-github-username' }
+        { icon: 'github', link: 'https://github.com/TiamatXu' }
       ],
       
       footer: {
@@ -123,7 +123,7 @@ export default defineConfig(async () => {
       // },
       
       editLink: {
-        pattern: 'https://github.com/your-github-username/your-repo/edit/main/docs/:path',
+        pattern: 'https://github.com/TiamatXu/TiamatXu.github.io/edit/main/docs/:path',
         text: '在 GitHub 上编辑此页面'
       }
     }
