@@ -1,0 +1,7 @@
+{
+  "monospaceFontFamily": "JetBrains Mono",
+  "nativeMenus": false,
+  "enabledCssSnippets": [
+    "line-spacing"
+  ]
+}

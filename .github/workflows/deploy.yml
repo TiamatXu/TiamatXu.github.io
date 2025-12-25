@@ -1,0 +1,44 @@
+# .github/workflows/deploy.yml
+name: Build and Deploy Secure Docs (TS)
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+          cache-dependency-path: 'package-lock.json' # 指向根锁文件
+
+      - name: Install Dependencies
+        run: npm install # 在根目录运行
+
+      - name: Build VitePress Site
+        run: npm run docs:build # 在根目录运行，脚本内部会处理路径
+
+      - name: Encrypt Diary Files
+        run: npx ts-node --project tsconfig.encrypt.json encrypt.ts
+        env:
+          VITEPRESS_PASSWORD: ${{ secrets.VITEPRESS_PASSWORD }}
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.DEPLOY_KEY }}
+          external_repository: TiamatXu/TiamatXu.github.io # ⭐ 替换为你的公开仓库名
+          publish_branch: master
+          publish_dir: ./docs/.vitepress/dist
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          commit_message: 'Deploy from private repo'

@@ -1,0 +1,13 @@
+{
+  "useMarkdownLinks": true,
+  "newLinkFormat": "relative",
+  "focusNewTab": true,
+  "showLineNumber": false,
+  "showIndentGuide": true,
+  "promptDelete": false,
+  "strictLineBreaks": true,
+  "livePreview": true,
+  "propertiesInDocument": "visible",
+  "defaultViewMode": "preview",
+  "showInlineTitle": false
+}
