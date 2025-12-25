@@ -1,49 +1,49 @@
-# Project Overview
+# 项目概述
 
-This repository is a personal knowledge base and documentation website built with [VitePress](https://vitepress.dev/). The content is written in Markdown and organized into different sections, primarily focusing on technical notes related to Linux and web development. The site is configured in Chinese.
+这个仓库是一个个人知识库和文档网站，使用 [VitePress](https://vitepress.dev/) 构建。内容以Markdown编写，并组织成不同的部分，主要关注与Linux和Web开发相关的技术笔记。该站点配置为中文。
 
-The project uses [Obsidian](https://obsidian.md/) for local note-taking, as indicated by the `.obsidian` directory. The final output is a static website that can be deployed to any web server.
+该项目使用 [Obsidian](https://obsidian.md/) 进行本地笔记记录，如 `.obsidian` 目录所示。最终输出是一个静态网站，可以部署到任何Web服务器。
 
-## Key Directories and Files
+## 关键目录和文件
 
--   `docs/`: This directory contains all the Markdown content and VitePress-specific configuration.
-    -   `.vitepress/config.ts`: The main configuration file for the VitePress site. It defines the site's title, description, navigation, and sidebar structure.
-    -   `Linux/`: Contains technical notes related to the Linux operating system.
-    -   `文档型网站/`: Contains notes related to building documentation websites.
--   `.github/workflows/deploy.yml`: This file likely contains the CI/CD pipeline for automatically deploying the VitePress site, probably to GitHub Pages.
--   `package.json`: Defines the project's dependencies and scripts for running the development server, building the site, and previewing the build.
--   `.obsidian/`: This directory contains configuration files for the Obsidian note-taking app, suggesting that the author uses Obsidian to manage the documentation.
+-   `docs/`：此目录包含所有Markdown内容和VitePress特定配置。
+    -   `.vitepress/config.ts`：VitePress站点的配置文件。它定义了站点的标题、描述、导航和侧边栏结构。
+    -   `Linux/`：包含与Linux操作系统相关的技术笔记。
+    -   `文档型网站/`：包含与构建文档网站相关的笔记。
+-   `.github/workflows/deploy.yml`：此文件可能包含CI/CD管道，用于自动部署VitePress站点，可能部署到GitHub Pages。
+-   `package.json`：定义项目的依赖项和脚本，用于运行开发服务器、构建站点和预览构建。
+-   `.obsidian/`：此目录包含Obsidian笔记应用程序的配置文件，表明作者使用Obsidian来管理文档。
 
-## Building and Running
+## 构建和运行
 
-To work with this project, you need to have [Node.js](https://nodejs.org/) and [pnpm](https://pnpm.io/) (or another package manager like npm or yarn) installed.
+要使用此项目，您需要安装 [Node.js](https://nodejs.org/) 和 [pnpm](https://pnpm.io/)（或其他包管理器，如npm或yarn）。
 
-1.  **Install dependencies:**
+1.  **安装依赖项：**
     ```bash
     pnpm install
     ```
 
-2.  **Run the development server:**
-    This command starts a local server that automatically reloads when you make changes to the source files.
+2.  **运行开发服务器：**
+    此命令启动一个本地服务器，当您对源文件进行更改时会自动重新加载。
     ```bash
     pnpm docs:dev
     ```
 
-3.  **Build the static site:**
-    This command generates the static HTML, CSS, and JavaScript files for the website. The output will be in the `docs/.vitepress/dist` directory.
+3.  **构建静态站点：**
+    此命令生成网站的静态HTML、CSS和JavaScript文件。输出将在 `docs/.vitepress/dist` 目录中。
     ```bash
     pnpm docs:build
     ```
 
-4.  **Preview the built site:**
-    This command starts a local server to preview the built site.
+4.  **预览构建的站点：**
+    此命令启动一个本地服务器来预览构建的站点。
     ```bash
     pnpm docs:preview
     ```
 
-## Development Conventions
+## 开发约定
 
--   **Content:** All content is written in Markdown and located in the `docs` directory.
--   **Configuration:** The site's structure and appearance are configured in `docs/.vitepress/config.ts`.
--   **Dependencies:** Project dependencies are managed with pnpm.
--   **Deployment:** The site is automatically deployed using the GitHub Actions workflow in `.github/workflows/deploy.yml`.
+-   **内容：** 所有内容以Markdown编写，并位于 `docs` 目录中。
+-   **配置：** 站点的结构和外观在 `docs/.vitepress/config.ts` 中配置。
+-   **依赖项：** 项目依赖项使用pnpm管理。
+-   **部署：** 站点使用 `.github/workflows/deploy.yml` 中的GitHub Actions工作流自动部署。
