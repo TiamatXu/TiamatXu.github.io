@@ -16,34 +16,34 @@
 
 ## 构建和运行
 
-要使用此项目，您需要安装 [Node.js](https://nodejs.org/) 和 [pnpm](https://pnpm.io/)（或其他包管理器，如npm或yarn）。
+要使用此项目，您需要安装 [Node.js](https://nodejs.org/) 和 [npm](https://npm.io/)（或其他包管理器，如pnpm或yarn）。
 
 1.  **安装依赖项：**
     ```bash
-    pnpm install
+    npm install
     ```
 
 2.  **运行开发服务器：**
     此命令启动一个本地服务器，当您对源文件进行更改时会自动重新加载。
     ```bash
-    pnpm docs:dev
+    npm docs:dev
     ```
 
 3.  **构建静态站点：**
     此命令生成网站的静态HTML、CSS和JavaScript文件。输出将在 `docs/.vitepress/dist` 目录中。
     ```bash
-    pnpm docs:build
+    npm docs:build
     ```
 
 4.  **预览构建的站点：**
     此命令启动一个本地服务器来预览构建的站点。
     ```bash
-    pnpm docs:preview
+    npm docs:preview
     ```
 
 ## 开发约定
 
 -   **内容：** 所有内容以Markdown编写，并位于 `docs` 目录中。
 -   **配置：** 站点的结构和外观在 `docs/.vitepress/config.ts` 中配置。
--   **依赖项：** 项目依赖项使用pnpm管理。
+-   **依赖项：** 项目依赖项使用npm管理。
 -   **部署：** 站点使用 `.github/workflows/deploy.yml` 中的GitHub Actions工作流自动部署。
