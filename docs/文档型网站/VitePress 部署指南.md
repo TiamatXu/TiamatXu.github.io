@@ -322,3 +322,5 @@ jobs:
 2.  在 `Build and deployment` -> `Source` 选项中，选择 **`GitHub Actions`**。
 
 ## Done!
+
+C
