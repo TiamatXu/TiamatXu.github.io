@@ -119,8 +119,8 @@ export default defineConfigWithTheme<ThemeConfig>({
   },
 
   lang: 'zh-CN',
-  title: 'Vue.js',
-  description: 'Vue.js - 渐进式的 JavaScript 框架',
+  title: 'TiamatXu',
+  description: 'TiamatXu 的个人博客',
   srcDir: 'docs',
   srcExclude: ['tutorial/**/description.md'],
 
@@ -128,23 +128,23 @@ export default defineConfigWithTheme<ThemeConfig>({
     ['meta', { name: 'theme-color', content: '#3c8772' }],
     ['meta', { property: 'og:url', content: 'https://vuejs.org/' }],
     ['meta', { property: 'og:type', content: 'website' }],
-    ['meta', { property: 'og:title', content: 'Vue.js' }],
+    ['meta', { property: 'og:title', content: 'TiamatXu' }],
     [
       'meta',
       {
         property: 'og:description',
-        content: 'Vue.js - 渐进式的 JavaScript 框架'
+        content: 'TiamatXu 的个人博客'
       }
     ],
     [
       'meta',
       {
         property: 'og:image',
-        content: 'https://vuejs.org/images/logo.png'
+        content: '@/public/logo.svg'
       }
     ],
-    ['meta', { name: 'twitter:site', content: '@vuejs' }],
-    ['meta', { name: 'twitter:card', content: 'summary' }],
+    // ['meta', { name: 'twitter:site', content: '@vuejs' }],
+    // ['meta', { name: 'twitter:card', content: 'summary' }],
     [
       'link',
       {
@@ -154,22 +154,22 @@ export default defineConfigWithTheme<ThemeConfig>({
     ],
     inlineScript('restorePreference.js'),
     inlineScript('uwu.js'),
-    [
-      'script',
-      {
-        src: 'https://cdn.usefathom.com/script.js',
-        'data-site': 'ZPMMDSYA',
-        'data-spa': 'auto',
-        defer: ''
-      }
-    ],
-    [
-      'script',
-      {
-        src: 'https://media.bitterbrains.com/main.js?from=vuejs&type=top',
-        async: 'true'
-      }
-    ]
+    // [
+    //   'script',
+    //   {
+    //     src: 'https://cdn.usefathom.com/script.js',
+    //     'data-site': 'ZPMMDSYA',
+    //     'data-spa': 'auto',
+    //     defer: ''
+    //   }
+    // ],
+    // [
+    //   'script',
+    //   {
+    //     src: 'https://media.bitterbrains.com/main.js?from=vuejs&type=top',
+    //     async: 'true'
+    //   }
+    // ]
   ],
 
   themeConfig: {
@@ -182,66 +182,6 @@ export default defineConfigWithTheme<ThemeConfig>({
         link: 'https://vuejs.org',
         text: 'English',
         repo: 'https://github.com/vuejs/docs'
-      },
-      {
-        link: 'https://ja.vuejs.org',
-        text: '日本語',
-        repo: 'https://github.com/vuejs-translations/docs-ja'
-      },
-      {
-        link: 'https://ua.vuejs.org',
-        text: 'Українська',
-        repo: 'https://github.com/vuejs-translations/docs-uk'
-      },
-      {
-        link: 'https://fr.vuejs.org',
-        text: 'Français',
-        repo: 'https://github.com/vuejs-translations/docs-fr'
-      },
-      {
-        link: 'https://ko.vuejs.org',
-        text: '한국어',
-        repo: 'https://github.com/vuejs-translations/docs-ko'
-      },
-      {
-        link: 'https://pt.vuejs.org',
-        text: 'Português',
-        repo: 'https://github.com/vuejs-translations/docs-pt'
-      },
-      {
-        link: 'https://bn.vuejs.org',
-        text: 'বাংলা',
-        repo: 'https://github.com/vuejs-translations/docs-bn'
-      },
-      {
-        link: 'https://it.vuejs.org',
-        text: 'Italiano',
-        repo: 'https://github.com/vuejs-translations/docs-it'
-      },
-      {
-        link: 'https://fa.vuejs.org',
-        text: 'فارسی',
-        repo: 'https://github.com/vuejs-translations/docs-fa'
-      },
-      {
-        link: 'https://ru.vuejs.org',
-        text: 'Русский',
-        repo: 'https://github.com/vuejs-translations/docs-ru'
-      },
-      {
-        link: 'https://cs.vuejs.org',
-        text: 'Čeština',
-        repo: 'https://github.com/vuejs-translations/docs-cs'
-      },
-      {
-        link: 'https://zh-hk.vuejs.org',
-        text: '繁體中文',
-        repo: 'https://github.com/vuejs-translations/docs-zh-hk'
-      },
-      {
-        link: 'https://pl.vuejs.org',
-        text: 'Polski',
-        repo: 'https://github.com/vuejs-translations/docs-pl'
       },
       {
         link: '/translations/',
@@ -303,9 +243,9 @@ export default defineConfigWithTheme<ThemeConfig>({
     // },
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/' },
-      { icon: 'twitter', link: 'https://x.com/vuejs' },
-      { icon: 'discord', link: 'https://discord.com/invite/vue' }
+      { icon: 'github', link: 'https://github.com/TiamatXu/' },
+      // { icon: 'twitter', link: 'https://x.com/vuejs' },
+      // { icon: 'discord', link: 'https://discord.com/invite/vue' }
     ],
 
     editLink: {
