@@ -1,4 +1,6 @@
 ---
+page: true
+title: Vue.js - 渐进式 JavaScript 框架
 home: true
 heroImage: /logo.svg
 heroText: 我的知识库
@@ -18,3 +20,9 @@ features:
   - title: 归档
     details: 归档一些旧的但有价值的文章。
 ---
+
+<script setup>
+import Home from '@theme/components/Home.vue'
+</script>
+
+<Home />
