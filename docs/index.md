@@ -2,7 +2,7 @@
 page: true
 title: Vue.js - 渐进式 JavaScript 框架
 home: true
-heroImage: /logo.svg
+heroImage: ../public/logo.svg
 heroText: 我的知识库
 tagline: 一个 VitePress 驱动的文档网站
 actions:

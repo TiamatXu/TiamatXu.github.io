@@ -248,6 +248,8 @@ export default defineConfigWithTheme<ThemeConfig>({
       // { icon: 'discord', link: 'https://discord.com/invite/vue' }
     ],
 
+    // logo: '/logo.svg',
+
     editLink: {
       repo: 'vuejs-translations/docs-zh-cn',
       text: '在 GitHub 上编辑此页'
