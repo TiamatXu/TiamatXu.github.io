@@ -32,7 +32,7 @@ $ pnpm type
 
 ## 许可证
 
-[MIT](http://opensource.org/licenses/MIT)
+[MIT license](http://opensource.org/licenses/MIT)
 
 版权所有 (c) 2025-至今 TiamatXu
 

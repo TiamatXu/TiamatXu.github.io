@@ -411,7 +411,7 @@ export default defineConfigWithTheme<ThemeConfig>({
     footer: {
       license: {
         text: '版权声明',
-        link: 'https://github.com/TiamatXu/TiamatXu.github.io#%E7%89%88%E6%9D%83%E5%A3%B0%E6%98%8E'
+        link: 'https://github.com/TiamatXu/TiamatXu.github.io#许可证'
       },
       copyright:
         '本个人博客采用 MIT License 进行许可。'
