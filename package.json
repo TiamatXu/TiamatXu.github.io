@@ -1,44 +1,78 @@
 {
-  "name": "tiamatxu-github-io",
+  "name": "tiamat.xu-docs",
+  "author": "TiamatXu",
   "version": "1.0.0",
+  "description": "the personal blog of TiamatXu.",
   "license": "MIT License",
+  "homepage": "https://tiamatxu.github.io",
+  "bugs": {
+    "url": "https://github.com/TiamatXu/TiamatXu.github.io/issues"
+  },
+  "main": "src/index.ts",
+  "type": "module",
   "engines": {
     "node": ">=18.0.0",
     "pnpm": ">=7.4.0"
   },
-  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./config": {
+      "types": "./src/vitepress/config/baseConfig.d.ts",
+      "default": "./src/vitepress/config/baseConfig.js"
+    },
+    "./src/*": "./src/*"
+  },
+  "files": [
+    "src",
+    "types"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TiamatXu/TiamatXu.github.io.git"
+  },
+  "keywords": [
+    "blog",
+    "software",
+    "technology"
+  ],
   "scripts": {
-    "dev": "vitepress",
+    "lint": "prettier --check --write --parser typescript \"{__tests__,docs,src,types}/**/*.ts\"",
+    "lint:fail": "prettier --check --parser typescript \"{__tests__,docs,src,types}/**/*.ts\"",
+    "type": "vue-tsc --noEmit",
+    "test": "pnpm run lint && pnpm run type",
+    "dev": "vitepress dev",
     "build": "vitepress build",
-    "preview": "vitepress preview",
-    "lint": "zhlint \"src/{api,about,guide,sponsor,translations,tutorial}/**/*.md\"",
-    "clean": "rm -rf .vitepress/dist",
-    "preinstall": "npx only-allow pnpm",
-    "type": "vue-tsc --noEmit"
+    "serve": "pnpm run build && vitepress serve",
+    "clean": "rm -rf .vitepress/dist"
   },
   "dependencies": {
-    "@vue/repl": "^4.4.2",
-    "@vue/theme": "^2.3.0",
-    "dynamics.js": "^1.1.5",
-    "gsap": "^3.12.5",
-    "vitepress": "^1.6.4",
-    "vue": "^3.5.12"
+    "@docsearch/css": "^3.6.0",
+    "@docsearch/js": "^3.6.0",
+    "@vueuse/core": "^10.9.0",
+    "body-scroll-lock": "^4.0.0-beta.0",
+    "normalize.css": "^8.0.1",
+    "tiny-decode": "^0.1.3"
   },
   "devDependencies": {
+    "@mdit-vue/types": "^2.1.0",
     "@types/body-scroll-lock": "^3.1.2",
-    "@types/markdown-it": "^14.1.2",
-    "@types/node": "^22.7.5",
-    "chalk": "^4.1.2",
-    "commander": "^9.4.0",
-    "gray-matter": "^4.0.3",
-    "lodash": "^4.17.21",
-    "open": "^8.4.0",
-    "simple-git": "^2.48.0",
-    "typescript": "^5.6.3",
-    "vitepress-plugin-group-icons": "^1.5.4",
-    "vitepress-plugin-llms": "^0.0.8",
-    "vue-tsc": "^2.1.6",
-    "zhlint": "^0.8.1"
+    "@types/estree": "^1.0.5",
+    "@types/node": "^20.12.12",
+    "prettier": "^3.2.5",
+    "typescript": "^5.4.5",
+    "vitepress": "^1.2.2",
+    "vue": "^3.4.27",
+    "vue-tsc": "^2.0.19"
+  },
+  "peerDependencies": {
+    "vitepress": "^1.2.2"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "ignoreMissing": [
+        "@algolia/client-search"
+      ]
+    }
   },
   "packageManager": "pnpm@10.27.0"
 }

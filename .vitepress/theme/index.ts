@@ -1,6 +1,6 @@
 import './styles/index.css'
 import { h, App } from 'vue'
-import { VPTheme } from '@vue/theme'
+import { VPTheme } from '../../src/'
 // import PreferenceSwitch from './components/PreferenceSwitch.vue'
 // import SecurityUpdateBtn from './components/SecurityUpdateBtn.vue'
 import {
@@ -16,7 +16,7 @@ import WwAds from './components/WwAds.vue'
 // import TextAd from './components/TextAd.vue'
 
 import 'vitepress/dist/client/theme-default/styles/components/vp-code-group.css'
-import 'virtual:group-icons.css'
+// import 'virtual:group-icons.css'
 
 export default Object.assign({}, VPTheme, {
   Layout: () => {
