@@ -22,19 +22,12 @@
     },
     "./src/*": "./src/*"
   },
-  "files": [
-    "src",
-    "types"
-  ],
+  "files": ["src", "types"],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/TiamatXu/TiamatXu.github.io.git"
   },
-  "keywords": [
-    "blog",
-    "software",
-    "technology"
-  ],
+  "keywords": ["blog", "software", "technology"],
   "scripts": {
     "lint": "prettier --check --write --parser typescript \"{__tests__,docs,src,types}/**/*.ts\"",
     "lint:fail": "prettier --check --parser typescript \"{__tests__,docs,src,types}/**/*.ts\"",
@@ -49,6 +42,7 @@
     "@docsearch/css": "^3.6.0",
     "@docsearch/js": "^3.6.0",
     "@vueuse/core": "^10.9.0",
+    "@vueuse/shared": "9.13.0",
     "body-scroll-lock": "^4.0.0-beta.0",
     "normalize.css": "^8.0.1",
     "tiny-decode": "^0.1.3"
