@@ -3,7 +3,7 @@ name: Deploy VitePress Site to Pages
 on:
   push:
     branches:
-      - master # 当 main 分支有更新时触发
+      - master
   workflow_dispatch: # 允许手动触发
 
 # 指定工作流所需的权限
@@ -25,13 +25,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: 'npm'
+          cache: 'pnpm'
 
       - name: Install Dependencies
-        run: npm install
+        run: pnpm install
 
       - name: Build VitePress Site
-        run: npm run docs:build
+        run: pnpm run build
 
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v4
@@ -39,7 +39,7 @@ jobs:
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: docs/.vitepress/dist
+          path: .vitepress/dist
 
       - name: Deploy to GitHub Pages
         id: deployment
