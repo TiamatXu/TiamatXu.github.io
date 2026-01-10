@@ -114,7 +114,7 @@ onMounted(load)
     <SponsorsGroup tier="gold" placement="landing" />
   </section>
 
-<!--  <SiteMap />-->
+  <SiteMap />
   <!-- <NewsLetter /> -->
 </template>
 
@@ -421,7 +421,7 @@ html:not(.dark) .accent,
   max-width: 720px;
   margin: -120px auto -20px;
   aspect-ratio: 192 / 108;
-  content: url(/logo-uwu.png);
+  content: url(/logo.png);
 }
 
 @media (max-width: 576px) {
