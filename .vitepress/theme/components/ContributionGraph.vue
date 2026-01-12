@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import {ref, computed} from 'vue'
 import contributionData from '../contribution-data.json'
 
 // --- Type Definitions ---
@@ -35,18 +35,26 @@ defineProps<{
 // --- Component Logic ---
 const calendar = contributionData as ContributionCalendar;
 
-const chartWidth = 700; // Overall width of the SVG
-const chartHeight = 112; // Overall height of the SVG
+// Constants for SVG layout
+const chartHeight = 112; // Fixed height for the SVG viewBox
 const cellMargin = 2; // Margin between cells
 const cellSize = 10; // Size of each square cell
 const headerHeight = 20; // Space for month names
 const monthLabelOffset = 15; // Offset for month labels from the top
-const weekLabelOffset = 15; // Offset for weekday labels from the left
+const weekLabelOffset = 30; // Increased offset for weekday labels from the left edge
 
 // Tooltip state
 const showTooltip = ref(false);
 const tooltipContent = ref('');
-const tooltipPos = ref({ x: 0, y: 0 });
+const tooltipPos = ref({x: 0, y: 0});
+
+// Dynamically calculate the total width of the chart based on actual number of weeks
+const computedChartWidth = computed(() => {
+  if (calendar.error || !calendar.weeks || calendar.weeks.length === 0) return 700; // Fallback width
+  const numWeeks = calendar.weeks.length;
+  // Calculate max x-coordinate reached by the last column + space for labels/padding
+  return (numWeeks * (cellSize + cellMargin)) + weekLabelOffset + cellSize + 5; // Add a little extra padding
+});
 
 // Helper to determine the x-position for month labels
 const months = computed(() => {
@@ -58,14 +66,20 @@ const months = computed(() => {
   let currentMonth = -1;
 
   calendar.weeks.forEach((week, weekIndex) => {
+    // We base the month label on the first day of the week to determine the month for the column
     const firstDayOfWeek = week.contributionDays[0];
     if (firstDayOfWeek) {
       const date = new Date(firstDayOfWeek.date);
       const month = date.getMonth();
-      if (weekIndex === 0 || new Date(calendar.weeks[weekIndex - 1].contributionDays[0].date).getMonth() !== month) {
+
+      // If it's a new month and this is the first column for it, add the label
+      // Also ensure it's not the same month as the very first week's month if it's the first week
+      if (month !== currentMonth &&
+        (weekIndex === 0 || new Date(calendar.weeks[weekIndex - 1].contributionDays[0].date).getMonth() !== month)) {
+        // Position the month label roughly in the middle of its first week column
         uniqueMonths.push({
           name: monthNames[month],
-          x: weekIndex * (cellSize + cellMargin) + weekLabelOffset
+          x: weekIndex * (cellSize + cellMargin) + weekLabelOffset // Position at the start of the week column
         });
         currentMonth = month;
       }
@@ -74,34 +88,40 @@ const months = computed(() => {
   return uniqueMonths;
 });
 
+// Weekday labels: Adjusted for 0 (Sunday) to 6 (Saturday) mapping, with Monday as y=0
 const weekdayLabels = [
-  { label: '周一', y: headerHeight + (cellSize + cellMargin) * 1 + cellSize / 2 },
-  { label: '周三', y: headerHeight + (cellSize + cellMargin) * 3 + cellSize / 2 },
-  { label: '周五', y: headerHeight + (cellSize + cellMargin) * 5 + cellSize / 2 },
+  {label: '周一', y: headerHeight + (cellSize + cellMargin) * 0 + cellSize / 2}, // Monday is index 0
+  {label: '周三', y: headerHeight + (cellSize + cellMargin) * 2 + cellSize / 2}, // Wednesday is index 2
+  {label: '周五', y: headerHeight + (cellSize + cellMargin) * 4 + cellSize / 2}, // Friday is index 4
 ];
 
+// Helper to map contribution level to CSS class
 const getLevelClass = (level: ContributionLevel) => {
   switch (level) {
-    case 'NONE': return 'contrib-level-0';
-    case 'FIRST_QUARTILE': return 'contrib-level-1';
-    case 'SECOND_QUARTILE': return 'contrib-level-2';
-    case 'THIRD_QUARTILE': return 'contrib-level-3';
-    case 'FOURTH_QUARTILE': return 'contrib-level-4';
-    default: return 'contrib-level-0';
+    case 'NONE':
+      return 'contrib-level-0';
+    case 'FIRST_QUARTILE':
+      return 'contrib-level-1';
+    case 'SECOND_QUARTILE':
+      return 'contrib-level-2';
+    case 'THIRD_QUARTILE':
+      return 'contrib-level-3';
+    case 'FOURTH_QUARTILE':
+      return 'contrib-level-4';
+    default:
+      return 'contrib-level-0'; // Fallback
   }
 };
 
 const getTooltipText = (day: ContributionDay) => {
-  return day.contributionCount === 0
-    ? `${day.date}：无贡献`
-    : `${day.date}：${day.contributionCount} 贡献`;
+  return day.contributionCount === 0 ? `${day.date} | 无贡献` : `${day.date} | ${day.contributionCount} 次贡献`;
 };
 
 const handleMouseOver = (event: MouseEvent, day: ContributionDay) => {
   if (day.date) {
     showTooltip.value = true;
     tooltipContent.value = getTooltipText(day);
-    tooltipPos.value = { x: event.clientX + 10, y: event.clientY + 10 };
+    tooltipPos.value = {x: event.clientX + 10, y: event.clientY + 10};
   }
 };
 
@@ -118,13 +138,11 @@ const handleMouseOut = () => {
   <div v-else class="chart-container">
     <a :href="`https://github.com/${githubUsername}`" target="_blank" rel="noopener noreferrer">
       <svg
-        :width="chartWidth"
-        :height="chartHeight"
+        :viewBox="`0 0 ${computedChartWidth} ${chartHeight}`"
         class="contribution-graph"
-        viewBox="0 0 700 112"
         preserveAspectRatio="xMinYMin meet"
       >
-        <!-- Weekday Labels -->
+        <!-- Weekday Labels (e.g., Mon, Wed, Fri) -->
         <g class="weekday-labels">
           <text
             v-for="(dayLabel, index) in weekdayLabels"
@@ -165,7 +183,7 @@ const handleMouseOut = () => {
             :width="cellSize"
             :height="cellSize"
             :x="0"
-            :y="day.weekday * (cellSize + cellMargin)"
+            :y="(day.weekday === 0 ? 6 : day.weekday - 1) * (cellSize + cellMargin)"
             :class="['contribution-cell', getLevelClass(day.contributionLevel)]"
             rx="2"
             ry="2"
@@ -178,14 +196,16 @@ const handleMouseOut = () => {
       </svg>
     </a>
     <!-- Tooltip -->
-    <div v-if="showTooltip" class="contribution-tooltip" :style="{ left: tooltipPos.x + 'px', top: tooltipPos.y + 'px' }">
+    <div v-if="showTooltip" class="contribution-tooltip"
+         :style="{ left: tooltipPos.x + 'px', top: tooltipPos.y + 'px' }">
       {{ tooltipContent }}
     </div>
   </div>
 </template>
 
-<style scoped>
-:root {
+<style>
+/* Define GitHub-like colors for contribution levels */
+:root { /* Light mode defaults */
   --color-contrib-level-0: #ebedf0;
   --color-contrib-level-1: #9be9a8;
   --color-contrib-level-2: #40c463;
@@ -193,64 +213,85 @@ const handleMouseOut = () => {
   --color-contrib-level-4: #216e39;
 }
 
-.dark {
-  --color-contrib-level-0: #161b22;
+html.dark { /* Dark mode overrides */
+  --color-contrib-level-0: #222830;
   --color-contrib-level-1: #0e4429;
   --color-contrib-level-2: #006d32;
   --color-contrib-level-3: #26a641;
   --color-contrib-level-4: #39d353;
 }
+</style>
 
+<style scoped>
 .error-message {
-  color: var(--vp-c-danger-1);
+  color: var(--vp-c-danger-1); /* Using VitePress danger color variable */
   margin-top: 20px;
   font-size: 1.1em;
 }
 
 .chart-container {
-  display: inline-block;
+  display: inline-block; /* Allows text-align: center to work for its content */
   max-width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  padding-bottom: 10px;
+  overflow-x: auto; /* For small screens to allow scrolling */
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  padding-bottom: 10px; /* Space for scrollbar if needed */
 }
 
 .contribution-graph {
-  display: block;
+  display: block; /* To center with margin: 0 auto */
+  width: 100%; /* Make SVG responsive to parent container */
+  min-width: 700px; /* Ensure a minimum width for the graph */
+  height: auto; /* Maintain aspect ratio */
   margin: 0 auto;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-  border: 1px solid var(--vp-c-divider);
+  border: 1px solid var(--vp-c-divider); /* Subtle border for the graph */
   border-radius: 6px;
-  background-color: var(--vp-c-bg-soft);
+  background-color: var(--vp-c-bg-soft); /* Match VitePress theme background */
 }
 
 .contribution-cell {
   shape-rendering: geometricPrecision;
+  /* Removed outline: 1px solid rgba(27,31,35,0.06); as it created issues with fill and theme */
   transition: fill 0.3s ease-in-out;
 }
 
 .contribution-cell:hover {
-  stroke: var(--vp-c-brand-1);
+  stroke: var(--vp-c-brand-1); /* Highlight on hover using VitePress brand color */
   stroke-width: 1px;
 }
 
-.contrib-level-0 { fill: var(--color-contrib-level-0); }
-.contrib-level-1 { fill: var(--color-contrib-level-1); }
-.contrib-level-2 { fill: var(--color-contrib-level-2); }
-.contrib-level-3 { fill: var(--color-contrib-level-3); }
-.contrib-level-4 { fill: var(--color-contrib-level-4); }
+/* Apply colors based on contribution level classes */
+.contrib-level-0 {
+  fill: var(--color-contrib-level-0);
+}
+
+.contrib-level-1 {
+  fill: var(--color-contrib-level-1);
+}
+
+.contrib-level-2 {
+  fill: var(--color-contrib-level-2);
+}
+
+.contrib-level-3 {
+  fill: var(--color-contrib-level-3);
+}
+
+.contrib-level-4 {
+  fill: var(--color-contrib-level-4);
+}
 
 .graph-label {
-  fill: var(--vp-c-text-2);
+  fill: var(--vp-c-text-2); /* Using VitePress text color variable */
   font-size: 9px;
 }
 
 .contribution-tooltip {
-  position: fixed;
+  position: fixed; /* Use fixed positioning for tooltips */
   padding: 8px 12px;
-  background-color: var(--vp-c-bg-alt);
-  color: var(--vp-c-text-1);
-  border: 1px solid var(--vp-c-divider);
+  background-color: var(--vp-c-bg-alt); /* Using VitePress background color variable */
+  color: var(--vp-c-text-1); /* Using VitePress text color variable */
+  border: 1px solid var(--vp-c-divider); /* Using VitePress divider color variable */
   border-radius: 6px;
   font-size: 12px;
   pointer-events: none;

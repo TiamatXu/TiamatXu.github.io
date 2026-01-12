@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import SiteMap from './SiteMap.vue' // Keeping existing imports
+// import SiteMap from './SiteMap.vue' // Keeping existing imports
 import ContributionGraph from './ContributionGraph.vue'
 
 const githubUsername = 'TiamatXu'
@@ -10,7 +10,7 @@ const githubUsername = 'TiamatXu'
   </section>
 
   <section id="contribution-chart">
-    <h2 class="vt-h2">GitHub Contribution</h2>
+    <h2 class="vt-h2">GitHub 动态</h2>
     <ContributionGraph :github-username="githubUsername" />
   </section>
 
@@ -23,7 +23,7 @@ const githubUsername = 'TiamatXu'
   <section id="spsrs">
   </section>
 
-  <SiteMap/>
+<!--  <SiteMap/>-->
 </template>
 
 <style scoped>
