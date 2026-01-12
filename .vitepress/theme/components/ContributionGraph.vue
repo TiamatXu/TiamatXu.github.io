@@ -36,7 +36,7 @@ defineProps<{
 const calendar = contributionData as ContributionCalendar;
 
 // Constants for SVG layout
-const chartHeight = 112; // Fixed height for the SVG viewBox
+const chartHeight = 135; // Increased height for legend
 const cellMargin = 2; // Margin between cells
 const cellSize = 10; // Size of each square cell
 const headerHeight = 20; // Space for month names
@@ -193,6 +193,17 @@ const handleMouseOut = () => {
             <title>{{ getTooltipText(day) }}</title>
           </rect>
         </g>
+
+        <!-- Legend -->
+        <g :transform="`translate(${computedChartWidth - 130}, 115)`">
+          <text text-anchor="start" class="graph-label" x="0" y="8">更少</text>
+          <rect class="contribution-cell contrib-level-0" x="30" y="0" width="10" height="10" rx="2" ry="2" />
+          <rect class="contribution-cell contrib-level-1" x="42" y="0" width="10" height="10" rx="2" ry="2" />
+          <rect class="contribution-cell contrib-level-2" x="54" y="0" width="10" height="10" rx="2" ry="2" />
+          <rect class="contribution-cell contrib-level-3" x="66" y="0" width="10" height="10" rx="2" ry="2" />
+          <rect class="contribution-cell contrib-level-4" x="78" y="0" width="10" height="10" rx="2" ry="2" />
+          <text text-anchor="start" class="graph-label" x="93" y="8">更多</text>
+        </g>
       </svg>
     </a>
     <!-- Tooltip -->
@@ -206,6 +217,7 @@ const handleMouseOut = () => {
 <style>
 /* Define GitHub-like colors for contribution levels */
 :root { /* Light mode defaults */
+  --color-contrib-text: #24292f;
   --color-contrib-level-0: #ebedf0;
   --color-contrib-level-1: #9be9a8;
   --color-contrib-level-2: #40c463;
@@ -214,6 +226,7 @@ const handleMouseOut = () => {
 }
 
 html.dark { /* Dark mode overrides */
+  --color-contrib-text: #c9d1d9;
   --color-contrib-level-0: #222830;
   --color-contrib-level-1: #0e4429;
   --color-contrib-level-2: #006d32;
@@ -282,7 +295,7 @@ html.dark { /* Dark mode overrides */
 }
 
 .graph-label {
-  fill: var(--vp-c-text-2); /* Using VitePress text color variable */
+  fill: var(--color-contrib-text);
   font-size: 9px;
 }
 
