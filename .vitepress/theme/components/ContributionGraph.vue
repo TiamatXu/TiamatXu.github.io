@@ -36,9 +36,9 @@ defineProps<{
 const calendar = contributionData as ContributionCalendar;
 
 // Constants for SVG layout
-const chartHeight = 135; // Increased height for legend
-const cellMargin = 2; // Margin between cells
-const cellSize = 10; // Size of each square cell
+const chartHeight = 155; // Recalculated height for scaled grid and legend
+const cellMargin = 2.6; // Margin between cells (2 * 1.3)
+const cellSize = 13; // Size of each square cell (10 * 1.3)
 const headerHeight = 20; // Space for month names
 const monthLabelOffset = 15; // Offset for month labels from the top
 const weekLabelOffset = 40; // Increased offset for weekday labels from the left edge
@@ -185,8 +185,8 @@ const handleMouseOut = () => {
             :x="0"
             :y="day.weekday * (cellSize + cellMargin)"
             :class="['contribution-cell', getLevelClass(day.contributionLevel)]"
-            rx="2"
-            ry="2"
+            rx="3"
+            ry="3"
             @mouseover="handleMouseOver($event, day)"
             @mouseout="handleMouseOut"
           >
@@ -195,14 +195,14 @@ const handleMouseOut = () => {
         </g>
 
         <!-- Legend -->
-        <g :transform="`translate(${computedChartWidth - 130}, 115)`">
-          <text text-anchor="start" class="legend-label" x="0" y="8">更少</text>
-          <rect class="contribution-cell contrib-level-0" x="30" y="0" width="10" height="10" rx="2" ry="2" />
-          <rect class="contribution-cell contrib-level-1" x="42" y="0" width="10" height="10" rx="2" ry="2" />
-          <rect class="contribution-cell contrib-level-2" x="54" y="0" width="10" height="10" rx="2" ry="2" />
-          <rect class="contribution-cell contrib-level-3" x="66" y="0" width="10" height="10" rx="2" ry="2" />
-          <rect class="contribution-cell contrib-level-4" x="78" y="0" width="10" height="10" rx="2" ry="2" />
-          <text text-anchor="start" class="legend-label" x="93" y="8">更多</text>
+        <g :transform="`translate(${computedChartWidth - 145}, 137)`">
+          <text text-anchor="start" class="legend-label" x="0" y="6.5" alignment-baseline="central">更少</text>
+          <rect class="contribution-cell contrib-level-0" x="30" y="0" width="13" height="13" rx="3" ry="3" />
+          <rect class="contribution-cell contrib-level-1" x="46" y="0" width="13" height="13" rx="3" ry="3" />
+          <rect class="contribution-cell contrib-level-2" x="62" y="0" width="13" height="13" rx="3" ry="3" />
+          <rect class="contribution-cell contrib-level-3" x="78" y="0" width="13" height="13" rx="3" ry="3" />
+          <rect class="contribution-cell contrib-level-4" x="94" y="0" width="13" height="13" rx="3" ry="3" />
+          <text text-anchor="start" class="legend-label" x="112" y="6.5" alignment-baseline="central">更多</text>
         </g>
       </svg>
     </a>
@@ -255,7 +255,7 @@ html.dark { /* Dark mode overrides */
 .contribution-graph {
   display: block; /* To center with margin: 0 auto */
   width: 100%; /* Make SVG responsive to parent container */
-  min-width: 700px; /* Ensure a minimum width for the graph */
+  min-width: 885px; /* Ensure a minimum width for the graph */
   height: auto; /* Maintain aspect ratio */
   margin: 0 auto;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
