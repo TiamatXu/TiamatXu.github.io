@@ -10,7 +10,7 @@ const githubUsername = 'TiamatXu'
   </section>
 
   <section id="contribution-chart">
-    <h2 class="vt-h2">GitHub 动态</h2>
+    <h2>GitHub 动态</h2>
     <ContributionGraph :github-username="githubUsername" />
   </section>
 
@@ -27,6 +27,12 @@ const githubUsername = 'TiamatXu'
 </template>
 
 <style scoped>
+#contribution-chart h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 1em;
+}
+
 section {
   padding: 42px 32px;
 }

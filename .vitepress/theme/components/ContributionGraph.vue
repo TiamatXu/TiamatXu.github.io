@@ -41,7 +41,7 @@ const cellMargin = 2; // Margin between cells
 const cellSize = 10; // Size of each square cell
 const headerHeight = 20; // Space for month names
 const monthLabelOffset = 15; // Offset for month labels from the top
-const weekLabelOffset = 30; // Increased offset for weekday labels from the left edge
+const weekLabelOffset = 40; // Increased offset for weekday labels from the left edge
 
 // Tooltip state
 const showTooltip = ref(false);
@@ -88,11 +88,11 @@ const months = computed(() => {
   return uniqueMonths;
 });
 
-// Weekday labels: Adjusted for 0 (Sunday) to 6 (Saturday) mapping, with Monday as y=0
+// Weekday labels: Adjusted for 0 (Sunday) to 6 (Saturday) mapping, with Sunday as y=0
 const weekdayLabels = [
-  {label: '周一', y: headerHeight + (cellSize + cellMargin) * 0 + cellSize / 2}, // Monday is index 0
-  {label: '周三', y: headerHeight + (cellSize + cellMargin) * 2 + cellSize / 2}, // Wednesday is index 2
-  {label: '周五', y: headerHeight + (cellSize + cellMargin) * 4 + cellSize / 2}, // Friday is index 4
+  {label: '周一', y: headerHeight + (cellSize + cellMargin) * 1 + cellSize / 2}, // Monday is index 1
+  {label: '周三', y: headerHeight + (cellSize + cellMargin) * 3 + cellSize / 2}, // Wednesday is index 3
+  {label: '周五', y: headerHeight + (cellSize + cellMargin) * 5 + cellSize / 2}, // Friday is index 5
 ];
 
 // Helper to map contribution level to CSS class
@@ -183,7 +183,7 @@ const handleMouseOut = () => {
             :width="cellSize"
             :height="cellSize"
             :x="0"
-            :y="(day.weekday === 0 ? 6 : day.weekday - 1) * (cellSize + cellMargin)"
+            :y="day.weekday * (cellSize + cellMargin)"
             :class="['contribution-cell', getLevelClass(day.contributionLevel)]"
             rx="2"
             ry="2"
@@ -196,13 +196,13 @@ const handleMouseOut = () => {
 
         <!-- Legend -->
         <g :transform="`translate(${computedChartWidth - 130}, 115)`">
-          <text text-anchor="start" class="graph-label" x="0" y="8">更少</text>
+          <text text-anchor="start" class="legend-label" x="0" y="8">更少</text>
           <rect class="contribution-cell contrib-level-0" x="30" y="0" width="10" height="10" rx="2" ry="2" />
           <rect class="contribution-cell contrib-level-1" x="42" y="0" width="10" height="10" rx="2" ry="2" />
           <rect class="contribution-cell contrib-level-2" x="54" y="0" width="10" height="10" rx="2" ry="2" />
           <rect class="contribution-cell contrib-level-3" x="66" y="0" width="10" height="10" rx="2" ry="2" />
           <rect class="contribution-cell contrib-level-4" x="78" y="0" width="10" height="10" rx="2" ry="2" />
-          <text text-anchor="start" class="graph-label" x="93" y="8">更多</text>
+          <text text-anchor="start" class="legend-label" x="93" y="8">更多</text>
         </g>
       </svg>
     </a>
@@ -218,6 +218,7 @@ const handleMouseOut = () => {
 /* Define GitHub-like colors for contribution levels */
 :root { /* Light mode defaults */
   --color-contrib-text: #24292f;
+  --color-legend-text: rgba(36, 41, 47, 0.7); /* Lighter text for legend */
   --color-contrib-level-0: #ebedf0;
   --color-contrib-level-1: #9be9a8;
   --color-contrib-level-2: #40c463;
@@ -227,6 +228,7 @@ const handleMouseOut = () => {
 
 html.dark { /* Dark mode overrides */
   --color-contrib-text: #c9d1d9;
+  --color-legend-text: rgba(201, 209, 217, 0.7); /* Same as other text in dark mode */
   --color-contrib-level-0: #222830;
   --color-contrib-level-1: #0e4429;
   --color-contrib-level-2: #006d32;
@@ -239,7 +241,7 @@ html.dark { /* Dark mode overrides */
 .error-message {
   color: var(--vp-c-danger-1); /* Using VitePress danger color variable */
   margin-top: 20px;
-  font-size: 1.1em;
+  font-size: 12px;
 }
 
 .chart-container {
@@ -296,7 +298,12 @@ html.dark { /* Dark mode overrides */
 
 .graph-label {
   fill: var(--color-contrib-text);
-  font-size: 9px;
+  font-size: 12px;
+}
+
+.legend-label {
+  fill: var(--color-legend-text);
+  font-size: 12px;
 }
 
 .contribution-tooltip {
