@@ -37,6 +37,8 @@ jobs:
 
       - name: Build VitePress Site
         run: pnpm run build
+        env:
+          CONTRIBUTIONS_TOKEN: ${{ secrets.CONTRIBUTIONS_TOKEN }}
 
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v4
