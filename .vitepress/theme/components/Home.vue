@@ -32,7 +32,7 @@ const githubUsername = 'TiamatXu'
 #contribution-chart h2 {
   font-size: 20px;
   font-weight: 600;
-  margin-bottom: 1em;
+  //margin-bottom: 1em;
 }
 
 section {
@@ -276,7 +276,7 @@ html:not(.dark) .accent,
 #contribution-chart h2 {
   font-size: 20px;
   font-weight: 600;
-  margin-bottom: 1em;
+  //margin-bottom: 1em;
   color: var(--vt-c-text-1);
 }
 

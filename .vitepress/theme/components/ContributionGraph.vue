@@ -24,7 +24,7 @@ interface ContributionWeek {
 interface ContributionCalendar {
   totalContributions: number;
   weeks: ContributionWeek[];
-  error?: string; // Added for error handling
+  error?: string;
 }
 
 // --- Props ---
@@ -35,65 +35,70 @@ defineProps<{
 // --- Component Logic ---
 const calendar = contributionData as ContributionCalendar;
 
-// Constants for SVG layout
-const chartHeight = 155; // Recalculated height for scaled grid and legend
-const cellMargin = 2.6; // Margin between cells (2 * 1.3)
-const cellSize = 13; // Size of each square cell (10 * 1.3)
-const headerHeight = 20; // Space for month names
-const monthLabelOffset = 15; // Offset for month labels from the top
-const weekLabelOffset = 40; // Increased offset for weekday labels from the left edge
-
 // Tooltip state
 const showTooltip = ref(false);
 const tooltipContent = ref('');
 const tooltipPos = ref({x: 0, y: 0});
 
-// Dynamically calculate the total width of the chart based on actual number of weeks
-const computedChartWidth = computed(() => {
-  if (calendar.error || !calendar.weeks || calendar.weeks.length === 0) return 700; // Fallback width
+// Data transformation for table rendering (7 rows for days, N columns for weeks)
+const grid = computed(() => {
+  if (calendar.error || !calendar.weeks) return [];
   const numWeeks = calendar.weeks.length;
-  // Calculate max x-coordinate reached by the last column + space for labels/padding
-  return (numWeeks * (cellSize + cellMargin)) + weekLabelOffset + cellSize + 5; // Add a little extra padding
-});
-
-// Helper to determine the x-position for month labels
-const months = computed(() => {
-  if (calendar.error || !calendar.weeks) {
-    return [];
-  }
-  const monthNames = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
-  const uniqueMonths: { name: string, x: number }[] = [];
-  let currentMonth = -1;
+  // Initialize a 7xN grid with nulls
+  const grid: (ContributionDay | null)[][] = Array.from({length: 7}, () => Array(numWeeks).fill(null));
 
   calendar.weeks.forEach((week, weekIndex) => {
-    // We base the month label on the first day of the week to determine the month for the column
-    const firstDayOfWeek = week.contributionDays[0];
-    if (firstDayOfWeek) {
-      const date = new Date(firstDayOfWeek.date);
-      const month = date.getMonth();
-
-      // If it's a new month and this is the first column for it, add the label
-      // Also ensure it's not the same month as the very first week's month if it's the first week
-      if (month !== currentMonth &&
-        (weekIndex === 0 || new Date(calendar.weeks[weekIndex - 1].contributionDays[0].date).getMonth() !== month)) {
-        // Position the month label roughly in the middle of its first week column
-        uniqueMonths.push({
-          name: monthNames[month],
-          x: weekIndex * (cellSize + cellMargin) + weekLabelOffset // Position at the start of the week column
-        });
-        currentMonth = month;
+    week.contributionDays.forEach(day => {
+      // day.weekday is 0 (Sun) to 6 (Sat)
+      if (day.weekday < 7) {
+        grid[day.weekday][weekIndex] = day;
       }
+    });
+  });
+  return grid;
+});
+
+// Helper to find the starting week index for each month
+const months = computed(() => {
+  if (calendar.error || !calendar.weeks) return [];
+  const monthNames = ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'];
+  const uniqueMonths: { name: string, weekIndex: number }[] = [];
+
+  calendar.weeks.forEach((week, weekIndex) => {
+    const firstDayOfWeek = week.contributionDays[0];
+    if (!firstDayOfWeek) return;
+
+    const date = new Date(firstDayOfWeek.date);
+    const month = date.getMonth();
+    // A new month label is added if the month of the first day of the week is different from the previous one.
+    if (weekIndex === 0 || new Date(calendar.weeks[weekIndex - 1].contributionDays[0].date).getMonth() !== month) {
+      uniqueMonths.push({
+        name: monthNames[month],
+        weekIndex: weekIndex
+      });
     }
   });
   return uniqueMonths;
 });
 
-// Weekday labels: Adjusted for 0 (Sunday) to 6 (Saturday) mapping, with Sunday as y=0
-const weekdayLabels = [
-  {label: '周一', y: headerHeight + (cellSize + cellMargin) * 1 + cellSize / 2}, // Monday is index 1
-  {label: '周三', y: headerHeight + (cellSize + cellMargin) * 3 + cellSize / 2}, // Wednesday is index 3
-  {label: '周五', y: headerHeight + (cellSize + cellMargin) * 5 + cellSize / 2}, // Friday is index 5
-];
+// Calculate colspan for each month header
+const monthsWithColspan = computed(() => {
+  if (!months.value || months.value.length === 0) return [];
+
+  const spans: { name: string, colspan: number }[] = [];
+  for (let i = 0; i < months.value.length; i++) {
+    const currentMonth = months.value[i];
+    const nextMonth = months.value[i + 1];
+    const colspan = nextMonth ? nextMonth.weekIndex - currentMonth.weekIndex : (grid.value[0]?.length || 0) - currentMonth.weekIndex;
+    if (colspan > 0) {
+      spans.push({name: currentMonth.name, colspan});
+    }
+  }
+  return spans;
+});
+
+
+const weekdayLabels = ['', '周一', '', '周三', '', '周五', '']; // Sun, Mon, Tue, Wed, Thu, Fri, Sat
 
 // Helper to map contribution level to CSS class
 const getLevelClass = (level: ContributionLevel) => {
@@ -109,7 +114,7 @@ const getLevelClass = (level: ContributionLevel) => {
     case 'FOURTH_QUARTILE':
       return 'contrib-level-4';
     default:
-      return 'contrib-level-0'; // Fallback
+      return 'contrib-level-0';
   }
 };
 
@@ -118,11 +123,11 @@ const getTooltipText = (day: ContributionDay) => {
 };
 
 const handleMouseOver = (event: MouseEvent, day: ContributionDay) => {
-  if (day.date) {
-    showTooltip.value = true;
-    tooltipContent.value = getTooltipText(day);
-    tooltipPos.value = {x: event.clientX + 10, y: event.clientY + 10};
-  }
+  showTooltip.value = true;
+  tooltipContent.value = getTooltipText(day);
+  const target = event.target as HTMLElement;
+  const rect = target.getBoundingClientRect();
+  tooltipPos.value = {x: rect.left + window.scrollX - rect.width, y: rect.top + window.scrollY - 35};
 };
 
 const handleMouseOut = () => {
@@ -135,82 +140,64 @@ const handleMouseOut = () => {
     获取贡献数据失败: {{ calendar.error }}
     <br>请确保 `CONTRIBUTIONS_TOKEN` 已正确配置，且 GitHub 用户名 `{{ githubUsername }}` 正确。
   </div>
-  <div v-else class="chart-container">
-    <a :href="`https://github.com/${githubUsername}`" target="_blank" rel="noopener noreferrer">
-      <svg
-        :viewBox="`0 0 ${computedChartWidth} ${chartHeight}`"
-        class="contribution-graph"
-        preserveAspectRatio="xMinYMin meet"
-      >
-        <!-- Weekday Labels (e.g., Mon, Wed, Fri) -->
-        <g class="weekday-labels">
-          <text
-            v-for="(dayLabel, index) in weekdayLabels"
-            :key="index"
-            :x="weekLabelOffset - 10"
-            :y="dayLabel.y"
-            alignment-baseline="middle"
-            text-anchor="end"
-            class="graph-label"
-          >
-            {{ dayLabel.label }}
-          </text>
-        </g>
 
-        <!-- Month Labels -->
-        <g class="month-labels">
-          <text
-            v-for="(month, index) in months"
-            :key="index"
-            :x="month.x"
-            :y="monthLabelOffset"
-            class="graph-label"
-          >
+  <div v-else class="contribution-calendar">
+    <div class="contribution-grid-wrapper">
+      <table class="contribution-grid" @mouseleave="handleMouseOut">
+        <thead>
+        <tr>
+          <th class="weekday-spacer"></th>
+          <th v-for="month in monthsWithColspan" :key="month.name" :colspan="month.colspan" class="month-header">
             {{ month.name }}
-          </text>
-        </g>
-
-        <!-- Contribution Cells -->
-        <g
-          v-for="(week, weekIndex) in calendar.weeks"
-          :key="weekIndex"
-          :transform="`translate(${weekIndex * (cellSize + cellMargin) + weekLabelOffset}, ${headerHeight})`"
-          class="week-column"
-        >
-          <rect
-            v-for="day in week.contributionDays"
-            :key="day.date"
-            :width="cellSize"
-            :height="cellSize"
-            :x="0"
-            :y="day.weekday * (cellSize + cellMargin)"
-            :class="['contribution-cell', getLevelClass(day.contributionLevel)]"
-            rx="3"
-            ry="3"
-            @mouseover="handleMouseOver($event, day)"
-            @mouseout="handleMouseOut"
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="(row, dayIndex) in grid" :key="dayIndex">
+          <th class="weekday-label">{{ weekdayLabels[dayIndex] }}</th>
+          <td
+            v-for="(day, weekIndex) in row"
+            :key="weekIndex"
+            :class="['contribution-cell', day ? getLevelClass(day.contributionLevel) : 'contribution-cell-empty']"
+            @mouseenter="day ? handleMouseOver($event, day) : undefined"
+            @mouseleave="day ? handleMouseOut : undefined"
           >
-            <title>{{ getTooltipText(day) }}</title>
-          </rect>
-        </g>
-
-        <!-- Legend -->
-        <g :transform="`translate(${computedChartWidth - 145}, 137)`">
-          <text text-anchor="start" class="legend-label" x="0" y="6.5" alignment-baseline="central">更少</text>
-          <rect class="contribution-cell contrib-level-0" x="30" y="0" width="13" height="13" rx="3" ry="3" />
-          <rect class="contribution-cell contrib-level-1" x="46" y="0" width="13" height="13" rx="3" ry="3" />
-          <rect class="contribution-cell contrib-level-2" x="62" y="0" width="13" height="13" rx="3" ry="3" />
-          <rect class="contribution-cell contrib-level-3" x="78" y="0" width="13" height="13" rx="3" ry="3" />
-          <rect class="contribution-cell contrib-level-4" x="94" y="0" width="13" height="13" rx="3" ry="3" />
-          <text text-anchor="start" class="legend-label" x="112" y="6.5" alignment-baseline="central">更多</text>
-        </g>
-      </svg>
-    </a>
-    <!-- Tooltip -->
-    <div v-if="showTooltip" class="contribution-tooltip"
-         :style="{ left: tooltipPos.x + 'px', top: tooltipPos.y + 'px' }">
-      {{ tooltipContent }}
+            <a
+              v-if="day"
+              :href="`https://github.com/${githubUsername}?tab=overview&from=${day.date}&to=${day.date}`"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="cell-link"
+            >
+              <span class="sr-only">{{ getTooltipText(day) }}</span>
+            </a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
     </div>
+
+    <!-- Legend and Footer -->
+    <div class="calendar-footer">
+      <a class="footer-link" href="https://docs.github.com/TiamatXu" target="_blank" rel="noopener noreferrer">
+        Learn how to achieve the same effect.
+      </a>
+      <div class="legend">
+        <span class="legend-label">更少</span>
+        <ul class="legend-colors">
+          <li data-level="0" :class="['contribution-cell', 'contrib-level-0']"></li>
+          <li data-level="1" :class="['contribution-cell', 'contrib-level-1']"></li>
+          <li data-level="2" :class="['contribution-cell', 'contrib-level-2']"></li>
+          <li data-level="3" :class="['contribution-cell', 'contrib-level-3']"></li>
+          <li data-level="4" :class="['contribution-cell', 'contrib-level-4']"></li>
+        </ul>
+        <span class="legend-label">更多</span>
+      </div>
+    </div>
+  </div>
+  <!-- Tooltip -->
+  <div v-if="showTooltip" class="contribution-tooltip" :style="{ left: tooltipPos.x + 'px', top: tooltipPos.y + 'px' }">
+    {{ tooltipContent }}
   </div>
 </template>
 
@@ -218,7 +205,7 @@ const handleMouseOut = () => {
 /* Define GitHub-like colors for contribution levels */
 :root { /* Light mode defaults */
   --color-contrib-text: #24292f;
-  --color-legend-text: rgba(36, 41, 47, 0.7); /* Lighter text for legend */
+  --color-legend-text: rgba(36, 41, 47, 0.7);
   --color-contrib-level-0: #ebedf0;
   --color-contrib-level-1: #9be9a8;
   --color-contrib-level-2: #40c463;
@@ -228,7 +215,7 @@ const handleMouseOut = () => {
 
 html.dark { /* Dark mode overrides */
   --color-contrib-text: #c9d1d9;
-  --color-legend-text: rgba(201, 209, 217, 0.7); /* Same as other text in dark mode */
+  --color-legend-text: rgba(201, 209, 217, 0.7);
   --color-contrib-level-0: #222830;
   --color-contrib-level-1: #0e4429;
   --color-contrib-level-2: #006d32;
@@ -239,84 +226,198 @@ html.dark { /* Dark mode overrides */
 
 <style scoped>
 .error-message {
-  color: var(--vp-c-danger-1); /* Using VitePress danger color variable */
+  color: var(--vp-c-danger-1);
   margin-top: 20px;
   font-size: 12px;
 }
 
-.chart-container {
-  display: inline-block; /* Allows text-align: center to work for its content */
+.contribution-calendar {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: stretch;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 6px;
+  padding: 16px;
+  background-color: var(--vp-c-bg-soft);
   max-width: 100%;
-  overflow-x: auto; /* For small screens to allow scrolling */
-  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-  padding-bottom: 10px; /* Space for scrollbar if needed */
+  box-sizing: border-box;
 }
 
-.contribution-graph {
-  display: block; /* To center with margin: 0 auto */
-  width: 100%; /* Make SVG responsive to parent container */
-  min-width: 885px; /* Ensure a minimum width for the graph */
-  height: auto; /* Maintain aspect ratio */
-  margin: 0 auto;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-  border: 1px solid var(--vp-c-divider); /* Subtle border for the graph */
-  border-radius: 6px;
-  background-color: var(--vp-c-bg-soft); /* Match VitePress theme background */
+.contribution-grid-wrapper {
+  overflow-x: auto;
+}
+
+.contribution-grid {
+  border-collapse: separate;
+  border-spacing: 3px;
+  min-width: max-content;
+}
+
+.contribution-grid thead {
+  font-size: 12px;
+  color: var(--color-contrib-text);
+}
+
+.month-header {
+  font-weight: normal;
+  text-align: left;
+  padding-bottom: 2px;
+  white-space: nowrap;
+}
+
+.weekday-spacer,
+.weekday-label {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background-color: var(--vp-c-bg-soft);
+  /* Use box-shadow to cover the border-spacing gap */
+  box-shadow: 3px 0 0 0 var(--vp-c-bg-soft);
+}
+
+.weekday-label {
+  font-size: 12px;
+  color: var(--color-contrib-text);
+  font-weight: normal;
+  text-align: left;
+  padding-right: 4px;
+  white-space: nowrap;
+  line-height: 1;
+  box-sizing: border-box;
+}
+
+/* Hide weekday labels for rows that shouldn't have one */
+tbody tr:nth-child(1) .weekday-label,
+tbody tr:nth-child(3) .weekday-label,
+tbody tr:nth-child(5) .weekday-label,
+tbody tr:nth-child(7) .weekday-label {
+  visibility: hidden;
 }
 
 .contribution-cell {
-  shape-rendering: geometricPrecision;
-  /* Removed outline: 1px solid rgba(27,31,35,0.06); as it created issues with fill and theme */
-  transition: fill 0.3s ease-in-out;
+  width: 14px;
+  height: 14px;
+  background-color: var(--color-contrib-level-0);
+  border-radius: 3px;
+  outline: 2px solid transparent;
 }
 
-.contribution-cell:hover {
-  stroke: var(--vp-c-brand-1); /* Highlight on hover using VitePress brand color */
-  stroke-width: 1px;
+.contribution-grid .contribution-cell:not(.contribution-cell-empty):hover {
+  outline-color: rgba(0, 0, 0, 0.2);
 }
 
-/* Apply colors based on contribution level classes */
+html.dark .contribution-grid .contribution-cell:not(.contribution-cell-empty):hover {
+  outline-color: rgba(255, 255, 255, 0.4);
+}
+
+.contribution-cell.contribution-cell-empty {
+  background-color: transparent;
+}
+
+.cell-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .contrib-level-0 {
-  fill: var(--color-contrib-level-0);
+  background-color: var(--color-contrib-level-0);
 }
 
 .contrib-level-1 {
-  fill: var(--color-contrib-level-1);
+  background-color: var(--color-contrib-level-1);
 }
 
 .contrib-level-2 {
-  fill: var(--color-contrib-level-2);
+  background-color: var(--color-contrib-level-2);
 }
 
 .contrib-level-3 {
-  fill: var(--color-contrib-level-3);
+  background-color: var(--color-contrib-level-3);
 }
 
 .contrib-level-4 {
-  fill: var(--color-contrib-level-4);
+  background-color: var(--color-contrib-level-4);
 }
 
-.graph-label {
-  fill: var(--color-contrib-text);
+.calendar-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 8px 30px 0 30px;
+  //margin-top: 8px;
   font-size: 12px;
+}
+
+.legend {
+  display: flex;
+  align-items: center;
 }
 
 .legend-label {
-  fill: var(--color-legend-text);
-  font-size: 12px;
+  color: var(--color-legend-text);
+  margin: 0 4px;
+}
+
+.legend-colors {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 3px;
+}
+
+.legend-colors li {
+  width: 14px;
+  height: 14px;
+}
+
+.footer-link {
+  color: var(--color-legend-text);
+  text-decoration: none;
+}
+
+.footer-link:hover {
+  color: var(--vt-c-green);
+  text-decoration: underline;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 .contribution-tooltip {
-  position: fixed; /* Use fixed positioning for tooltips */
+  position: fixed;
   padding: 8px 12px;
-  background-color: var(--vp-c-bg-alt); /* Using VitePress background color variable */
-  color: var(--vp-c-text-1); /* Using VitePress text color variable */
-  border: 1px solid var(--vp-c-divider); /* Using VitePress divider color variable */
+  background-color: #3d444d;
+  color: white;
   border-radius: 6px;
   font-size: 12px;
   pointer-events: none;
   z-index: 1000;
   white-space: nowrap;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateX(-50%);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.contribution-tooltip::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: #3d444d transparent transparent transparent;
 }
 </style>
