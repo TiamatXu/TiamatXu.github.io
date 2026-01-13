@@ -7,6 +7,15 @@ const githubUsername = 'TiamatXu'
 
 <template>
   <section id="hero">
+    <h1>简单介绍</h1>
+  </section>
+
+  <section>
+    <h1>项目列表</h1>
+  </section>
+
+  <section>
+    <h1>文档列表</h1>
   </section>
 
   <section id="contribution-chart">
@@ -14,16 +23,9 @@ const githubUsername = 'TiamatXu'
     <ContributionGraph :github-username="githubUsername" />
   </section>
 
-  <section id="special-sponsor">
+  <section>
+    <h1>Sitemap</h1>
   </section>
-
-  <section id="highlights" class="vt-box-container">
-  </section>
-
-  <section id="spsrs">
-  </section>
-
-<!--  <SiteMap/>-->
 </template>
 
 <style scoped>
@@ -35,6 +37,7 @@ const githubUsername = 'TiamatXu'
 
 section {
   padding: 42px 32px;
+  border-bottom: 1px solid var(--vt-c-divider-light);
 }
 
 #hero {

@@ -24,32 +24,8 @@ export default defineConfigWithTheme<ThemeConfig>({
   description: 'TiamatXu 的个人博客，分享技术文章和个人见解。',
 
   themeConfig: {
-    // algolia: {
-    //   indexName: 'vuejs-v3',
-    //   appId: 'BH4D9OD16A',
-    //   apiKey: 'bc6e8acb44ed4179c30d0a45d6140d3f',
-    //   placeholder: 'Search on Vue theme',
-    //   translations: {
-    //     modal: {
-    //       searchBox: {
-    //         cancelButtonText: 'Abort',
-    //         resetButtonTitle: 'Clear search term'
-    //       },
-    //       footer: {
-    //         searchByText: 'Search gracefully done by '
-    //       }
-    //     }
-    //   }
-    // },
-    // carbonAds: {
-    //   code: 'CEBDT27Y',
-    //   placement: 'vuejsorg'
-    // },
-
     socialLinks: [
       {icon: 'github', link: 'https://github.com/TiamatXu'},
-      // { icon: 'x', link: 'https://twitter.com/vuejs' },
-      // { icon: 'discord', link: 'https://discord.com/invite/HBherRA' }
     ],
 
     nav: [
@@ -62,28 +38,13 @@ export default defineConfigWithTheme<ThemeConfig>({
           {text: '深度指南', link: '/guide/introduction'},
         ]
       },
-      // {
-      //   text: 'docs',
-      //   activeMatch: `^/(guide|examples)/`,
-      //   items: [
-      //     {
-      //       items: [
-      //         {text: 'Guide', link: '/guide/introduction'},
-      //         {text: 'Installation', link: '/guide/installation'}
-      //       ]
-      //     }
-      //   ]
-      // },
-      // {
-      //   text: 'API Reference',
-      //   activeMatch: `^/api/`,
-      //   link: '/api/'
-      // },
       {
         text: '项目',
         items: [
           {
-            items: [{text: 'Github 主页', link: 'https://github.com/TiamatXu'}]
+            items: [
+              {text: 'Github 主页', link: 'https://github.com/TiamatXu'}
+            ]
           },
           {
             text: '开发项目',
