@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { computed } from 'vue'
-import { VTFlyout, VTSwitchAppearance, VTSocialLinks } from '../../core'
-import { useConfig } from '../composables/config'
+import {computed} from 'vue'
+import {VTFlyout, VTSwitchAppearance, VTSocialLinks} from '../../core'
+import {useConfig} from '../composables/config'
 
-const { config } = useConfig()
+const {config} = useConfig()
 
 const hasContent = computed(() => {
   return config.value.appearance || config.value.socialLinks
@@ -18,7 +18,7 @@ const hasContent = computed(() => {
           {{ config.i18n?.appearance ?? 'Appearance' }}
         </p>
         <div class="vt-menu-action action">
-          <VTSwitchAppearance />
+          <VTSwitchAppearance/>
         </div>
       </div>
     </div>

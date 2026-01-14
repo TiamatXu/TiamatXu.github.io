@@ -1,12 +1,12 @@
-import { ref, computed } from 'vue'
-import { useRoute, useData } from 'vitepress'
-import { getSidebar } from '../support/sidebar'
-import { useConfig } from './config'
+import {ref, computed} from 'vue'
+import {useRoute, useData} from 'vitepress'
+import {getSidebar} from '../support/sidebar'
+import {useConfig} from './config'
 
 export function useSidebar() {
   const route = useRoute()
-  const { config } = useConfig()
-  const { frontmatter } = useData()
+  const {config} = useConfig()
+  const {frontmatter} = useData()
 
   const isOpen = ref(false)
 

@@ -1,18 +1,22 @@
 <script lang="ts" setup>
-import { VTLink } from '../../core'
-import { useConfig } from '../composables/config'
+import {VTLink} from '../../core'
+import {useConfig} from '../composables/config'
 
-const { config } = useConfig()
+const {config} = useConfig()
 </script>
 
 <template>
   <div class="VPFooter">
     <p v-if="config.footer?.license" class="license">
-      {{ config.i18n?.footerLicense?.before ?? 'Released under the '
-      }}<VTLink class="link" :href="config.footer.license.link" no-icon>{{
-        config.footer.license.text
-      }}</VTLink
-      >{{ config.i18n?.footerLicense?.after ?? '.' }}
+      {{
+        config.i18n?.footerLicense?.before ?? 'Released under the '
+      }}
+      <VTLink class="link" :href="config.footer.license.link" no-icon>{{
+          config.footer.license.text
+        }}
+      </VTLink
+      >
+      {{ config.i18n?.footerLicense?.after ?? '.' }}
     </p>
 
     <p v-if="config.footer?.copyright" class="copyright">

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { useConfig } from '../../vitepress/composables/config'
+import {useConfig} from '../../vitepress/composables/config'
 
-const { config } = useConfig()
+const {config} = useConfig()
 
 defineProps<{
   active: boolean
@@ -18,9 +18,9 @@ defineProps<{
     aria-controls="VPNavScreen"
   >
     <span class="vt-hamburger-container">
-      <span class="vt-hamburger-top" />
-      <span class="vt-hamburger-middle" />
-      <span class="vt-hamburger-bottom" />
+      <span class="vt-hamburger-top"/>
+      <span class="vt-hamburger-middle"/>
+      <span class="vt-hamburger-bottom"/>
     </span>
   </button>
 </template>

@@ -23,41 +23,46 @@
 </template>
 
 <style scoped>
-  .container {
-    margin-top: 20px;
-  }
-  .container .security {
-    font-size: 12px;
-    display: inline-block;
-    padding: 4px 8px;
-    font-weight: 500;
-    border-radius: 8px;
-    background: linear-gradient(var(--vt-c-bg-mute), var(--vt-c-bg-mute)) padding-box,
-      linear-gradient(45deg, #42d392, #647eff) border-box;
-    border: 2px solid transparent;
-    color: var(--vt-c-text-code);
-    transition: background-color 0.5s, color 0.5s;
-  }
-  .container .security:hover {
-    background: linear-gradient(var(--vt-c-gray-light-4), var(--vt-c-gray-light-4)) padding-box,
-      linear-gradient(45deg, #42d392, #647eff) border-box;
-    transition-duration: 0.2s;
-  }
-  .dark .container .security:hover {
-    background: linear-gradient(var(--vt-c-gray-dark-3), var(--vt-c-gray-dark-3)) padding-box,
-      linear-gradient(45deg, #42d392, #647eff) border-box;
-  }
-  .container .security .icon {
-    width: 12px;
-    height: 12px;
-    margin-left: 4px;
-    display: inline;
-    position: relative;
-    fill: currentColor;
-    transition: transform 0.2s;
+.container {
+  margin-top: 20px;
+}
 
-  }
-  .dark .container .security:hover {
-    background-color: var(--vt-c-gray-dark-3);
-  }
+.container .security {
+  font-size: 12px;
+  display: inline-block;
+  padding: 4px 8px;
+  font-weight: 500;
+  border-radius: 8px;
+  background: linear-gradient(var(--vt-c-bg-mute), var(--vt-c-bg-mute)) padding-box,
+  linear-gradient(45deg, #42d392, #647eff) border-box;
+  border: 2px solid transparent;
+  color: var(--vt-c-text-code);
+  transition: background-color 0.5s, color 0.5s;
+}
+
+.container .security:hover {
+  background: linear-gradient(var(--vt-c-gray-light-4), var(--vt-c-gray-light-4)) padding-box,
+  linear-gradient(45deg, #42d392, #647eff) border-box;
+  transition-duration: 0.2s;
+}
+
+.dark .container .security:hover {
+  background: linear-gradient(var(--vt-c-gray-dark-3), var(--vt-c-gray-dark-3)) padding-box,
+  linear-gradient(45deg, #42d392, #647eff) border-box;
+}
+
+.container .security .icon {
+  width: 12px;
+  height: 12px;
+  margin-left: 4px;
+  display: inline;
+  position: relative;
+  fill: currentColor;
+  transition: transform 0.2s;
+
+}
+
+.dark .container .security:hover {
+  background-color: var(--vt-c-gray-dark-3);
+}
 </style>

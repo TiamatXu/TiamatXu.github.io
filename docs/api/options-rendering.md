@@ -6,12 +6,16 @@
 
 - **Details:**
 
-  A string template to be used as the markup for the component instance. The template will **replace** the `innerHTML` of mounted element. Any existing markup inside the mounted element will be ignored, unless content distribution slots are present in the template.
+  A string template to be used as the markup for the component instance. The template will **replace** the `innerHTML`
+  of mounted element. Any existing markup inside the mounted element will be ignored, unless content distribution slots
+  are present in the template.
 
-  If the string starts with `#` it will be used as a `querySelector` and use the selected element's innerHTML as the template string. This allows the use of the common `<script type="x-template">` trick to include templates.
+  If the string starts with `#` it will be used as a `querySelector` and use the selected element's innerHTML as the
+  template string. This allows the use of the common `<script type="x-template">` trick to include templates.
 
   :::tip Note
-  From a security perspective, you should only use Vue templates that you can trust. Never use user-generated content as your template.
+  From a security perspective, you should only use Vue templates that you can trust. Never use user-generated content as
+  your template.
   :::
 
   :::tip Note
@@ -61,7 +65,8 @@
   ```
 
   :::tip Note
-  The `render` function has priority over the render function compiled from `template` option or in-DOM HTML template of the mounting element
+  The `render` function has priority over the render function compiled from `template` option or in-DOM HTML template of
+  the mounting element
   :::
 
 - **See also:** [Render Functions](/)

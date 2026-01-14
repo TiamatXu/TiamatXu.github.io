@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { ref, nextTick } from 'vue'
-import { useConfig } from '../composables/config'
-import { useOutlineHeaders } from '../composables/outline.js'
+import {ref, nextTick} from 'vue'
+import {useConfig} from '../composables/config'
+import {useOutlineHeaders} from '../composables/outline.js'
 import VPDocOutlineItem from './VPDocOutlineItem.vue'
-import { onContentUpdated } from 'vitepress'
+import {onContentUpdated} from 'vitepress'
 import VPIconChevronRight from '../../core/components/icons/VTIconChevronRight.vue'
 
-const { config } = useConfig()
+const {config} = useConfig()
 const open = ref(false)
 const vh = ref(0)
 const items = ref<HTMLDivElement>()
@@ -36,7 +36,7 @@ function onItemClick(e: Event) {
 
 function scrollToTop() {
   open.value = false
-  window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+  window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
 }
 </script>
 
@@ -44,14 +44,14 @@ function scrollToTop() {
   <div class="VPLocalNavOutlineDropdown" :style="{ '--vt-vh': vh + 'px' }">
     <button @click="toggle" :class="{ open }">
       {{ config.i18n?.toc ?? 'On this page' }}
-      <VPIconChevronRight class="icon" />
+      <VPIconChevronRight class="icon"/>
     </button>
     <Transition name="flyout">
       <div v-if="open" ref="items" class="items" @click="onItemClick">
         <a class="top-link" href="#" @click="scrollToTop">
           {{ config.i18n?.returnToTop || 'Return to top' }}
         </a>
-        <VPDocOutlineItem :headers="headers" />
+        <VPDocOutlineItem :headers="headers"/>
       </div>
     </Transition>
   </div>
@@ -61,6 +61,7 @@ function scrollToTop() {
 .VPLocalNavOutlineDropdown {
   padding: 12px 20px 11px;
 }
+
 .VPLocalNavOutlineDropdown button {
   display: block;
   font-size: 12px;

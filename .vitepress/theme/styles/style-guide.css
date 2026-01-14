@@ -15,6 +15,7 @@
 .style-example-bad {
   background: #f7e8e8;
 }
+
 .dark .style-example-bad {
   background: transparent;
   border-color: var(--vt-c-red);
@@ -27,6 +28,7 @@
 .style-example-good {
   background: #ecfaf7;
 }
+
 .dark .style-example-good {
   background: transparent;
   border-color: var(--vt-c-green);
@@ -59,6 +61,7 @@
 .style-verb.avoid {
   background-color: var(--vt-c-red);
 }
+
 .vt-doc summary {
   width: fit-content;
   cursor: pointer;

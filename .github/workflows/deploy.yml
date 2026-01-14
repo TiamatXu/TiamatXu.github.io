@@ -5,7 +5,7 @@ on:
     branches:
       - master
   workflow_dispatch:
-    # 北京时间 每天凌晨 05:00 自动执行
+  # 北京时间 每天凌晨 05:00 自动执行
   schedule:
     - cron: '0 21 * * *'
 

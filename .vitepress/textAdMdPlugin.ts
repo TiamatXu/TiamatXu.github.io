@@ -25,7 +25,9 @@ const excludedPages = [
 ]
 
 export const textAdPlugin = (md: MarkdownIt) => {
-  md.renderer.rules.heading_close = (tokens: any, i: any, options: any, env: { relativePath: any }, self: { renderToken: (arg0: any, arg1: any, arg2: any) => any }) => {
+  md.renderer.rules.heading_close = (tokens: any, i: any, options: any, env: { relativePath: any }, self: {
+    renderToken: (arg0: any, arg1: any, arg2: any) => any
+  }) => {
     const relativePath = env.relativePath
     const renderedContent = self.renderToken(tokens, i, options)
 

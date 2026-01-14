@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { nextTick, ref, watchPostEffect } from 'vue'
-import { useConfig } from '../composables/config'
-import { useSidebar } from '../composables/sidebar'
+import {nextTick, ref, watchPostEffect} from 'vue'
+import {useConfig} from '../composables/config'
+import {useSidebar} from '../composables/sidebar'
 import VPSidebarGroup from './VPSidebarGroup.vue'
 
-const { sidebar, hasSidebar } = useSidebar()
-const { config } = useConfig()
+const {sidebar, hasSidebar} = useSidebar()
+const {config} = useConfig()
 
 const props = defineProps<{
   open: boolean
@@ -30,14 +30,14 @@ watchPostEffect(async () => {
     @click.stop
   >
     <nav id="VPSidebarNav" aria-labelledby="sidebar-aria-label" tabindex="-1">
-      <slot name="top" />
+      <slot name="top"/>
       <span id="sidebar-aria-label" class="visually-hidden">{{
-        config.i18n?.ariaSidebarNav ?? 'Sidebar Navigation'
-      }}</span>
+          config.i18n?.ariaSidebarNav ?? 'Sidebar Navigation'
+        }}</span>
       <div v-for="group in sidebar" :key="group.text" class="group">
         <VPSidebarGroup :text="group.text" :badge="group.badge" :items="group.items"/>
       </div>
-      <slot name="bottom" />
+      <slot name="bottom"/>
     </nav>
   </aside>
 </template>
@@ -101,7 +101,7 @@ watchPostEffect(async () => {
   visibility: visible;
   transform: translateX(0);
   transition: background-color 0.5s, opacity 0.25s,
-    transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .dark .VPSidebar {

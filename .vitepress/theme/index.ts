@@ -1,6 +1,6 @@
 import './styles/index.css'
-import { h, App } from 'vue'
-import { VPTheme } from '../../src/'
+import {h, App} from 'vue'
+import {VPTheme} from '../../src/'
 // import PreferenceSwitch from './components/PreferenceSwitch.vue'
 // import SecurityUpdateBtn from './components/SecurityUpdateBtn.vue'
 import {
@@ -29,7 +29,7 @@ export default Object.assign({}, VPTheme, {
       'aside-bottom': () => h(WwAds)
     })
   },
-  enhanceApp({ app }: { app: App }) {
+  enhanceApp({app}: { app: App }) {
     app.provide('prefer-composition', preferComposition)
     app.provide('prefer-sfc', preferSFC)
     app.provide('filter-headers', filterHeadersByPreference)

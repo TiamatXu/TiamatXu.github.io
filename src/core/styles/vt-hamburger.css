@@ -4,13 +4,38 @@
   align-items: center;
 }
 
-.vt-hamburger:hover .vt-hamburger-top    { top: 0; left: 0; transform: translateX(4px); }
-.vt-hamburger:hover .vt-hamburger-middle { top: 6px; left: 0; transform: translateX(0); }
-.vt-hamburger:hover .vt-hamburger-bottom { top: 12px; left: 0; transform: translateX(8px); }
+.vt-hamburger:hover .vt-hamburger-top {
+  top: 0;
+  left: 0;
+  transform: translateX(4px);
+}
 
-.vt-hamburger.is-active .vt-hamburger-top    { top: 6px; transform: translateX(0) rotate(225deg); }
-.vt-hamburger.is-active .vt-hamburger-middle { top: 6px; transform: translateX(16px); }
-.vt-hamburger.is-active .vt-hamburger-bottom { top: 6px; transform: translateX(0) rotate(135deg); }
+.vt-hamburger:hover .vt-hamburger-middle {
+  top: 6px;
+  left: 0;
+  transform: translateX(0);
+}
+
+.vt-hamburger:hover .vt-hamburger-bottom {
+  top: 12px;
+  left: 0;
+  transform: translateX(8px);
+}
+
+.vt-hamburger.is-active .vt-hamburger-top {
+  top: 6px;
+  transform: translateX(0) rotate(225deg);
+}
+
+.vt-hamburger.is-active .vt-hamburger-middle {
+  top: 6px;
+  transform: translateX(16px);
+}
+
+.vt-hamburger.is-active .vt-hamburger-bottom {
+  top: 6px;
+  transform: translateX(0) rotate(135deg);
+}
 
 .vt-hamburger.is-active:hover .vt-hamburger-top,
 .vt-hamburger.is-active:hover .vt-hamburger-middle,
@@ -36,6 +61,20 @@
   transition: top .25s, background-color .5s, transform .25s;
 }
 
-.vt-hamburger-top    { top: 0; left: 0; transform: translateX(0); }
-.vt-hamburger-middle { top: 6px; left: 0; transform: translateX(8px); }
-.vt-hamburger-bottom { top: 12px; left: 0; transform: translateX(4px); }
+.vt-hamburger-top {
+  top: 0;
+  left: 0;
+  transform: translateX(0);
+}
+
+.vt-hamburger-middle {
+  top: 6px;
+  left: 0;
+  transform: translateX(8px);
+}
+
+.vt-hamburger-bottom {
+  top: 12px;
+  left: 0;
+  transform: translateX(4px);
+}

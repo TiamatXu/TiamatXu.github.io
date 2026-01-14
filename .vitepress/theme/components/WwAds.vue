@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import {onMounted} from 'vue'
 
 onMounted(() => {
   const s = document.createElement('script')
@@ -21,9 +21,11 @@ onMounted(() => {
   margin-top: 20px;
   background-color: var(--vt-c-bg-soft);
 }
+
 .wwads-vertical {
   background-color: transparent !important;
 }
+
 .wwads-text {
   color: var(--vt-c-text-2) !important;
 }

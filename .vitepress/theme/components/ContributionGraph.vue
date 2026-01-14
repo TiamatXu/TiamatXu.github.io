@@ -225,7 +225,7 @@ html.dark { /* Dark mode overrides */
 
 .contribution-grid-wrapper {
   scrollbar-width: thin;
-  scrollbar-color: rgba(61,68,77,0.5) transparent;
+  scrollbar-color: rgba(61, 68, 77, 0.5) transparent;
 }
 
 .contribution-grid-wrapper::-webkit-scrollbar {
@@ -237,7 +237,7 @@ html.dark { /* Dark mode overrides */
 }
 
 .contribution-grid-wrapper::-webkit-scrollbar-thumb {
-  background-color: rgba(61,68,77,0.5);
+  background-color: rgba(61, 68, 77, 0.5);
   border-radius: 6px;
   border: 2px solid transparent;
   background-clip: padding-box;
@@ -245,19 +245,19 @@ html.dark { /* Dark mode overrides */
 }
 
 .contribution-grid-wrapper::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(61,68,77,0.7);
+  background-color: rgba(61, 68, 77, 0.7);
 }
 
 html.dark .contribution-grid-wrapper {
-  scrollbar-color: rgba(255,255,255,0.25) transparent;
+  scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
 }
 
 html.dark .contribution-grid-wrapper::-webkit-scrollbar-thumb {
-  background-color: rgba(255,255,255,0.25);
+  background-color: rgba(255, 255, 255, 0.25);
 }
 
 html.dark .contribution-grid-wrapper::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(255,255,255,0.45);
+  background-color: rgba(255, 255, 255, 0.45);
 }
 
 .contribution-grid-wrapper::-webkit-scrollbar-track-piece {
@@ -324,8 +324,6 @@ html.dark .contribution-grid-wrapper::-webkit-scrollbar-thumb:hover {
   line-height: 1;
   box-sizing: border-box;
 }
-
-
 
 .contribution-cell {
   width: 14px;

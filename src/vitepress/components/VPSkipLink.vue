@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { ref, watch } from 'vue'
-import { useRoute } from 'vitepress'
-import { useConfig } from '../composables/config'
+import {ref, watch} from 'vue'
+import {useRoute} from 'vitepress'
+import {useConfig} from '../composables/config'
 
-const { config } = useConfig()
+const {config} = useConfig()
 const route = useRoute()
 const backToTop = ref()
 
@@ -12,7 +12,7 @@ watch(
   () => backToTop.value.focus()
 )
 
-const focusOnTargetAnchor = ({ target }: Event) => {
+const focusOnTargetAnchor = ({target}: Event) => {
   const el = document.querySelector(
     (target as HTMLAnchorElement).hash!
   ) as HTMLAnchorElement
@@ -31,12 +31,12 @@ const focusOnTargetAnchor = ({ target }: Event) => {
 </script>
 
 <template>
-  <span ref="backToTop" tabindex="-1" />
+  <span ref="backToTop" tabindex="-1"/>
   <a
     href="#VPContent"
     class="VPSkipLink visually-hidden"
     @click="focusOnTargetAnchor"
-    >{{ config.i18n?.ariaSkipToContent ?? 'Skip to content' }}</a
+  >{{ config.i18n?.ariaSkipToContent ?? 'Skip to content' }}</a
   >
 </template>
 
@@ -54,9 +54,11 @@ const focusOnTargetAnchor = ({ target }: Event) => {
   background-color: var(--vt-c-bg);
   border-radius: 8px;
 }
+
 .dark .VPSkipLink {
   color: var(--vt-c-green);
 }
+
 .VPSkipLink:focus {
   height: auto;
   width: auto;

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { ref } from 'vue'
+import {ref} from 'vue'
 
 // shared data across instances so we load only once
 const base = 'https://app.vuejobs.com/feed/vuejs/docs?format=json'
@@ -21,7 +21,7 @@ type Organization = {
 </script>
 
 <script setup lang="ts">
-import { onMounted, computed } from 'vue'
+import {onMounted, computed} from 'vue'
 
 const openings = computed(() =>
   items.value.sort(() => 0.5 - Math.random()).slice(0, 2)
@@ -72,7 +72,7 @@ onMounted(async () => {
         href="https://vuejobs.com/?utm_source=vuejs&utm_medium=referral&utm_campaign=jobs_widget&utm_content=bottom_link"
         target="_blank"
         title="Hire Vue.js developers"
-        >vuejobs.com</a
+      >vuejobs.com</a
       >
     </div>
   </div>

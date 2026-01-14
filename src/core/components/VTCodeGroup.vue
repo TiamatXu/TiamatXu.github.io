@@ -1,9 +1,10 @@
 <script lang="ts" setup>
-import { VTCodeGroupTab } from '..';
-import { useSlots, ref } from 'vue'
+import {VTCodeGroupTab} from '..';
+import {useSlots, ref} from 'vue'
+
 const activeTabIndex = ref(0)
 const children = useSlots().default?.()
-const tabs = children?.filter(({ type }) => type === VTCodeGroupTab)
+const tabs = children?.filter(({type}) => type === VTCodeGroupTab)
 </script>
 
 <template>
@@ -16,7 +17,8 @@ const tabs = children?.filter(({ type }) => type === VTCodeGroupTab)
         :class="{
           'vt-code-group-tab-active': activeTabIndex === idx
         }"
-      >{{ tab.props?.label }}</div>
+      >{{ tab.props?.label }}
+      </div>
     </div>
     <div class="vt-code-group-contents">
       <component

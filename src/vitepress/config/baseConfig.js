@@ -41,7 +41,7 @@ const config = {
     }
   },
 
-  transformHead({ assets }) {
+  transformHead({assets}) {
     const font = assets.find((file) =>
       /inter-roman-latin\.\w+\.woff2/.test(file)
     )

@@ -10,12 +10,22 @@
     "jsx": "preserve",
     "esModuleInterop": true,
     "noUnusedLocals": true,
-    "lib": ["ESNext", "DOM"],
+    "lib": [
+      "ESNext",
+      "DOM"
+    ],
     "skipLibCheck": true,
     "paths": {
-      "@vue/theme": ["src/index.ts"]
+      "@vue/theme": [
+        "src/index.ts"
+      ]
     }
   },
-  "include": ["docs", ".vitepress/theme"],
-  "exclude": ["node_modules"]
+  "include": [
+    "docs",
+    ".vitepress/theme"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, shallowRef } from 'vue'
+import {computed, onMounted, ref, shallowRef} from 'vue'
 
 const props = withDefaults(
   defineProps<{

@@ -1,15 +1,15 @@
 <script lang="ts" setup>
-import { VTIconAlignLeft } from '../../core'
-import { useSidebar } from '../composables/sidebar'
-import { useConfig } from '../composables/config'
-import { useData } from 'vitepress'
+import {VTIconAlignLeft} from '../../core'
+import {useSidebar} from '../composables/sidebar'
+import {useConfig} from '../composables/config'
+import {useData} from 'vitepress'
 import VPLocalNavOutlineDropdown from './VPLocalNavOutlineDropdown.vue'
 
 defineProps<{ open: boolean }>()
 
-const { hasSidebar } = useSidebar()
-const { config } = useConfig()
-const { frontmatter } = useData()
+const {hasSidebar} = useSidebar()
+const {config} = useConfig()
+const {frontmatter} = useData()
 </script>
 
 <template>
@@ -20,11 +20,11 @@ const { frontmatter } = useData()
       aria-controls="VPSidebarNav"
       @click="$emit('open-menu')"
     >
-      <VTIconAlignLeft class="menu-icon" />
+      <VTIconAlignLeft class="menu-icon"/>
       <span class="menu-text">{{ config.i18n?.menu || 'Menu' }}</span>
     </button>
 
-    <VPLocalNavOutlineDropdown v-if="frontmatter.outline !== false" />
+    <VPLocalNavOutlineDropdown v-if="frontmatter.outline !== false"/>
   </div>
 </template>
 

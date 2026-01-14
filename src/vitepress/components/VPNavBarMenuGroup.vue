@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-import { VTFlyout } from '../../core'
-import { isActive } from '../support/utils'
-import { useData } from 'vitepress'
-import { NavItemWithChildren } from '../config'
+import {VTFlyout} from '../../core'
+import {isActive} from '../support/utils'
+import {useData} from 'vitepress'
+import {NavItemWithChildren} from '../config'
 
 defineProps<{
   item: NavItemWithChildren
 }>()
 
-const { page } = useData()
+const {page} = useData()
 </script>
 
 <template>

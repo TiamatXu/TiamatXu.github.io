@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue'
+import {onMounted, ref, watch} from 'vue'
 import {
   inBrowser,
   preferComposition,
   preferCompositionKey
 } from './preferences'
-import { useData, type Header } from 'vitepress'
+import {useData, type Header} from 'vitepress'
 
 const show = ref(false)
-const { page } = useData()
+const {page} = useData()
 
 type Source = 'url-query' | 'url-header' | 'default'
 let source: Source | false =
@@ -42,9 +42,9 @@ function findHeader(
   link: string
 ):
   | (Header & {
-      optionsOnly?: boolean
-      compositionOnly?: boolean
-    })
+  optionsOnly?: boolean
+  compositionOnly?: boolean
+})
   | undefined {
   for (const h of headers) {
     if (h.link === link) {
@@ -178,6 +178,7 @@ p {
   .arrow-top {
     left: 16px;
   }
+
   .prefer-composition .arrow-top {
     left: 136px;
   }

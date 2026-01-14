@@ -106,6 +106,7 @@ export interface ButtonTranslations {
   buttonText?: string
   buttonAriaLabel?: string
 }
+
 export interface ModalTranslations extends ScreenStateTranslations {
   searchBox?: {
     resetButtonTitle?: string
@@ -124,6 +125,7 @@ export interface ModalTranslations extends ScreenStateTranslations {
     searchByText?: string
   }
 }
+
 export interface ScreenStateTranslations {
   errorScreen?: {
     titleText?: string

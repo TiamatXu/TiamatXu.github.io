@@ -23,6 +23,7 @@ username.github.io/
 ## 第 2 步：配置项目依赖和脚本
 
 ### `package.json`
+
 在仓库的**根目录**下创建了 `/package.json` 文件，用来管理所有必需的依赖包和运行脚本。
 
 ```json
@@ -44,6 +45,7 @@ username.github.io/
 ```
 
 ### `tsconfig.json`
+
 在 `docs` 目录内创建 `/docs/tsconfig.json` 让 VitePress 正确处理 TypeScript 文件。
 
 ```json
@@ -62,10 +64,13 @@ username.github.io/
 ```
 
 ### `config.ts`
-修改 `docs/.vitepress/config.ts` 文件，配置网站的导航和侧边栏显示内容。
-为了实现导航和侧边栏的自动化生成、国际化以及其他自定义功能，`config.ts` 文件现在会从 `./theme/index.ts` 导入 `nav` 和 `sidebar` 配置，并包含多语言支持、社交链接和主页配置示例。
 
-首先，在 `.vitepress` 目录下创建 `theme` 文件夹，并在其中创建 `index.ts` 文件 (`docs/.vitepress/theme/index.ts`)。这个文件将负责动态生成导航和侧边栏。
+修改 `docs/.vitepress/config.ts` 文件，配置网站的导航和侧边栏显示内容。
+为了实现导航和侧边栏的自动化生成、国际化以及其他自定义功能，`config.ts` 文件现在会从 `./theme/index.ts` 导入 `nav` 和
+`sidebar` 配置，并包含多语言支持、社交链接和主页配置示例。
+
+首先，在 `.vitepress` 目录下创建 `theme` 文件夹，并在其中创建 `index.ts` 文件 (`docs/.vitepress/theme/index.ts`)
+。这个文件将负责动态生成导航和侧边栏。
 
 #### `docs/.vitepress/theme/index.ts` 示例
 
@@ -258,7 +263,6 @@ features:
 ---
 ```
 
-
 ## 第 3 步：设置自动化工作流
 
 **自动部署关键**: 在 `.github/workflows/` 目录下创建 `deploy.yml` 文件。
@@ -318,7 +322,7 @@ jobs:
 
 最后一步是在 `username.github.io` 仓库的设置中，告诉 GitHub Pages 使用刚刚创建的 Actions 来部署网站。
 
-1.  进入仓库的 `Settings` -> `Pages`。
-2.  在 `Build and deployment` -> `Source` 选项中，选择 **`GitHub Actions`**。
+1. 进入仓库的 `Settings` -> `Pages`。
+2. 在 `Build and deployment` -> `Source` 选项中，选择 **`GitHub Actions`**。
 
 ## Done!

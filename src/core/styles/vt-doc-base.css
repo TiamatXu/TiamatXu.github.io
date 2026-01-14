@@ -35,6 +35,7 @@
     font-size: 32px;
     margin-bottom: 1.8rem;
   }
+
   .vt-doc h1 + h2 {
     margin-top: 36px;
   }
@@ -162,30 +163,39 @@
 .vt-doc ol {
   counter-reset: item;
 }
+
 .vt-doc ol[start='2'] {
   counter-reset: item 1;
 }
+
 .vt-doc ol[start='3'] {
   counter-reset: item 2;
 }
+
 .vt-doc ol[start='4'] {
   counter-reset: item 3;
 }
+
 .vt-doc ol[start='5'] {
   counter-reset: item 4;
 }
+
 .vt-doc ol[start='6'] {
   counter-reset: item 5;
 }
+
 .vt-doc ol[start='7'] {
   counter-reset: item 6;
 }
+
 .vt-doc ol[start='8'] {
   counter-reset: item 7;
 }
+
 .vt-doc ol[start='9'] {
   counter-reset: item 8;
 }
+
 .vt-doc ol[start='10'] {
   counter-reset: item 9;
 }

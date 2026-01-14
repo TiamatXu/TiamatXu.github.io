@@ -1,7 +1,7 @@
-import { computed, inject, onMounted, onUnmounted, onUpdated, Ref } from 'vue'
-import { Header, useData } from 'vitepress'
-import { useMediaQuery } from '@vueuse/core'
-import { MenuItemWithLink } from '../../core'
+import {computed, inject, onMounted, onUnmounted, onUpdated, Ref} from 'vue'
+import {Header, useData} from 'vitepress'
+import {useMediaQuery} from '@vueuse/core'
+import {MenuItemWithLink} from '../../core'
 
 export interface HeaderWithChildren extends Header {
   hidden?: boolean
@@ -13,7 +13,7 @@ export interface MenuItemWithLinkAndChildren extends MenuItemWithLink {
 }
 
 export function useOutlineHeaders() {
-  const { page } = useData()
+  const {page} = useData()
   const filterHeaders = inject('filter-headers', null) as any
   return computed(() => {
     return resolveHeaders(page.value.headers, filterHeaders)
@@ -92,8 +92,8 @@ export function useActiveAnchor(
       hash == null
         ? null
         : (container.value.querySelector(
-            `a[href="${decodeURIComponent(hash)}"]`
-          ) as HTMLAnchorElement))
+          `a[href="${decodeURIComponent(hash)}"]`
+        ) as HTMLAnchorElement))
     if (activeLink) {
       activeLink.classList.add('active')
       bg.value.style.opacity = '1'

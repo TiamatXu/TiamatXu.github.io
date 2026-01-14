@@ -5,10 +5,10 @@ import {
   type HeadConfig,
   type Plugin
 } from 'vitepress'
-import type { Config as ThemeConfig } from './theme-2.3.0/src/vitepress'
+import type {Config as ThemeConfig} from './theme-2.3.0/src/vitepress'
 import llmstxt from 'vitepress-plugin-llms'
 import baseConfig from './theme-2.3.0/src/vitepress/config/baseConfig.js'
-import { headerPlugin } from './headerMdPlugin'
+import {headerPlugin} from './headerMdPlugin'
 // import { textAdPlugin } from './textAdMdPlugin'
 import {
   groupIconMdPlugin,
@@ -20,9 +20,9 @@ const nav: ThemeConfig['nav'] = [
     text: '文档',
     activeMatch: `^/(guide|style-guide|cookbook|examples)/`,
     items: [
-      { text: 'Linux', link: '/linux/Docker-zookeeper 集群编排' },
-      { text: '文档', link: '/doc-site/VitePress 部署指南' },
-      { text: '深度指南', link: '/guide/introduction' },
+      {text: 'Linux', link: '/linux/Docker-zookeeper 集群编排'},
+      {text: '文档', link: '/doc-site/VitePress 部署指南'},
+      {text: '深度指南', link: '/guide/introduction'},
     ]
   },
   {
@@ -125,10 +125,10 @@ export default defineConfigWithTheme<ThemeConfig>({
   srcExclude: ['tutorial/**/description.md'],
 
   head: [
-    ['meta', { name: 'theme-color', content: '#3c8772' }],
-    ['meta', { property: 'og:url', content: 'https://vuejs.org/' }],
-    ['meta', { property: 'og:type', content: 'website' }],
-    ['meta', { property: 'og:title', content: 'TiamatXu' }],
+    ['meta', {name: 'theme-color', content: '#3c8772'}],
+    ['meta', {property: 'og:url', content: 'https://vuejs.org/'}],
+    ['meta', {property: 'og:type', content: 'website'}],
+    ['meta', {property: 'og:title', content: 'TiamatXu'}],
     [
       'meta',
       {
@@ -243,7 +243,7 @@ export default defineConfigWithTheme<ThemeConfig>({
     // },
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/TiamatXu/' },
+      {icon: 'github', link: 'https://github.com/TiamatXu/'},
       // { icon: 'twitter', link: 'https://x.com/vuejs' },
       // { icon: 'discord', link: 'https://discord.com/invite/vue' }
     ],

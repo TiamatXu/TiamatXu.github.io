@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { VTSwitch, VTIconChevronDown } from '@vue/theme'
-import { useRoute } from 'vitepress'
-import { ref, computed, inject, Ref } from 'vue'
+import {VTSwitch, VTIconChevronDown} from '@vue/theme'
+import {useRoute} from 'vitepress'
+import {ref, computed, inject, Ref} from 'vue'
 import {
   preferCompositionKey,
   preferComposition,
@@ -44,7 +44,8 @@ function useToggleFn(
   className: string
 ) {
   if (typeof localStorage === 'undefined') {
-    return () => {}
+    return () => {
+    }
   }
   const classList = document.documentElement.classList
   return (value = !state.value) => {
@@ -70,12 +71,12 @@ function useToggleFn(
       @blur="restoreOutline"
     >
       <span>API 风格偏好</span>
-      <VTIconChevronDown class="vt-link-icon" :class="{ open: isOpen }" />
+      <VTIconChevronDown class="vt-link-icon" :class="{ open: isOpen }"/>
     </button>
     <div id="preference-switches" :hidden="!isOpen" :aria-hidden="!isOpen">
       <div class="switch-container">
         <label class="options-label" @click="toggleCompositionAPI(false)"
-          >选项式</label
+        >选项式</label
         >
         <VTSwitch
           class="api-switch"
@@ -86,16 +87,16 @@ function useToggleFn(
         <label
           class="composition-label"
           @click="toggleCompositionAPI(true)"
-          >组合式</label
+        >组合式</label
         >
         <a
           class="switch-link"
           title="关于 API 风格偏好"
           href="/guide/introduction.html#api-styles"
           @click="closeSideBar"
-          >?</a
+        >?</a
         >
-        <PreferenceTooltip />
+        <PreferenceTooltip/>
       </div>
       <div class="switch-container" v-if="showSFC">
         <label class="no-sfc-label" @click="toggleSFC(false)">HTML</label>
@@ -111,7 +112,7 @@ function useToggleFn(
           title="关于单文件组件"
           href="/guide/scaling-up/sfc.html"
           @click="closeSideBar"
-          >?</a
+        >?</a
         >
       </div>
     </div>
@@ -173,7 +174,7 @@ function useToggleFn(
   align-items: center;
 }
 
-@media(max-width: 959px){
+@media (max-width: 959px) {
   .switch-container {
     padding: 0 1em;
   }
@@ -222,6 +223,7 @@ function useToggleFn(
   .switch-link {
     margin-left: auto;
   }
+
   .switch-container label:first-child {
     width: 46px;
   }

@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import '@docsearch/css'
-import { ref, defineAsyncComponent, onMounted, onUnmounted } from 'vue'
-import { useConfig } from '../composables/config'
+import {ref, defineAsyncComponent, onMounted, onUnmounted} from 'vue'
+import {useConfig} from '../composables/config'
 
-const { config } = useConfig()
+const {config} = useConfig()
 
 const VPAlgoliaSearchBox = defineAsyncComponent(
   () => import('./VPAlgoliaSearchBox.vue')
@@ -46,7 +46,7 @@ function load() {
 
 <template>
   <div v-if="config.algolia" class="VPNavBarSearch">
-    <VPAlgoliaSearchBox v-if="started" @vue:mounted="loaded = true" />
+    <VPAlgoliaSearchBox v-if="started" @vue:mounted="loaded = true"/>
     <div v-if="!loaded" id="docsearch" @click="load">
       <button
         type="button"
@@ -70,8 +70,8 @@ function load() {
             ></path>
           </svg>
           <span class="DocSearch-Button-Placeholder">{{
-            config.i18n?.search ?? 'Search'
-          }}</span>
+              config.i18n?.search ?? 'Search'
+            }}</span>
         </span>
         <ClientOnly>
           <span class="DocSearch-Button-Keys">
@@ -90,6 +90,7 @@ function load() {
   align-items: center;
   padding-left: 16px;
 }
+
 @media (min-width: 768px) {
   .VPNavBarSearch {
     flex-grow: 1;
@@ -108,6 +109,7 @@ function load() {
   --docsearch-modal-background: var(--vt-c-bg-soft);
   --docsearch-footer-background: var(--vt-c-bg);
 }
+
 .dark .DocSearch {
   --docsearch-modal-shadow: none;
   --docsearch-footer-shadow: none;
@@ -144,16 +146,20 @@ function load() {
   height: 55px;
   background: transparent;
 }
+
 .DocSearch-Button:hover {
   background: transparent;
 }
+
 .DocSearch-Button:focus {
   outline: 1px dotted;
   outline: 5px auto -webkit-focus-ring-color;
 }
+
 .DocSearch-Button:focus:not(:focus-visible) {
   outline: none !important;
 }
+
 @media (min-width: 768px) {
   .DocSearch-Button {
     justify-content: flex-start;
@@ -169,9 +175,11 @@ function load() {
   height: 18px;
   position: relative;
 }
+
 .DocSearch-Button:hover .DocSearch-Search-Icon {
   color: var(--vt-c-text-1);
 }
+
 @media (min-width: 768px) {
   .DocSearch-Button .DocSearch-Search-Icon {
     top: 1px;
@@ -189,9 +197,11 @@ function load() {
   display: none;
   padding: 0 10px 0 0;
 }
+
 .DocSearch-Button:hover .DocSearch-Button-Placeholder {
   color: var(--vt-c-text-1);
 }
+
 @media (min-width: 960px) {
   .DocSearch-Button-Placeholder {
     display: inline-block;
@@ -213,9 +223,11 @@ function load() {
   font-weight: 500;
   transition: color 0.5s, border-color 0.5s;
 }
+
 .DocSearch-Button:hover .DocSearch-Button-Keys {
   border-color: var(--vt-c-brand-light);
 }
+
 @media (min-width: 768px) {
   .DocSearch-Button .DocSearch-Button-Keys {
     display: flex;
@@ -233,6 +245,7 @@ function load() {
   color: var(--vt-c-text-3);
   transition: color 0.5s;
 }
+
 .DocSearch-Button:hover .DocSearch-Button-Key {
   color: var(--vt-c-brand-light);
 }

@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import { useConfig } from '../composables/config'
+import {useConfig} from '../composables/config'
 import VPNavBarMenuLink from './VPNavBarMenuLink.vue'
 import VPNavBarMenuGroup from './VPNavBarMenuGroup.vue'
 import VPNavBarLocale from './VPNavBarLocale.vue';
 
-const { config } = useConfig()
+const {config} = useConfig()
 </script>
 
 <template>
@@ -14,13 +14,13 @@ const { config } = useConfig()
     class="VPNavBarMenu"
   >
     <span id="main-nav-aria-label" class="visually-hidden">{{
-      config.i18n?.ariaMainNav ?? 'Main Navigation'
-    }}</span>
+        config.i18n?.ariaMainNav ?? 'Main Navigation'
+      }}</span>
     <template v-for="item in config.nav" :key="item.text">
-      <VPNavBarMenuLink v-if="'link' in item" :item="item" />
-      <VPNavBarMenuGroup v-else :item="item" />
+      <VPNavBarMenuLink v-if="'link' in item" :item="item"/>
+      <VPNavBarMenuGroup v-else :item="item"/>
     </template>
-    <VPNavBarLocale v-if="config.localeLinks" />
+    <VPNavBarLocale v-if="config.localeLinks"/>
   </nav>
 </template>
 

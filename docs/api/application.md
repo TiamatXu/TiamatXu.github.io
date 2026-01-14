@@ -2,7 +2,8 @@
 
 ## createApp
 
-In Vue 3, APIs that globally mutate Vue's behavior are now moved to application instances created by the new `createApp` method. In addition, their effects are now scoped to that specific application's instance:
+In Vue 3, APIs that globally mutate Vue's behavior are now moved to application instances created by the new `createApp`
+method. In addition, their effects are now scoped to that specific application's instance:
 
 ```js
 import { createApp } from 'vue'
@@ -10,9 +11,13 @@ import { createApp } from 'vue'
 const app = createApp({})
 ```
 
-Calling `createApp` returns an application instance. This instance provides an application context. The entire component tree mounted by the application instance share the same context, which provides the configurations that were previously "global" in Vue 2.x.
+Calling `createApp` returns an application instance. This instance provides an application context. The entire component
+tree mounted by the application instance share the same context, which provides the configurations that were
+previously "global" in Vue 2.x.
 
-In addition, since the `createApp` method returns the application instance itself, you can chain other methods after it which can be found in the following sections.
+In addition, since the `createApp` method returns the application instance itself, you can chain other methods after it
+which can be found in the following sections.
+
 ## app.component
 
 **Arguments:**
@@ -27,7 +32,8 @@ In addition, since the `createApp` method returns the application instance itsel
 
 **Usage:**
 
-Register or retrieve a global component. Registration also automatically sets the component's `name` with the given `name` parameter.
+Register or retrieve a global component. Registration also automatically sets the component's `name` with the given
+`name` parameter.
 
 **Example:**
 
@@ -46,6 +52,7 @@ const MyComponent = app.component('my-component')
 ```
 
 **See also:** [Components](/)
+
 ## app.config
 
 - **Usage:**
@@ -62,6 +69,7 @@ app.config = {...}
 ```
 
 - **See also:** [Application Config](/)
+
 ## app.directive
 
 - **Arguments:**
@@ -124,9 +132,11 @@ An object containing the following properties.
 
 - `instance`: The instance of the component where directive is used.
 - `value`: The value passed to the directive. For example in `v-my-directive="1 + 1"`, the value would be `2`.
-- `oldValue`: The previous value, only available in `beforeUpdate` and `updated`. It is available whether or not the value has changed.
+- `oldValue`: The previous value, only available in `beforeUpdate` and `updated`. It is available whether or not the
+  value has changed.
 - `arg`: The argument passed to the directive, if any. For example in `v-my-directive:foo`, the arg would be `"foo"`.
-- `modifiers`: An object containing modifiers, if any. For example in `v-my-directive.foo.bar`, the modifiers object would be `{ foo: true, bar: true }`.
+- `modifiers`: An object containing modifiers, if any. For example in `v-my-directive.foo.bar`, the modifiers object
+  would be `{ foo: true, bar: true }`.
 - `dir`: an object, passed as a parameter when directive is registered. For example, in the directive
 
 ```js
@@ -156,10 +166,12 @@ A blueprint of the real DOM element received as el argument above.
 The previous virtual node, only available in the `beforeUpdate` and `updated` hooks.
 
 :::tip Note
-Apart from `el`, you should treat these arguments as read-only and never modify them. If you need to share information across hooks, it is recommended to do so through element's [dataset](/).
+Apart from `el`, you should treat these arguments as read-only and never modify them. If you need to share information
+across hooks, it is recommended to do so through element's [dataset](/).
 :::
 
 - **See also:** [Custom Directives](/)
+
 ## app.mixin
 
 - **Arguments:**
@@ -172,9 +184,12 @@ Apart from `el`, you should treat these arguments as read-only and never modify 
 
 - **Usage:**
 
-  Apply a mixin in the whole application scope. Once registered they can be used in the template of any component within the current application. This can be used by plugin authors to inject custom behavior into components. **Not recommended in application code**.
+  Apply a mixin in the whole application scope. Once registered they can be used in the template of any component within
+  the current application. This can be used by plugin authors to inject custom behavior into components. **Not
+  recommended in application code**.
 
 - **See also:** [Global Mixin](/)
+
 ## app.mount
 
 - **Arguments:**
@@ -188,7 +203,8 @@ Apart from `el`, you should treat these arguments as read-only and never modify 
 
 - **Usage:**
 
-  The `innerHTML` of the provided DOM element will be replaced with the rendered template of the application root component.
+  The `innerHTML` of the provided DOM element will be replaced with the rendered template of the application root
+  component.
 
 - **Example:**
 
@@ -208,6 +224,7 @@ app.mount('#my-app')
 
 - **See also:**
   - [Lifecycle Diagram](/)
+
 ## app.provide
 
 - **Arguments:**
@@ -221,16 +238,22 @@ app.mount('#my-app')
 
 - **Usage:**
 
-  Sets a value that can be injected into all components within the application. Components should use `inject` to receive the provided values.
+  Sets a value that can be injected into all components within the application. Components should use `inject` to
+  receive the provided values.
 
-  From a `provide`/`inject` perspective, the application can be thought of as the root-level ancestor, with the root component as its only child.
+  From a `provide`/`inject` perspective, the application can be thought of as the root-level ancestor, with the root
+  component as its only child.
 
-  This method should not be confused with the [provide component option](/) or the [provide function](/) in the composition API. While those are also part of the same `provide`/`inject` mechanism, they are used to configure values provided by a component rather than an application.
+  This method should not be confused with the [provide component option](/) or the [provide function](/) in the
+  composition API. While those are also part of the same `provide`/`inject` mechanism, they are used to configure values
+  provided by a component rather than an application.
 
-  Providing values via the application is especially useful when writing plugins, as plugins typically wouldn't be able to provide values using components. It is an alternative to using [globalProperties](/).
+  Providing values via the application is especially useful when writing plugins, as plugins typically wouldn't be able
+  to provide values using components. It is an alternative to using [globalProperties](/).
 
   :::tip Note
-  The `provide` and `inject` bindings are NOT reactive. This is intentional. However, if you pass down an observed object, properties on that object do remain reactive.
+  The `provide` and `inject` bindings are NOT reactive. This is intentional. However, if you pass down an observed
+  object, properties on that object do remain reactive.
   :::
 
 - **Example:**
@@ -254,6 +277,7 @@ app.provide('user', 'administrator')
 
 - **See also:**
   - [Provide / Inject](/)
+
 ## app.unmount
 
 - **Usage:**
@@ -278,6 +302,7 @@ app.mount('#my-app')
 // Application will be unmounted 5 seconds after mount
 setTimeout(() => app.unmount(), 5000)
 ```
+
 ## app.use
 
 - **Arguments:**
@@ -291,9 +316,11 @@ setTimeout(() => app.unmount(), 5000)
 
 - **Usage:**
 
-  Install a Vue.js plugin. If the plugin is an Object, it must expose an `install` method. If it is a function itself, it will be treated as the install method.
+  Install a Vue.js plugin. If the plugin is an Object, it must expose an `install` method. If it is a function itself,
+  it will be treated as the install method.
 
-  The install method will be called with the application as its first argument. Any `options` passed to `use` will be passed on in subsequent arguments.
+  The install method will be called with the application as its first argument. Any `options` passed to `use` will be
+  passed on in subsequent arguments.
 
   When this method is called on the same plugin multiple times, the plugin will be installed only once.
 
@@ -310,11 +337,13 @@ setTimeout(() => app.unmount(), 5000)
   ```
 
 - **See also:** [Plugins](/)
+
 ## app.version
 
 - **Usage:**
 
-  Provides the installed version of Vue as a string. This is especially useful for community [plugins](/), where you might use different strategies for different versions.
+  Provides the installed version of Vue as a string. This is especially useful for community [plugins](/), where you
+  might use different strategies for different versions.
 
 - **Example:**
 
@@ -362,7 +391,8 @@ app.config.errorHandler = (err, vm, info) => {
 }
 ```
 
-Assign a handler for uncaught errors during component render function and watchers. The handler gets called with the error and the application instance.
+Assign a handler for uncaught errors during component render function and watchers. The handler gets called with the
+error and the application instance.
 
 > Error tracking services [Sentry](/) and [Bugsnag](/) provide official integrations using this option.
 
@@ -400,7 +430,8 @@ app.component('child-component', {
 })
 ```
 
-Adds a global property that can be accessed in any component instance inside the application. The component’s property will take priority when there are conflicting keys.
+Adds a global property that can be accessed in any component instance inside the application. The component’s property
+will take priority when there are conflicting keys.
 
 This can replace Vue 2.x `Vue.prototype` extending:
 
@@ -441,7 +472,8 @@ app.mixin({
 
 Define merging strategies for custom options.
 
-The merge strategy receives the value of that option defined on the parent and child instances as the first and second arguments, respectively.
+The merge strategy receives the value of that option defined on the parent and child instances as the first and second
+arguments, respectively.
 
 - **See also:** [Custom Option Merging Strategies](/)
 
@@ -453,16 +485,21 @@ The merge strategy receives the value of that option defined on the parent and c
 
 - **Usage**:
 
-Set this to `true` to enable component init, compile, render and patch performance tracing in the browser devtool performance/timeline panel. Only works in development mode and in browsers that support the [performance.mark](/) API.
+Set this to `true` to enable component init, compile, render and patch performance tracing in the browser devtool
+performance/timeline panel. Only works in development mode and in browsers that support the [performance.mark](/) API.
 
 ## app.config.compilerOptions
 
 - **Type:** `Object`
 
-Configure runtime compiler options. Values set on this object will be passed to the in-browser template compiler and affect every component in the configured app. Note you can also override these options on a per-component basis using the [`compilerOptions` option](/).
+Configure runtime compiler options. Values set on this object will be passed to the in-browser template compiler and
+affect every component in the configured app. Note you can also override these options on a per-component basis using
+the [`compilerOptions` option](/).
 
 ::: warning Important
-This config option is only respected when using the full build (i.e. the standalone `vue.js` that can compile templates in the browser). If you are using the runtime-only build with a build setup, compiler options must be passed to `@vue/compiler-dom` via build tool configurations instead.
+This config option is only respected when using the full build (i.e. the standalone `vue.js` that can compile templates
+in the browser). If you are using the runtime-only build with a build setup, compiler options must be passed to
+`@vue/compiler-dom` via build tool configurations instead.
 
 - For `vue-loader`: [pass via the `compilerOptions` loader option](/). Also see [how to configure it in `vue-cli`](/).
 
@@ -482,9 +519,12 @@ This config option is only respected when using the full build (i.e. the standal
 app.config.compilerOptions.isCustomElement = (tag) => tag.startsWith('ion-')
 ```
 
-Specifies a method to recognize custom elements defined outside of Vue (e.g., using the Web Components APIs). If component matches this condition, it won't need local or global registration and Vue won't throw a warning about an `Unknown custom element`.
+Specifies a method to recognize custom elements defined outside of Vue (e.g., using the Web Components APIs). If
+component matches this condition, it won't need local or global registration and Vue won't throw a warning about an
+`Unknown custom element`.
 
-> Note that all native HTML and SVG tags don't need to be matched in this function - Vue parser performs this check automatically.
+> Note that all native HTML and SVG tags don't need to be matched in this function - Vue parser performs this check
+> automatically.
 
 ### compilerOptions.whitespace
 
@@ -535,6 +575,7 @@ Typically this is used to avoid conflicting with server-side frameworks that als
 app.config.compilerOptions.comments = true
 ```
 
-By default, Vue will remove HTML comments inside templates in production. Setting this option to `true` will force Vue to preserve comments even in production. Comments are always preserved during development.
+By default, Vue will remove HTML comments inside templates in production. Setting this option to `true` will force Vue
+to preserve comments even in production. Comments are always preserved during development.
 
 This option is typically used when Vue is used with other libraries that rely on HTML comments.

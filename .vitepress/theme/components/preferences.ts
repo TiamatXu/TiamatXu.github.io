@@ -1,5 +1,5 @@
-import { ref } from 'vue'
-import { AugmentedHeader } from '../../headerMdPlugin'
+import {ref} from 'vue'
+import {AugmentedHeader} from '../../headerMdPlugin'
 
 export const inBrowser = typeof window !== 'undefined'
 const get = (key: string, defaultValue = false): boolean =>

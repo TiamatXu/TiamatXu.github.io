@@ -6,13 +6,18 @@
 
 - **Details:**
 
-  The function that returns a data object for the component instance. In `data`, we don't recommend to observe objects with their own stateful behavior like browser API objects and prototype properties. A good idea would be to have here just a plain object that represents component data.
+  The function that returns a data object for the component instance. In `data`, we don't recommend to observe objects
+  with their own stateful behavior like browser API objects and prototype properties. A good idea would be to have here
+  just a plain object that represents component data.
 
-  Once observed, you can no longer add reactive properties to the root data object. It is therefore recommended to declare all root-level reactive properties upfront, before creating the instance.
+  Once observed, you can no longer add reactive properties to the root data object. It is therefore recommended to
+  declare all root-level reactive properties upfront, before creating the instance.
 
-  After the instance is created, the original data object can be accessed as `vm.$data`. The component instance also proxies all the properties found on the data object, so `vm.a` will be equivalent to `vm.$data.a`.
+  After the instance is created, the original data object can be accessed as `vm.$data`. The component instance also
+  proxies all the properties found on the data object, so `vm.a` will be equivalent to `vm.$data.a`.
 
-  Properties that start with `_` or `$` will **not** be proxied on the component instance because they may conflict with Vue's internal properties and API methods. You will have to access them as `vm.$data._property`.
+  Properties that start with `_` or `$` will **not** be proxied on the component instance because they may conflict with
+  Vue's internal properties and API methods. You will have to access them as `vm.$data._property`.
 
 - **Example:**
 
@@ -30,7 +35,8 @@
   console.log(vm.a) // => 1
   ```
 
-  Note that if you use an arrow function with the `data` property, `this` won't be the component's instance, but you can still access the instance as the function's first argument:
+  Note that if you use an arrow function with the `data` property, `this` won't be the component's instance, but you can
+  still access the instance as the function's first argument:
 
   ```js
   data: vm => ({ a: vm.myProp })
@@ -44,17 +50,25 @@
 
 - **Details:**
 
-  A list/hash of attributes that are exposed to accept data from the parent component. It has an Array-based simple syntax and an alternative Object-based syntax that allows advanced configurations such as type checking, custom validation and default values.
+  A list/hash of attributes that are exposed to accept data from the parent component. It has an Array-based simple
+  syntax and an alternative Object-based syntax that allows advanced configurations such as type checking, custom
+  validation and default values.
 
   With Object-based syntax, you can use following options:
 
-  - `type`: can be one of the following native constructors: `String`, `Number`, `Boolean`, `Array`, `Object`, `Date`, `Function`, `Symbol`, any custom constructor function or an array of those. Will check if a prop has a given type, and will throw a warning if it doesn't. [More information](/) on prop types.
+  - `type`: can be one of the following native constructors: `String`, `Number`, `Boolean`, `Array`, `Object`, `Date`,
+    `Function`, `Symbol`, any custom constructor function or an array of those. Will check if a prop has a given type,
+    and will throw a warning if it doesn't. [More information](/) on prop types.
   - `default`: `any`
-    Specifies a default value for the prop. If the prop is not passed, this value will be used instead. Object or array defaults must be returned from a factory function.
+    Specifies a default value for the prop. If the prop is not passed, this value will be used instead. Object or array
+    defaults must be returned from a factory function.
   - `required`: `Boolean`
-    Defines if the prop is required. In a non-production environment, a console warning will be thrown if this value is truthy and the prop is not passed.
+    Defines if the prop is required. In a non-production environment, a console warning will be thrown if this value is
+    truthy and the prop is not passed.
   - `validator`: `Function`
-    Custom validator function that takes the prop value as the sole argument. In a non-production environment, a console warning will be thrown if this function returns a falsy value (i.e. the validation fails). You can read more about prop validation [here](/).
+    Custom validator function that takes the prop value as the sole argument. In a non-production environment, a console
+    warning will be thrown if this function returns a falsy value (i.e. the validation fails). You can read more about
+    prop validation [here](/).
 
 - **Example:**
 
@@ -92,9 +106,11 @@
 
 - **Details:**
 
-  Computed properties to be mixed into the component instance. All getters and setters have their `this` context automatically bound to the component instance.
+  Computed properties to be mixed into the component instance. All getters and setters have their `this` context
+  automatically bound to the component instance.
 
-  Note that if you use an arrow function with a computed property, `this` won't be the component's instance, but you can still access the instance as the function's first argument:
+  Note that if you use an arrow function with a computed property, `this` won't be the component's instance, but you can
+  still access the instance as the function's first argument:
 
   ```js
   computed: {
@@ -102,7 +118,8 @@
   }
   ```
 
-  Computed properties are cached, and only re-computed on reactive dependency changes. Note that if a certain dependency is out of the instance's scope (i.e. not reactive), the computed property will **not** be updated.
+  Computed properties are cached, and only re-computed on reactive dependency changes. Note that if a certain dependency
+  is out of the instance's scope (i.e. not reactive), the computed property will **not** be updated.
 
 - **Example:**
 
@@ -143,10 +160,13 @@
 
 - **Details:**
 
-  Methods to be mixed into the component instance. You can access these methods directly on the VM instance, or use them in directive expressions. All methods will have their `this` context automatically bound to the component instance.
+  Methods to be mixed into the component instance. You can access these methods directly on the VM instance, or use them
+  in directive expressions. All methods will have their `this` context automatically bound to the component instance.
 
   :::tip Note
-  Note that **you should not use an arrow function to define a method** (e.g. `plus: () => this.a++`). The reason is arrow functions bind the parent context, so `this` will not be the component instance as you expect and `this.a` will be undefined.
+  Note that **you should not use an arrow function to define a method** (e.g. `plus: () => this.a++`). The reason is
+  arrow functions bind the parent context, so `this` will not be the component instance as you expect and `this.a` will
+  be undefined.
   :::
 
 - **Example:**
@@ -177,7 +197,10 @@
 
 - **Details:**
 
-  An object where keys are reactive properties to watch — examples include [data](/) or [computed](/) properties — and values are the corresponding callbacks. The value can also be a string of a method name, or an Object that contains additional options. The component instance will call `$watch()` for each entry in the object at instantiation. See [$watch](/) for more information about the `deep`, `immediate` and `flush` options.
+  An object where keys are reactive properties to watch — examples include [data](/) or [computed](/) properties — and
+  values are the corresponding callbacks. The value can also be a string of a method name, or an Object that contains
+  additional options. The component instance will call `$watch()` for each entry in the object at instantiation.
+  See [$watch](/) for more information about the `deep`, `immediate` and `flush` options.
 
 - **Example:**
 
@@ -249,7 +272,9 @@
   ```
 
   ::: tip Note
-  Note that _you should not use an arrow function to define a watcher_ (e.g. `searchQuery: newValue => this.updateAutocomplete(newValue)`). The reason is arrow functions bind the parent context, so `this` will not be the component instance as you expect and `this.updateAutocomplete` will be undefined.
+  Note that _you should not use an arrow function to define a watcher_ (e.g.
+  `searchQuery: newValue => this.updateAutocomplete(newValue)`). The reason is arrow functions bind the parent context,
+  so `this` will not be the component instance as you expect and `this.updateAutocomplete` will be undefined.
   :::
 
 - **See also:** [Watchers](/)
@@ -260,9 +285,13 @@
 
 - **Details:**
 
-  A list/hash of custom events that can be emitted from the component. It has an array-based simple syntax and an alternative Object-based syntax that allows to configure an event validation.
+  A list/hash of custom events that can be emitted from the component. It has an array-based simple syntax and an
+  alternative Object-based syntax that allows to configure an event validation.
 
-  In Object-based syntax, the value of each property can either be `null` or a validator function. The validation function will receive the additional arguments passed to the `$emit` call. For example, if `this.$emit('foo', 1)` is called, the corresponding validator for `foo` will receive the argument `1`. The validator function should return a boolean to indicate whether the event arguments are valid.
+  In Object-based syntax, the value of each property can either be `null` or a validator function. The validation
+  function will receive the additional arguments passed to the `$emit` call. For example, if `this.$emit('foo', 1)` is
+  called, the corresponding validator for `foo` will receive the argument `1`. The validator function should return a
+  boolean to indicate whether the event arguments are valid.
 
 - **Usage:**
 
@@ -297,7 +326,8 @@
   ```
 
   ::: tip Note
-  Events listed in the `emits` option **will not** be inherited by the root element of the component and also will be excluded from the `$attrs` property.
+  Events listed in the `emits` option **will not** be inherited by the root element of the component and also will be
+  excluded from the `$attrs` property.
   :::
 
 * **See also:** [Attribute Inheritance](/)

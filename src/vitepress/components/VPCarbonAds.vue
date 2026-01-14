@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { useMediaQuery } from '@vueuse/core'
-import { ref, onMounted, watch } from 'vue'
-import { useConfig } from '../composables/config'
+import {useMediaQuery} from '@vueuse/core'
+import {ref, onMounted, watch} from 'vue'
+import {useConfig} from '../composables/config'
 
-const { config } = useConfig()
+const {config} = useConfig()
 // this component only loads when user has configured carbonAds
 const carbonOptions = config.value.carbonAds!
 const container = ref()
@@ -38,7 +38,7 @@ if (carbonOptions) {
 </script>
 
 <template>
-  <div class="VPCarbonAds" ref="container" />
+  <div class="VPCarbonAds" ref="container"/>
 </template>
 
 <style>

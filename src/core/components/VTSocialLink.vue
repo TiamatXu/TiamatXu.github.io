@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { SocialLinkSize, SocialLinkIcon } from '../types/socialLink'
+import {SocialLinkSize, SocialLinkIcon} from '../types/socialLink'
 import VTIconDiscord from './icons/VTIconDiscord.vue'
 import VTIconFacebook from './icons/VTIconFacebook.vue'
 import VTIconGitHub from './icons/VTIconGitHub.vue'
@@ -40,7 +40,7 @@ const icons = {
     :target="target"
     rel="noopener noreferrer"
   >
-    <component :is="icons[icon]" class="vt-social-link-icon" />
+    <component :is="icons[icon]" class="vt-social-link-icon"/>
     <span class="visually-hidden">{{ icon }}</span>
   </a>
 </template>

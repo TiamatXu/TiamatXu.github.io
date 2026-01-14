@@ -1,16 +1,19 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import {ref} from 'vue'
 import VTSwitch from './VTSwitch.vue'
 import VTIconSun from './icons/VTIconSun.vue'
 import VTIconMoon from './icons/VTIconMoon.vue'
-import { useConfig } from '../../vitepress/composables/config'
+import {useConfig} from '../../vitepress/composables/config'
 
-const { config } = useConfig()
+const {config} = useConfig()
 
 const storageKey = 'vitepress-theme-appearance'
-const { isDark, toggle } = typeof localStorage !== 'undefined'
+const {isDark, toggle} = typeof localStorage !== 'undefined'
   ? useAppearance()
-  : { isDark: false, toggle: () => {}}
+  : {
+    isDark: false, toggle: () => {
+    }
+  }
 
 function useAppearance() {
   let userPreference = localStorage.getItem(storageKey) || 'auto'
@@ -36,12 +39,12 @@ function useAppearance() {
           ? 'auto'
           : 'dark'
         : query.matches
-        ? 'light'
-        : 'auto')
+          ? 'light'
+          : 'auto')
     )
   }
 
-  return { isDark, toggle }
+  return {isDark, toggle}
 }
 </script>
 
@@ -52,7 +55,7 @@ function useAppearance() {
     :aria-checked="isDark"
     @click="toggle"
   >
-    <VTIconSun class="vt-switch-appearance-sun" />
-    <VTIconMoon class="vt-switch-appearance-moon" />
+    <VTIconSun class="vt-switch-appearance-sun"/>
+    <VTIconMoon class="vt-switch-appearance-moon"/>
   </VTSwitch>
 </template>

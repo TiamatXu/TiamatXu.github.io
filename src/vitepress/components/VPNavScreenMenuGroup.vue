@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { computed, ref } from 'vue'
-import { VTIconPlus, MenuItemChild, MenuBadgeItem } from '../../core'
+import {computed, ref} from 'vue'
+import {VTIconPlus, MenuItemChild, MenuBadgeItem} from '../../core'
 import VPNavScreenMenuGroupLink from './VPNavScreenMenuGroupLink.vue'
 import VPNavScreenMenuGroupSection from './VPNavScreenMenuGroupSection.vue'
 import VTMenuBadge from '../../core/components/VTMenuBadge.vue'
@@ -32,9 +32,9 @@ function toggle() {
     >
       <div>
         <span class="button-text">{{ text }}</span>
-        <VTMenuBadge v-if="badge" :item="badge" />
+        <VTMenuBadge v-if="badge" :item="badge"/>
       </div>
-      <VTIconPlus class="button-icon" />
+      <VTIconPlus class="button-icon"/>
     </button>
 
     <div :id="groupId" class="items">
@@ -65,9 +65,11 @@ function toggle() {
   overflow: hidden;
   transition: border-color 0.5s;
 }
+
 .VPNavScreenMenuGroup .items {
   visibility: hidden;
 }
+
 .VPNavScreenMenuGroup.open .items {
   visibility: visible;
 }
@@ -113,9 +115,11 @@ function toggle() {
 .group:first-child {
   padding-top: 4px;
 }
+
 .group + .group {
   padding-top: 8px;
 }
+
 .group + .item {
   padding-top: 8px;
 }

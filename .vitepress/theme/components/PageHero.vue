@@ -1,10 +1,10 @@
 <template>
   <div class="page-hero">
     <h1 class="page-hero__title">
-      <slot name="title" />
+      <slot name="title"/>
     </h1>
     <div class="page-hero__lead">
-      <slot name="lead" />
+      <slot name="lead"/>
     </div>
   </div>
 </template>

@@ -13,8 +13,8 @@
 <script>
 export default {
   props: {
-    href: { type: String, required: true },
-    title: { type: String, required: true }
+    href: {type: String, required: true},
+    title: {type: String, required: true}
   }
 }
 </script>
@@ -28,11 +28,13 @@ export default {
   display: flex;
   border-radius: 8px;
 }
+
 .vueschool a {
   color: var(--c-text);
   position: relative;
   padding-left: 36px;
 }
+
 .vueschool a:before {
   content: '';
   position: absolute;
@@ -44,6 +46,7 @@ export default {
   border-radius: 50%;
   background-color: #73abfe;
 }
+
 .vueschool a:after {
   content: '';
   position: absolute;

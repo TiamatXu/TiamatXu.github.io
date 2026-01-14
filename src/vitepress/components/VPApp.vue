@@ -1,13 +1,13 @@
 <script lang="ts" setup>
-import { VTBackdrop } from '../../core'
-import { useSidebar } from '../composables/sidebar'
+import {VTBackdrop} from '../../core'
+import {useSidebar} from '../composables/sidebar'
 import VPNav from './VPNav.vue'
 import VPLocalNav from './VPLocalNav.vue'
 import VPSkipLink from './VPSkipLink.vue'
 import VPAnnouncer from './VPAnnouncer.vue'
 import VPSidebar from './VPSidebar.vue'
 import VPContent from './VPContent.vue'
-import { onMounted, onUnmounted, provide, watchEffect } from 'vue'
+import {onMounted, onUnmounted, provide, watchEffect} from 'vue'
 
 const {
   isOpen: isSidebarOpen,
@@ -43,47 +43,47 @@ provide('close-sidebar', closeSidebar)
 
 <template>
   <div class="VPApp">
-    <VPSkipLink />
-    <VTBackdrop class="backdrop" :show="isSidebarOpen" @click="closeSidebar" />
-    <slot name="banner" />
+    <VPSkipLink/>
+    <VTBackdrop class="backdrop" :show="isSidebarOpen" @click="closeSidebar"/>
+    <slot name="banner"/>
     <VPNav>
       <template #navbar-title>
-        <slot name="navbar-title" />
+        <slot name="navbar-title"/>
       </template>
     </VPNav>
-    <VPLocalNav :open="isSidebarOpen" @open-menu="openSidebar" />
+    <VPLocalNav :open="isSidebarOpen" @open-menu="openSidebar"/>
     <VPSidebar :open="isSidebarOpen">
       <template #top>
-        <slot name="sidebar-top" />
+        <slot name="sidebar-top"/>
       </template>
       <template #bottom>
-        <slot name="sidebar-bottom" />
+        <slot name="sidebar-bottom"/>
       </template>
     </VPSidebar>
     <VPContent>
       <template #content-top>
-        <slot name="content-top" />
+        <slot name="content-top"/>
       </template>
       <template #content-bottom>
-        <slot name="content-bottom" />
+        <slot name="content-bottom"/>
       </template>
       <template #aside-top>
-        <slot name="aside-top" />
+        <slot name="aside-top"/>
       </template>
       <template #aside-mid>
-        <slot name="aside-mid" />
+        <slot name="aside-mid"/>
       </template>
       <template #aside-bottom>
-        <slot name="aside-bottom" />
+        <slot name="aside-bottom"/>
       </template>
       <template #footer-before>
-        <slot name="footer-before" />
+        <slot name="footer-before"/>
       </template>
       <template #footer-after>
-        <slot name="footer-after" />
+        <slot name="footer-after"/>
       </template>
     </VPContent>
-    <VPAnnouncer />
+    <VPAnnouncer/>
   </div>
 </template>
 

@@ -1,5 +1,5 @@
-import { SidebarConfig, SidebarGroup } from '../config'
-import { ensureStartingSlash } from './utils'
+import {SidebarConfig, SidebarGroup} from '../config'
+import {ensureStartingSlash} from './utils'
 
 /**
  * Get the `SidebarConfig` from sidebar option. This method will ensure to get

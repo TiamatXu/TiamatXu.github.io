@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { useActiveAnchor, useOutlineHeaders } from '../composables/outline'
-import { ref } from 'vue'
-import { useConfig } from '../composables/config'
+import {useActiveAnchor, useOutlineHeaders} from '../composables/outline'
+import {ref} from 'vue'
+import {useConfig} from '../composables/config'
 import VPDocOutlineItem from './VPDocOutlineItem.vue'
 
-const { config } = useConfig()
+const {config} = useConfig()
 const container = ref()
 const marker = ref()
 const headers = useOutlineHeaders()
@@ -14,13 +14,13 @@ useActiveAnchor(container, marker)
 
 <template>
   <div class="VPContentDocOutline" ref="container">
-    <div class="outline-marker" ref="marker" />
+    <div class="outline-marker" ref="marker"/>
     <div class="outline-title">{{ config.i18n?.toc ?? 'On this page' }}</div>
     <nav aria-labelledby="doc-outline-aria-label">
       <span id="doc-outline-aria-label" class="visually-hidden">{{
-        config.i18n?.ariaToC ?? 'Table of Contents for current page'
-      }}</span>
-      <VPDocOutlineItem :headers="headers" />
+          config.i18n?.ariaToC ?? 'Table of Contents for current page'
+        }}</span>
+      <VPDocOutlineItem :headers="headers"/>
     </nav>
   </div>
 </template>
@@ -51,6 +51,6 @@ useActiveAnchor(container, marker)
   left: -12px;
   z-index: 0;
   transition: top 0.25s cubic-bezier(0, 1, 0.5, 1), opacity 0.25s,
-    background-color 0.5s;
+  background-color 0.5s;
 }
 </style>

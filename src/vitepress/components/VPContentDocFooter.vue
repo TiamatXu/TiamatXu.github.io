@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useData } from 'vitepress'
-import { getSidebar } from '../support/sidebar'
-import { SidebarGroup } from '../config'
-import { isActive } from '../support/utils'
+import {computed} from 'vue'
+import {useData} from 'vitepress'
+import {getSidebar} from '../support/sidebar'
+import {SidebarGroup} from '../config'
+import {isActive} from '../support/utils'
 import {
   VTIconChevronLeft,
   VTIconChevronRight,
   MenuItemWithLink
 } from '../../core'
-import { useConfig } from '../composables/config'
+import {useConfig} from '../composables/config'
 
-const { page } = useData()
-const { config } = useConfig()
+const {page} = useData()
+const {config} = useConfig()
 
 const links = computed(() => {
   const sidebar = getSidebar(config.value.sidebar, page.value.relativePath)
@@ -45,7 +45,7 @@ function getFlatSideBarLinks(sidebar: SidebarGroup[]): MenuItemWithLink[] {
       :href="links.prev.link"
     >
       <span class="desc">
-        <VTIconChevronLeft class="vt-link-icon" />
+        <VTIconChevronLeft class="vt-link-icon"/>
         {{ config.i18n?.previous ?? 'Previous' }}
       </span>
       <span class="title">{{ links.prev.text }} </span>
@@ -57,7 +57,7 @@ function getFlatSideBarLinks(sidebar: SidebarGroup[]): MenuItemWithLink[] {
     >
       <span class="desc">
         {{ config.i18n?.next ?? 'Next' }}
-        <VTIconChevronRight class="vt-link-icon" />
+        <VTIconChevronRight class="vt-link-icon"/>
       </span>
       <span class="title">{{ links.next.text }}</span>
     </a>

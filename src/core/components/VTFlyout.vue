@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
-import { MenuBadgeItem, MenuItem, MenuItemChild } from '../types/menu'
-import { useFocusContainer } from '../composables/FocusContainer'
+import {ref} from 'vue'
+import {MenuBadgeItem, MenuItem, MenuItemChild} from '../types/menu'
+import {useFocusContainer} from '../composables/FocusContainer'
 import VTIconChevronDown from './icons/VTIconChevronDown.vue'
 import VTIconMoreHorizontal from './icons/VTIconMoreHorizontal.vue'
 import VTMenu from './VTMenu.vue'
@@ -16,7 +16,9 @@ const props = defineProps<{
 
 const open = ref(false)
 const elRef = ref<HTMLElement>()
-const onBlur = () => { open.value = false }
+const onBlur = () => {
+  open.value = false
+}
 
 useFocusContainer({
   elRef,
@@ -42,17 +44,17 @@ useFocusContainer({
       <slot name="btn-slot">
         <span v-if="props.button" class="vt-flyout-button-text">
           {{ props.button }}
-          <VTMenuBadge v-if="badge" :item="badge" />
-          <VTIconChevronDown class="vt-flyout-button-text-icon" />
+          <VTMenuBadge v-if="badge" :item="badge"/>
+          <VTIconChevronDown class="vt-flyout-button-text-icon"/>
         </span>
 
-        <VTIconMoreHorizontal v-else class="vt-flyout-button-icon" />
+        <VTIconMoreHorizontal v-else class="vt-flyout-button-icon"/>
       </slot>
     </button>
 
     <div class="vt-flyout-menu">
       <VTMenu :items="items">
-        <slot />
+        <slot/>
       </VTMenu>
     </div>
   </div>

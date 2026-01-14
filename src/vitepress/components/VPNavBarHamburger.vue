@@ -1,13 +1,13 @@
 <script lang="ts" setup>
-import { computed } from 'vue'
-import { VTHamburger } from '../../core'
-import { useConfig } from '../composables/config'
+import {computed} from 'vue'
+import {VTHamburger} from '../../core'
+import {useConfig} from '../composables/config'
 
 defineProps<{
   active: boolean
 }>()
 
-const { config } = useConfig()
+const {config} = useConfig()
 
 const hasContent = computed(() => {
   return config.value.appearance || config.value.socialLinks
@@ -15,7 +15,7 @@ const hasContent = computed(() => {
 </script>
 
 <template>
-  <VTHamburger v-if="hasContent" class="VPNavBarHamburger" :active="active" />
+  <VTHamburger v-if="hasContent" class="VPNavBarHamburger" :active="active"/>
 </template>
 
 <style scoped>

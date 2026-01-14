@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
-import { SponsorData, data, base, load } from './sponsors'
+import {ref, onMounted, onUnmounted} from 'vue'
+import {SponsorData, data, base, load} from './sponsors'
 
 type Placement = 'aside' | 'page' | 'landing'
 
@@ -26,7 +26,7 @@ onMounted(async () => {
         observer.disconnect()
       }
     },
-    { rootMargin: '0px 0px 300px 0px' }
+    {rootMargin: '0px 0px 300px 0px'}
   )
   observer.observe(container.value!)
   onUnmounted(() => observer.disconnect())
@@ -83,9 +83,9 @@ function resolveList(data: SponsorData) {
             type="image/avif"
             :srcset="`${base}/images/${img.replace(/\.png$/, '.avif')}`"
           />
-          <img :src="`${base}/images/${img}`" :alt="name" />
+          <img :src="`${base}/images/${img}`" :alt="name"/>
         </picture>
-        <img v-else :src="`${base}/images/${img}`" :alt="name" />
+        <img v-else :src="`${base}/images/${img}`" :alt="name"/>
       </a>
     </template>
     <a
@@ -93,14 +93,14 @@ function resolveList(data: SponsorData) {
       href="/sponsor/"
       class="spsr-item action"
       @click="track(true)"
-      >成为赞助商</a
+    >成为赞助商</a
     >
     <a
       v-if="tier === 'special' && data && !data[tier]?.length"
       href="/sponsor/#tier-benefits"
       class="spsr-item action"
       @click="track(true)"
-      >Inquire about Special Sponsorship</a
+    >Inquire about Special Sponsorship</a
     >
   </div>
 </template>
@@ -116,9 +116,11 @@ function resolveList(data: SponsorData) {
 .spsr-container.platinum {
   --max-width: 240px;
 }
+
 .spsr-container.gold {
   --max-width: 180px;
 }
+
 .spsr-container.silver {
   --max-width: 140px;
 }
@@ -133,20 +135,25 @@ function resolveList(data: SponsorData) {
   transition: background-color 0.2s ease;
   height: calc(var(--max-width) / 2 - 6px);
 }
+
 .spsr-item.action {
   font-size: 11px;
   color: var(--vt-c-text-3);
 }
+
 .spsr-container.page .spsr-item.action {
- font-size: 16px;
+  font-size: 16px;
 }
+
 .spsr-item img {
   max-width: calc(var(--max-width) - 30px);
   max-height: calc(var(--max-width) / 2 - 20px);
 }
+
 .special .spsr-item {
   height: 160px;
 }
+
 .special .spsr-item img {
   max-width: 300px;
   max-height: 150px;
@@ -157,19 +164,23 @@ function resolveList(data: SponsorData) {
 .dark .landing .spsr-item {
   background-color: var(--vt-c-bg-soft);
 }
+
 .aside .spsr-item img,
 .landing .spsr-item img {
   transition: filter 0.2s ease;
 }
+
 .dark .aside .spsr-item img,
 .dark .landing .spsr-item img {
   filter: grayscale(1) invert(1);
 }
+
 .dark .aside .spsr-item:hover,
 .dark .landing .spsr-item:hover {
   color: var(--vt-c-indigo);
   background-color: var(--vt-c-white-mute);
 }
+
 .dark .spsr-item:hover img {
   filter: none;
 }
@@ -179,21 +190,26 @@ function resolveList(data: SponsorData) {
   --max-width: 110px;
   column-gap: 1px;
 }
+
 .aside .spsr-item {
   margin: 1px 0;
 }
+
 .aside .special .spsr-item {
   width: 100%;
   height: 70px;
 }
+
 .aside .special .spsr-item img {
   max-width: 120px;
   max-height: 48px;
 }
+
 .aside .platinum .spsr-item {
   width: 111px;
   height: 50px;
 }
+
 .aside .platinum .spsr-item img {
   max-width: 88px;
 }
@@ -203,9 +219,11 @@ function resolveList(data: SponsorData) {
   .spsr-container.platinum {
     --max-width: 180px;
   }
+
   .spsr-container.gold {
     --max-width: 140px;
   }
+
   .spsr-container.silver {
     --max-width: 120px;
   }
@@ -215,9 +233,11 @@ function resolveList(data: SponsorData) {
   .spsr-container.platinum {
     --max-width: 150px;
   }
+
   .spsr-container.gold {
     --max-width: 120px;
   }
+
   .spsr-container.silver {
     --max-width: 100px;
   }

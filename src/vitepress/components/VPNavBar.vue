@@ -17,15 +17,15 @@ defineProps<{
     <div class="container">
       <VPNavBarTitle>
         <template #navbar-title>
-          <slot name="navbar-title" />
+          <slot name="navbar-title"/>
         </template>
       </VPNavBarTitle>
       <div class="content">
-        <VPNavBarSearch class="search" />
-        <VPNavBarMenu class="menu" />
-        <VPNavBarAppearance class="appearance" />
-        <VPNavBarSocialLinks class="social-links" />
-        <VPNavBarExtra class="extra" />
+        <VPNavBarSearch class="search"/>
+        <VPNavBarMenu class="menu"/>
+        <VPNavBarAppearance class="appearance"/>
+        <VPNavBarSocialLinks class="social-links"/>
+        <VPNavBarExtra class="extra"/>
         <VPNavBarHamburger
           class="hamburger"
           :active="isScreenOpen"
@@ -76,9 +76,11 @@ defineProps<{
 .menu + .appearance {
   margin-left: 8px;
 }
+
 .menu + .social-links {
   margin-left: 12px;
 }
+
 .appearance + .social-links {
   margin-left: 12px;
 }

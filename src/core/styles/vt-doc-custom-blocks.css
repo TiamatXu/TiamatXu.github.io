@@ -44,6 +44,7 @@
 .vt-doc .custom-block.tip {
   border: 1px solid var(--vt-c-brand);
 }
+
 .vt-doc .custom-block.tip:before {
   color: var(--vt-c-brand);
 }
@@ -51,6 +52,7 @@
 .vt-doc .custom-block.warning {
   border: 1px solid var(--vt-c-yellow);
 }
+
 .vt-doc .custom-block.warning:before {
   color: var(--vt-c-yellow);
 }
@@ -58,6 +60,7 @@
 .vt-doc .custom-block.danger {
   border: 1px solid var(--vt-c-red);
 }
+
 .vt-doc .custom-block.danger .custom-block-title,
 .vt-doc .custom-block.danger:before {
   color: var(--vt-c-red);
@@ -66,6 +69,7 @@
 .vt-doc .custom-block ul li:before {
   top: 0.55rem;
 }
+
 .vt-doc .custom-block ol li:before {
   top: 1px;
   font-size: 13px;

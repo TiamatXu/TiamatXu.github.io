@@ -5,6 +5,7 @@
 .vt-badge.ts {
   background-color: #3178c6;
 }
+
 .vt-badge.ts:before {
   content: 'TS';
 }

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { VTLink } from '@vue/theme'
-import { useData } from 'vitepress'
+import {VTLink} from '@vue/theme'
+import {useData} from 'vitepress'
 
 const data = useData()
 const nav = data.site.value.themeConfig.nav

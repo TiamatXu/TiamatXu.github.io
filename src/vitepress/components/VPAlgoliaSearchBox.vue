@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import docsearch from '@docsearch/js'
-import { useRoute, useRouter } from 'vitepress'
-import { onMounted } from 'vue'
-import { useConfig } from '../composables/config'
-import type { AlgoliaSearchOptions } from '../config'
+import {useRoute, useRouter} from 'vitepress'
+import {onMounted} from 'vue'
+import {useConfig} from '../composables/config'
+import type {AlgoliaSearchOptions} from '../config'
 
 // partial type only containing what we need
 interface DocSearchHit {
   url: string
 }
 
-const { config } = useConfig()
+const {config} = useConfig()
 const route = useRoute()
 const router = useRouter()
 
@@ -39,13 +39,13 @@ function initialize(userOptions: AlgoliaSearchOptions) {
   const options = Object.assign({}, userOptions, {
     container: '#docsearch',
 
-    getMissingResultsUrl({ query }: { query: string }) {
+    getMissingResultsUrl({query}: { query: string }) {
       return `https://github.com/vuejs/docs/issues/new?title=Missing%20search%20result%20for%20${query}`
     },
 
     navigator: {
-      navigate: ({ itemUrl }: { itemUrl: string }) => {
-        const { pathname: hitPathname } = new URL(
+      navigate: ({itemUrl}: { itemUrl: string }) => {
+        const {pathname: hitPathname} = new URL(
           window.location.origin + itemUrl
         )
 
@@ -67,7 +67,7 @@ function initialize(userOptions: AlgoliaSearchOptions) {
       })
     },
 
-    hitComponent: ({ hit, children }: { hit: DocSearchHit; children: any }) => {
+    hitComponent: ({hit, children}: { hit: DocSearchHit; children: any }) => {
       const relativeHit = hit.url.startsWith('http')
         ? getRelativePath(hit.url as string)
         : hit.url
@@ -120,7 +120,7 @@ function isSpecialClick(event: MouseEvent) {
 }
 
 function getRelativePath(absoluteUrl: string) {
-  const { pathname, hash } = new URL(absoluteUrl)
+  const {pathname, hash} = new URL(absoluteUrl)
 
   return pathname + hash
 }

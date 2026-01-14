@@ -20,7 +20,7 @@ const githubUsername = 'TiamatXu'
 
   <section id="contribution-chart">
     <h2>GitHub Contribution Activity</h2>
-    <ContributionGraph :github-username="githubUsername" />
+    <ContributionGraph :github-username="githubUsername"/>
   </section>
 
   <section>
