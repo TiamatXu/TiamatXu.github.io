@@ -14,8 +14,7 @@ const {config} = useConfig()
       <VTLink class="link" :href="config.footer.license.link" no-icon>{{
           config.footer.license.text
         }}
-      </VTLink
-      >
+      </VTLink>
       {{ config.i18n?.footerLicense?.after ?? '.' }}
     </p>
 
@@ -28,7 +27,7 @@ const {config} = useConfig()
 <style scoped>
 .VPFooter {
   border-top: 1px solid var(--vt-c-bg-soft);
-  padding: 23px 24px 24px;
+  padding: 20px 21px 21px;
   background-color: var(--vt-c-bg-soft);
   transition: border-top 0.5s, background-color 0.5s;
 }
