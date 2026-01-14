@@ -332,7 +332,7 @@ html.dark .contribution-grid-wrapper::-webkit-scrollbar-thumb:hover {
   height: 14px;
   background-color: var(--color-contrib-level-0);
   border-radius: 3px;
-  outline: 1px solid transparent;
+  outline: 2px solid transparent;
 }
 
 .contribution-grid .contribution-cell:not(.contribution-cell-empty):hover {
