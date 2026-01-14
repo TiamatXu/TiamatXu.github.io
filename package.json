@@ -65,12 +65,12 @@
     "prettier": "^3.2.5",
     "tsx": "^4.21.0",
     "typescript": "^5.4.5",
-    "vitepress": "^1.2.2",
+    "vitepress": "^1.6.4",
     "vue": "^3.4.27",
     "vue-tsc": "^2.0.19"
   },
   "peerDependencies": {
-    "vitepress": "^1.2.2"
+    "vitepress": "^1.6.4"
   },
   "pnpm": {
     "peerDependencyRules": {
