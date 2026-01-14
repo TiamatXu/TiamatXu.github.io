@@ -222,11 +222,52 @@ html.dark { /* Dark mode overrides */
   --color-contrib-level-3: #26a641;
   --color-contrib-level-4: #39d353;
 }
+
+.contribution-grid-wrapper {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(61,68,77,0.5) transparent;
+}
+
+.contribution-grid-wrapper::-webkit-scrollbar {
+  height: 10px;
+}
+
+.contribution-grid-wrapper::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.contribution-grid-wrapper::-webkit-scrollbar-thumb {
+  background-color: rgba(61,68,77,0.5);
+  border-radius: 6px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  transition: background-color 0.15s ease;
+}
+
+.contribution-grid-wrapper::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(61,68,77,0.7);
+}
+
+html.dark .contribution-grid-wrapper {
+  scrollbar-color: rgba(255,255,255,0.25) transparent;
+}
+
+html.dark .contribution-grid-wrapper::-webkit-scrollbar-thumb {
+  background-color: rgba(255,255,255,0.25);
+}
+
+html.dark .contribution-grid-wrapper::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255,255,255,0.45);
+}
+
+.contribution-grid-wrapper::-webkit-scrollbar-track-piece {
+  background: transparent;
+}
 </style>
 
 <style scoped>
 .error-message {
-  color: var(--vp-c-danger-1);
+  color: var(--vt-c-text-1);
   margin-top: 20px;
   font-size: 12px;
 }
@@ -236,10 +277,6 @@ html.dark { /* Dark mode overrides */
   flex-direction: column;
   align-items: stretch;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-  border: 1px solid var(--vp-c-divider);
-  //border-radius: 6px;
-  //padding-bottom: 8px;
-  background-color: var(--vp-c-bg-soft);
   max-width: 100%;
   box-sizing: border-box;
 }
