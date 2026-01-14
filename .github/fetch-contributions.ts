@@ -94,7 +94,7 @@ async function fetchAndSaveContributionsFromSvg() {
 
       // Initialize the weeks array with empty weeks
       for (let i = 0; i < numWeeks; i++) {
-        weeks.push({ contributionDays: [] });
+        weeks.push({contributionDays: []});
       }
 
       // Place each day into its correct week (column)

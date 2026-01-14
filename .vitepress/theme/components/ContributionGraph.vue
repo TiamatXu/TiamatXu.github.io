@@ -61,7 +61,7 @@ const grid = computed(() => {
 // Helper to find the starting week index for each month
 const months = computed(() => {
   if (calendar.error || !calendar.weeks) return [];
-  const monthNames = ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'];
+  const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   const uniqueMonths: { name: string, weekIndex: number }[] = [];
 
   calendar.weeks.forEach((week, weekIndex) => {
@@ -98,7 +98,7 @@ const monthsWithColspan = computed(() => {
 });
 
 
-const weekdayLabels = ['', '周一', '', '周三', '', '周五', '']; // Sun, Mon, Tue, Wed, Thu, Fri, Sat
+const weekdayLabels = ['', 'Mon', '', 'Wed', '', 'Fri', ''];
 
 // Helper to map contribution level to CSS class
 const getLevelClass = (level: ContributionLevel) => {
@@ -179,11 +179,11 @@ const handleMouseOut = () => {
 
     <!-- Legend and Footer -->
     <div class="calendar-footer">
-      <a class="footer-link" href="https://docs.github.com/TiamatXu" target="_blank" rel="noopener noreferrer">
+      <a class="footer-link" href="https://github.com/TiamatXu" target="_blank" rel="noopener noreferrer">
         Learn how to achieve the same effect.
       </a>
       <div class="legend">
-        <span class="legend-label">更少</span>
+        <span class="legend-label">Less</span>
         <ul class="legend-colors">
           <li data-level="0" :class="['contribution-cell', 'contrib-level-0']"></li>
           <li data-level="1" :class="['contribution-cell', 'contrib-level-1']"></li>
@@ -191,7 +191,7 @@ const handleMouseOut = () => {
           <li data-level="3" :class="['contribution-cell', 'contrib-level-3']"></li>
           <li data-level="4" :class="['contribution-cell', 'contrib-level-4']"></li>
         </ul>
-        <span class="legend-label">更多</span>
+        <span class="legend-label">More</span>
       </div>
     </div>
   </div>
@@ -237,8 +237,8 @@ html.dark { /* Dark mode overrides */
   align-items: stretch;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   border: 1px solid var(--vp-c-divider);
-  border-radius: 6px;
-  padding: 16px;
+  //border-radius: 6px;
+  //padding-bottom: 8px;
   background-color: var(--vp-c-bg-soft);
   max-width: 100%;
   box-sizing: border-box;
@@ -257,12 +257,14 @@ html.dark { /* Dark mode overrides */
 .contribution-grid thead {
   font-size: 12px;
   color: var(--color-contrib-text);
+  position: relative;
+  top: 5px;
 }
 
 .month-header {
   font-weight: normal;
   text-align: left;
-  padding-bottom: 2px;
+  padding-bottom: 0;
   white-space: nowrap;
 }
 
@@ -271,9 +273,8 @@ html.dark { /* Dark mode overrides */
   position: sticky;
   left: 0;
   z-index: 1;
-  background-color: var(--vp-c-bg-soft);
-  /* Use box-shadow to cover the border-spacing gap */
-  box-shadow: 3px 0 0 0 var(--vp-c-bg-soft);
+  background-color: var(--vt-c-bg);
+  //box-shadow: 3px 0 0 0 var(--vp-c-bg-soft);
 }
 
 .weekday-label {
@@ -281,26 +282,20 @@ html.dark { /* Dark mode overrides */
   color: var(--color-contrib-text);
   font-weight: normal;
   text-align: left;
-  padding-right: 4px;
+  padding-right: 1px;
   white-space: nowrap;
   line-height: 1;
   box-sizing: border-box;
 }
 
-/* Hide weekday labels for rows that shouldn't have one */
-tbody tr:nth-child(1) .weekday-label,
-tbody tr:nth-child(3) .weekday-label,
-tbody tr:nth-child(5) .weekday-label,
-tbody tr:nth-child(7) .weekday-label {
-  visibility: hidden;
-}
+
 
 .contribution-cell {
   width: 14px;
   height: 14px;
   background-color: var(--color-contrib-level-0);
   border-radius: 3px;
-  outline: 2px solid transparent;
+  outline: 1px solid transparent;
 }
 
 .contribution-grid .contribution-cell:not(.contribution-cell-empty):hover {
@@ -346,8 +341,7 @@ html.dark .contribution-grid .contribution-cell:not(.contribution-cell-empty):ho
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 8px 30px 0 30px;
-  //margin-top: 8px;
+  padding: 4px 0 0 33px;
   font-size: 12px;
 }
 
@@ -359,6 +353,7 @@ html.dark .contribution-grid .contribution-cell:not(.contribution-cell-empty):ho
 .legend-label {
   color: var(--color-legend-text);
   margin: 0 4px;
+  white-space: nowrap;
 }
 
 .legend-colors {
@@ -377,6 +372,7 @@ html.dark .contribution-grid .contribution-cell:not(.contribution-cell-empty):ho
 .footer-link {
   color: var(--color-legend-text);
   text-decoration: none;
+  text-align: left;
 }
 
 .footer-link:hover {

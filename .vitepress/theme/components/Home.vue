@@ -19,7 +19,7 @@ const githubUsername = 'TiamatXu'
   </section>
 
   <section id="contribution-chart">
-    <h2>GitHub 动态</h2>
+    <h2>GitHub Contribution Activity</h2>
     <ContributionGraph :github-username="githubUsername" />
   </section>
 
@@ -276,7 +276,7 @@ html:not(.dark) .accent,
 #contribution-chart h2 {
   font-size: 20px;
   font-weight: 600;
-  //margin-bottom: 1em;
+  margin-bottom: 0.5em;
   color: var(--vt-c-text-1);
 }
 
