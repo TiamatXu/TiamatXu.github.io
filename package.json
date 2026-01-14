@@ -51,6 +51,7 @@
     "@docsearch/js": "^3.6.0",
     "@vueuse/core": "^10.9.0",
     "body-scroll-lock": "^4.0.0-beta.0",
+    "markdown-it": "^14.1.0",
     "normalize.css": "^8.0.1",
     "tiny-decode": "^0.1.3"
   },
