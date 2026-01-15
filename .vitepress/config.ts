@@ -50,7 +50,7 @@ export default defineConfigWithTheme<ThemeConfig>({
     nav: [
       {
         text: '文档',
-        // activeMatch: `^/(guide|style-guide|cookbook|examples)/`,
+        activeMatch: `^/(Linux|文档)/`,
         items: [
           { text: 'Linux', link: '/linux/Docker-zookeeper 集群编排' },
           { text: '文档', link: '/doc-site/VitePress 部署指南' }
@@ -58,8 +58,10 @@ export default defineConfigWithTheme<ThemeConfig>({
       },
       {
         text: '项目',
+        activeMatch: `^/project/`,
         items: [
           {
+            text: 'Github',
             items: [
               { text: 'Github 主页', link: 'https://github.com/TiamatXu' }
             ]

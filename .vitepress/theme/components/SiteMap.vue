@@ -4,10 +4,10 @@ import {useData} from 'vitepress'
 
 const data = useData()
 const nav = data.site.value.themeConfig.nav
-const ecosystem = nav.find((i: any) => i.activeMatch?.includes('ecosystem'))
+const project = nav.find((i: any) => i.activeMatch?.includes('project'))
 const items = nav
-  .filter((i: any) => i !== ecosystem && i.items)
-  .concat(ecosystem.items)
+  .filter((i: any) => i !== project && i.items)
+  .concat(project.items)
 </script>
 
 <template>
