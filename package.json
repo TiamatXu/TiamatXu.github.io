@@ -40,6 +40,7 @@
     "lint:fail": "prettier --check --parser typescript \"{__tests__,docs,src,types}/**/*.ts\"",
     "type": "vue-tsc --noEmit",
     "test": "pnpm run lint && pnpm run type",
+    "fetch-contributions": "tsx .github/fetch-contributions.ts",
     "dev": "vitepress dev",
     "build": "tsx .github/fetch-contributions.ts && vitepress build",
     "serve": "pnpm run build && vitepress serve",
@@ -68,16 +69,6 @@
     "vitepress": "^1.6.4",
     "vue": "^3.4.27",
     "vue-tsc": "^2.0.19"
-  },
-  "peerDependencies": {
-    "vitepress": "^1.6.4"
-  },
-  "pnpm": {
-    "peerDependencyRules": {
-      "ignoreMissing": [
-        "@algolia/client-search"
-      ]
-    }
   },
   "packageManager": "pnpm@10.27.0"
 }
