@@ -10,4 +10,4 @@ tagline: 一个 VitePress 驱动的文档网站
 import Home from '@theme/components/Home.vue'
 </script>
 
-<Home />
+<Home></Home>

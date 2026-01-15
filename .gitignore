@@ -116,8 +116,9 @@ src/examples/data.json
 src/tutorial/data.json
 draft.md
 
-.vitepress/theme/contribution-data.json
-
 ### IDEs ###
 ### folders created by IDE ###
 .idea
+
+### Extra Files ###
+.vitepress/theme/contribution-data.json
