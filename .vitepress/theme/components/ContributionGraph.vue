@@ -35,6 +35,8 @@ defineProps<{
 // --- Component Logic ---
 const calendar = contributionData as ContributionCalendar;
 
+const calendarContainerRef = ref<HTMLDivElement | null>(null);
+
 // Tooltip state
 const showTooltip = ref(false);
 const tooltipContent = ref('');
@@ -125,9 +127,16 @@ const getTooltipText = (day: ContributionDay) => {
 const handleMouseOver = (event: MouseEvent, day: ContributionDay) => {
   showTooltip.value = true;
   tooltipContent.value = getTooltipText(day);
-  const target = event.target as HTMLElement;
-  const rect = target.getBoundingClientRect();
-  tooltipPos.value = {x: rect.left + window.scrollX - rect.width, y: rect.top + window.scrollY - 35};
+
+  if (!calendarContainerRef.value) return;
+
+  const calendarRect = calendarContainerRef.value.getBoundingClientRect();
+  const cellRect = (event.target as HTMLElement).getBoundingClientRect();
+
+  tooltipPos.value = {
+    x: cellRect.left - calendarRect.left + cellRect.width / 2,
+    y: cellRect.top - calendarRect.top,
+  };
 };
 
 const handleMouseOut = () => {
@@ -141,7 +150,7 @@ const handleMouseOut = () => {
     <br>请确保 `CONTRIBUTIONS_TOKEN` 已正确配置，且 GitHub 用户名 `{{ githubUsername }}` 正确。
   </div>
 
-  <div v-else class="contribution-calendar">
+  <div v-else class="contribution-calendar" ref="calendarContainerRef">
     <div class="contribution-grid-wrapper">
       <table class="contribution-grid" @mouseleave="handleMouseOut">
         <thead>
@@ -177,7 +186,6 @@ const handleMouseOut = () => {
       </table>
     </div>
 
-    <!-- Legend and Footer -->
     <div class="calendar-footer">
       <a class="footer-link" href="https://github.com/TiamatXu" target="_blank" rel="noopener noreferrer">
         Learn how to achieve the same effect. (Not configured)
@@ -194,10 +202,10 @@ const handleMouseOut = () => {
         <span class="legend-label">More</span>
       </div>
     </div>
-  </div>
-  <!-- Tooltip -->
-  <div v-if="showTooltip" class="contribution-tooltip" :style="{ left: tooltipPos.x + 'px', top: tooltipPos.y + 'px' }">
-    {{ tooltipContent }}
+    <!-- Tooltip -->
+    <div v-if="showTooltip" class="contribution-tooltip" :style="{ left: tooltipPos.x + 'px', top: tooltipPos.y + 'px' }">
+      {{ tooltipContent }}
+    </div>
   </div>
 </template>
 
@@ -279,6 +287,7 @@ html.dark .contribution-grid-wrapper::-webkit-scrollbar-thumb:hover {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   max-width: 100%;
   box-sizing: border-box;
+  position: relative;
 }
 
 .contribution-grid-wrapper {
@@ -428,7 +437,7 @@ html.dark .contribution-grid .contribution-cell:not(.contribution-cell-empty):ho
 }
 
 .contribution-tooltip {
-  position: fixed;
+  position: absolute;
   padding: 8px 12px;
   background-color: #3d444d;
   color: white;
@@ -437,18 +446,18 @@ html.dark .contribution-grid .contribution-cell:not(.contribution-cell-empty):ho
   pointer-events: none;
   z-index: 1000;
   white-space: nowrap;
-  transform: translateX(-50%);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transform: translateX(-50%) translateY(-100%) translateY(-8px); /* Adjusted for positioning above */
+  box-sizing: border-box;
 }
 
 .contribution-tooltip::after {
   content: '';
   position: absolute;
-  bottom: -5px;
+  top: 100%; /* Position arrow at the bottom of the tooltip */
   left: 50%;
   transform: translateX(-50%);
   border-width: 5px;
   border-style: solid;
-  border-color: #3d444d transparent transparent transparent;
+  border-color: #3d444d transparent transparent transparent; /* Arrow pointing downwards */
 }
 </style>
