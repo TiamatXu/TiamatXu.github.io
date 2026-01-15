@@ -180,7 +180,7 @@ const handleMouseOut = () => {
     <!-- Legend and Footer -->
     <div class="calendar-footer">
       <a class="footer-link" href="https://github.com/TiamatXu" target="_blank" rel="noopener noreferrer">
-        Learn how to achieve the same effect.
+        Learn how to achieve the same effect. (Not configured)
       </a>
       <div class="legend">
         <span class="legend-label">Less</span>
