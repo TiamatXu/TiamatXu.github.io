@@ -1,14 +1,10 @@
 import fs from 'fs'
 import path from 'path'
-import {
-  defineConfigWithTheme,
-  type HeadConfig,
-  type Plugin
-} from 'vitepress'
-import type {Config as ThemeConfig} from './theme-2.3.0/src/vitepress'
+import { defineConfigWithTheme, type HeadConfig, type Plugin } from 'vitepress'
+import type { Config as ThemeConfig } from '../src/vitepress'
 import llmstxt from 'vitepress-plugin-llms'
-import baseConfig from './theme-2.3.0/src/vitepress/config/baseConfig.js'
-import {headerPlugin} from './headerMdPlugin'
+import baseConfig from '../src/vitepress/config/baseConfig.js'
+import { headerPlugin } from './headerMdPlugin'
 // import { textAdPlugin } from './textAdMdPlugin'
 import {
   groupIconMdPlugin,
@@ -20,16 +16,16 @@ const nav: ThemeConfig['nav'] = [
     text: '文档',
     activeMatch: `^/(guide|style-guide|cookbook|examples)/`,
     items: [
-      {text: 'Linux', link: '/linux/Docker-zookeeper 集群编排'},
-      {text: '文档', link: '/doc-site/VitePress 部署指南'},
-      {text: '深度指南', link: '/guide/introduction'},
+      { text: 'Linux', link: '/linux/Docker-zookeeper 集群编排' },
+      { text: '文档', link: '/doc-site/VitePress 部署指南' },
+      { text: '深度指南', link: '/guide/introduction' }
     ]
   },
   {
     text: 'API',
     activeMatch: `^/api/`,
     link: '/api/'
-  },
+  }
 ]
 
 export const sidebar: ThemeConfig['sidebar'] = {
@@ -40,9 +36,9 @@ export const sidebar: ThemeConfig['sidebar'] = {
         {
           text: 'VitePress 部署指南',
           link: '/doc-site/VitePress 部署指南'
-        },
+        }
       ]
-    },
+    }
   ],
   '/linux/': [
     {
@@ -51,7 +47,7 @@ export const sidebar: ThemeConfig['sidebar'] = {
         {
           text: 'Docker-zookeeper 集群编排',
           link: '/linux/Docker-zookeeper 集群编排'
-        },
+        }
       ]
     },
     {
@@ -60,10 +56,10 @@ export const sidebar: ThemeConfig['sidebar'] = {
         {
           text: 'Zsh 全局配置',
           link: '/linux/Zsh 全局配置'
-        },
+        }
       ]
-    },
-  ],
+    }
+  ]
 }
 
 const i18n: ThemeConfig['i18n'] = {
@@ -125,10 +121,10 @@ export default defineConfigWithTheme<ThemeConfig>({
   srcExclude: ['tutorial/**/description.md'],
 
   head: [
-    ['meta', {name: 'theme-color', content: '#3c8772'}],
-    ['meta', {property: 'og:url', content: 'https://vuejs.org/'}],
-    ['meta', {property: 'og:type', content: 'website'}],
-    ['meta', {property: 'og:title', content: 'TiamatXu'}],
+    ['meta', { name: 'theme-color', content: '#3c8772' }],
+    ['meta', { property: 'og:url', content: 'https://vuejs.org/' }],
+    ['meta', { property: 'og:type', content: 'website' }],
+    ['meta', { property: 'og:title', content: 'TiamatXu' }],
     [
       'meta',
       {
@@ -153,7 +149,7 @@ export default defineConfigWithTheme<ThemeConfig>({
       }
     ],
     inlineScript('restorePreference.js'),
-    inlineScript('uwu.js'),
+    inlineScript('uwu.js')
     // [
     //   'script',
     //   {
@@ -243,7 +239,7 @@ export default defineConfigWithTheme<ThemeConfig>({
     // },
 
     socialLinks: [
-      {icon: 'github', link: 'https://github.com/TiamatXu/'},
+      { icon: 'github', link: 'https://github.com/TiamatXu/' }
       // { icon: 'twitter', link: 'https://x.com/vuejs' },
       // { icon: 'discord', link: 'https://discord.com/invite/vue' }
     ],
@@ -258,8 +254,7 @@ export default defineConfigWithTheme<ThemeConfig>({
         text: '版权声明',
         link: 'https://github.com/vuejs-translations/docs-zh-cn#%E7%89%88%E6%9D%83%E5%A3%B0%E6%98%8E'
       },
-      copyright:
-        '本个人博客采用 MIT License 进行许可。'
+      copyright: '本个人博客采用 MIT License 进行许可。'
     }
   },
 

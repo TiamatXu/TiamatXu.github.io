@@ -1,8 +1,7 @@
-import {defineConfigWithTheme} from 'vitepress'
+import { defineConfigWithTheme } from 'vitepress'
 import path from 'path'
 import baseConfig from '../src/vitepress/config/baseConfig'
-import type {Config as ThemeConfig} from '../src/vitepress/config'
-
+import type { Config as ThemeConfig } from '../src/vitepress/config'
 
 export default defineConfigWithTheme<ThemeConfig>({
   extends: baseConfig,
@@ -27,21 +26,34 @@ export default defineConfigWithTheme<ThemeConfig>({
   lang: 'zh-CN',
   title: 'TiamatXu',
   srcDir: 'docs',
-  description: 'TiamatXu 的个人博客，分享技术文章和个人见解。',
+  description: 'TiamatXu 的文档库，分享技术文章和个人见解。',
+
+  head: [
+    ['meta', { name: 'theme-color', content: '#3c8772' }],
+    ['meta', { property: 'og:url', content: 'https://tiamatxu.github.io' }],
+    ['meta', { property: 'og:type', content: 'website' }],
+    ['meta', { property: 'og:title', content: 'TiamatXu' }],
+    [
+      'meta',
+      {
+        property: 'og:description',
+        content: 'TiamatXu 的文档库，分享技术文章和个人见解。'
+      }
+    ],
+    ['meta', { property: 'og:image', content: '/logo.png' }],
+    ['link', { rel: 'preconnect', href: 'https://tiamatxu.github.io' }]
+  ],
 
   themeConfig: {
-    socialLinks: [
-      {icon: 'github', link: 'https://github.com/TiamatXu'},
-    ],
+    socialLinks: [{ icon: 'github', link: 'https://github.com/TiamatXu' }],
 
     nav: [
       {
         text: '文档',
         // activeMatch: `^/(guide|style-guide|cookbook|examples)/`,
         items: [
-          {text: 'Linux', link: '/linux/Docker-zookeeper 集群编排'},
-          {text: '文档', link: '/doc-site/VitePress 部署指南'},
-          {text: '深度指南', link: '/guide/introduction'},
+          { text: 'Linux', link: '/linux/Docker-zookeeper 集群编排' },
+          { text: '文档', link: '/doc-site/VitePress 部署指南' }
         ]
       },
       {
@@ -49,19 +61,22 @@ export default defineConfigWithTheme<ThemeConfig>({
         items: [
           {
             items: [
-              {text: 'Github 主页', link: 'https://github.com/TiamatXu'}
+              { text: 'Github 主页', link: 'https://github.com/TiamatXu' }
             ]
           },
           {
             text: '开发项目',
             items: [
-              {text: 'ZooKeeper', link: 'https://www.google.com/search?q=Zookeeper'},
-              {text: 'Redis', link: 'https://www.baidu.com/s?wd=redis'},
-              {text: 'Kafka', link: 'https://www.baidu.com/s?wd=Kafka'},
+              {
+                text: 'ZooKeeper',
+                link: 'https://www.google.com/search?q=Zookeeper'
+              },
+              { text: 'Redis', link: 'https://www.baidu.com/s?wd=redis' },
+              { text: 'Kafka', link: 'https://www.baidu.com/s?wd=Kafka' }
             ]
           }
         ]
-      },
+      }
     ],
 
     sidebar: {
@@ -72,9 +87,9 @@ export default defineConfigWithTheme<ThemeConfig>({
             {
               text: 'VitePress 部署指南',
               link: '/doc-site/VitePress 部署指南'
-            },
+            }
           ]
-        },
+        }
       ],
       '/linux/': [
         {
@@ -83,7 +98,7 @@ export default defineConfigWithTheme<ThemeConfig>({
             {
               text: 'Docker-zookeeper 集群编排',
               link: '/linux/Docker-zookeeper 集群编排'
-            },
+            }
           ]
         },
         {
@@ -92,13 +107,12 @@ export default defineConfigWithTheme<ThemeConfig>({
             {
               text: 'Zsh 全局配置',
               link: '/linux/Zsh 全局配置'
-            },
+            }
           ]
-        },
-      ],
+        }
+      ]
     },
 
-    // For i18n translation messages
     i18n: {
       search: '搜索',
       menu: '菜单',
@@ -133,7 +147,6 @@ export default defineConfigWithTheme<ThemeConfig>({
       ariaSidebarNav: '侧边栏导航'
     },
 
-    // For locale links
     localeLinks: [
       {
         link: 'https://tiamatxu.github.io',
@@ -149,7 +162,7 @@ export default defineConfigWithTheme<ThemeConfig>({
 
     editLink: {
       repo: 'TiamatXu/TiamatXu.github.io#master',
-      text: '在 GitHub 上编辑此页',
+      text: '在 GitHub 上编辑此页'
     },
 
     footer: {
@@ -157,8 +170,7 @@ export default defineConfigWithTheme<ThemeConfig>({
         text: '版权声明',
         link: 'https://github.com/TiamatXu/TiamatXu.github.io#许可证'
       },
-      copyright:
-        '本个人博客采用 MIT License 进行许可。'
+      copyright: '本个人博客采用 MIT License 进行许可。'
     }
   }
 })
