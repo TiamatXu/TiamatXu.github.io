@@ -385,7 +385,7 @@ html.dark .contribution-grid .contribution-cell:not(.contribution-cell-empty):ho
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 4px 0 0 33px;
+  padding: 4px 0 0 0;
   font-size: 12px;
 }
 
