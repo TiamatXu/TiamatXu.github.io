@@ -15,9 +15,7 @@ const githubUsername = 'TiamatXu'
       <span class="accent">Tiamat Xu</span>
       <br />的个人文档库
     </h1>
-    <p class="description">
-      一个开发者的个人知识库，在这里记录并分享我的学习与实践。
-    </p>
+    <p class="description">一个开发者的个人知识库，在这里记录并分享我的学习与实践。</p>
 <!--    <p class="actions">-->
 <!--      <a class="get-started" href="/guide/introduction.html">-->
 <!--        快速上手-->
@@ -40,10 +38,7 @@ const githubUsername = 'TiamatXu'
   <section id="highlights" class="vt-box-container">
     <div class="vt-box">
       <h2>易学易用</h2>
-      <p>
-        基于标准 HTML、CSS 和 JavaScript 构建，提供容易上手的 API
-        和一流的文档。
-      </p>
+      <p>基于标准 HTML、CSS 和 JavaScript 构建，提供容易上手的 API 和一流的文档。</p>
     </div>
     <div class="vt-box">
       <h2>性能出色</h2>
@@ -51,9 +46,7 @@ const githubUsername = 'TiamatXu'
     </div>
     <div class="vt-box">
       <h2>灵活多变</h2>
-      <p>
-        丰富的、可渐进式集成的生态系统，可以根据应用规模在库和框架间切换自如。
-      </p>
+      <p>丰富的、可渐进式集成的生态系统，可以根据应用规模在库和框架间切换自如。</p>
     </div>
   </section>
 
@@ -65,9 +58,7 @@ const githubUsername = 'TiamatXu'
 <!--  </section>-->
 
   <section id="contribution-chart">
-    <h2 style="color: var(--vt-c-text-1);
-  transition: color 0.5s;
-  margin-bottom: 0.75em;">GitHub Contribution Activity</h2>
+    <h2>GitHub Contribution Activity</h2>
     <ContributionGraph :github-username="githubUsername"/>
   </section>
 
@@ -268,9 +259,10 @@ html:not(.dark) .accent,
 }
 
 #contribution-chart h2 {
+  color: var(--vt-c-text-1);
+  transition: color 0.5s;
+  margin-bottom: 0.75em;
   font-size: 20px;
   font-weight: 600;
-  margin-bottom: 0.5em;
-  color: var(--vt-c-text-1);
 }
 </style>
