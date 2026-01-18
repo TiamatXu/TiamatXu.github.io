@@ -29,32 +29,12 @@ export default defineConfigWithTheme<ThemeConfig>({
   description: 'TiamatXu 的文档库，分享技术文章和个人见解。',
 
   head: [
-    [
-      'meta',
-      {
-        name: 'theme-color',
-        content: '#ffffff',
-        media: '(prefers-color-scheme: light)'
-      }
-    ],
-    [
-      'meta',
-      {
-        name: 'theme-color',
-        content: '#1a1a1a',
-        media: '(prefers-color-scheme: dark)'
-      }
-    ],
+    ['meta', { name: 'theme-color', content: '#ffffff', media: '(prefers-color-scheme: light)' }],
+    ['meta', { name: 'theme-color', content: '#1a1a1a', media: '(prefers-color-scheme: dark)' }],
     ['meta', { property: 'og:url', content: 'https://tiamatxu.github.io' }],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:title', content: 'TiamatXu' }],
-    [
-      'meta',
-      {
-        property: 'og:description',
-        content: 'TiamatXu 的文档库，分享技术文章和个人见解。'
-      }
-    ],
+    ['meta', { property: 'og:description', content: 'TiamatXu 的文档库，分享技术文章和个人见解。' }],
     ['meta', { property: 'og:image', content: '/logo.png' }],
     ['link', { rel: 'preconnect', href: 'https://tiamatxu.github.io' }]
   ],
