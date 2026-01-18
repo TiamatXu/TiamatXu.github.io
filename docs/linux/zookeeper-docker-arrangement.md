@@ -1,4 +1,4 @@
-# `Docker` 配置 `zookeeper` 集群
+# `Docker` 编排 `zookeeper` 集群
 
 #docker #zookeeper
 
