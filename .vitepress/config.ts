@@ -103,7 +103,8 @@ export default defineConfigWithTheme<ThemeConfig>({
           text: '待办清单',
           items: [
             { text: '待办清单', link: '/todo/todolists' },
-            { text: '开发计划', link: '/todo/dev-plan' }
+            { text: '开发计划', link: '/todo/dev-plan' },
+            { text: '模块详情', link: '/todo/module' },
           ]
         }
       ]
