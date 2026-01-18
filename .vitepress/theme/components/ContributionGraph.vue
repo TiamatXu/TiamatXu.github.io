@@ -382,16 +382,18 @@ html.dark .contribution-grid .contribution-cell:not(.contribution-cell-empty):ho
 
 .calendar-footer {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
   align-items: center;
   width: 100%;
   padding: 4px 0 0 0;
   font-size: 12px;
+  gap: 8px;
 }
 
 .legend {
   display: flex;
   align-items: center;
+  margin-left: auto;
 }
 
 .legend-label {
