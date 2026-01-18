@@ -72,7 +72,7 @@ networks:
 
 ## 2. `.env`
 
-```env
+```plaintext
 VERSION=latest
 CONTAINER_NAME=zk
 HOST_IP=0.0.0.0
