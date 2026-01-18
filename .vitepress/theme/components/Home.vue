@@ -81,7 +81,7 @@ section {
   font-weight: 900;
   letter-spacing: -1.5px;
   max-width: 960px;
-  margin: 0px auto;
+  margin: 0 auto;
 }
 
 html:not(.dark) .accent,
