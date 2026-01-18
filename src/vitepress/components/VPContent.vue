@@ -54,7 +54,7 @@ const {hasSidebar} = useSidebar()
 
 @media (min-width: 960px) {
   .VPContent {
-    padding-top: var(--vt-nav-height);
+    //padding-top: var(--vt-nav-height);
   }
 
   .VPContent.has-sidebar {

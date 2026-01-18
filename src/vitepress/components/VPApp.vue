@@ -94,7 +94,13 @@ provide('close-sidebar', closeSidebar)
   min-height: 100vh;
   background-color: var(--vt-c-bg);
   transition: background-color 0.5s;
-  padding-top: var(--vt-banner-height);
+  padding-top: calc(var(--vt-banner-height, 0px) + var(--vt-nav-height));
+}
+
+@media (max-width: 959px) {
+  .VPApp {
+    padding-top: calc(var(--vt-banner-height, 0px) + var(--vt-nav-height) + 48px);
+  }
 }
 
 .backdrop {
