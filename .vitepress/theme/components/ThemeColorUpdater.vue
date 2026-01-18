@@ -8,17 +8,29 @@ const lightColor = '#ffffff'
 const darkColor = '#1a1a1a'
 
 function updateThemeColor() {
-  const color = isDark.value ? darkColor : lightColor
-  if (typeof window !== 'undefined') {
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', color)
+  if (typeof window === 'undefined') {
+    return
   }
+  
+  const color = isDark.value ? darkColor : lightColor
+
+  // Remove all theme-color meta tags to avoid conflicts.
+  document.querySelectorAll('meta[name="theme-color"]').forEach((el) => el.remove())
+
+  // Add the new theme-color meta tag.
+  const meta = document.createElement('meta')
+  meta.name = 'theme-color'
+  meta.content = color
+  document.head.appendChild(meta)
 }
 
 onMounted(() => {
+  // Update the theme color as soon as the component is mounted.
   updateThemeColor()
 })
 
 watch(isDark, () => {
+  // And update it again whenever the theme changes.
   updateThemeColor()
 })
 </script>
