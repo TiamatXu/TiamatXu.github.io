@@ -11,25 +11,20 @@ function updateThemeColor() {
   if (typeof window === 'undefined') {
     return
   }
-  
-  const color = isDark.value ? darkColor : lightColor
 
-  // Look for a meta tag that is not controlled by a media query.
-  let manualMetaTag = document.querySelector('meta[name="theme-color"]:not([media])')
+  // When a user manually toggles the theme, their choice should be absolute,
+  // overriding the media query. We can achieve this by setting the `content`
+  // of BOTH meta tags to the desired color.
+  const color = isDark.value ? darkColor : lightColor;
 
-  if (manualMetaTag) {
-    // If it exists, just update its content.
-    manualMetaTag.content = color
-  } else {
-    // If it doesn't exist, this is the first time we are overriding.
-    // Remove the media-query based tags to avoid conflicts.
-    document.querySelectorAll('meta[name="theme-color"][media]').forEach((el) => el.remove())
+  const lightMeta = document.querySelector('meta[name="theme-color"][media="(prefers-color-scheme: light)"]');
+  const darkMeta = document.querySelector('meta[name="theme-color"][media="(prefers-color-scheme: dark)"]');
 
-    // And create a new one to gain control.
-    const newMeta = document.createElement('meta')
-    newMeta.name = 'theme-color'
-    newMeta.content = color
-    document.head.appendChild(newMeta)
+  if (lightMeta) {
+    lightMeta.content = color;
+  }
+  if (darkMeta) {
+    darkMeta.content = color;
   }
 }
 
