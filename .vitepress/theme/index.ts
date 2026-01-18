@@ -10,8 +10,8 @@ import {
 } from './components/preferences'
 // import SponsorsAside from './components/SponsorsAside.vue'
 // import VueSchoolLink from './components/VueSchoolLink.vue'
-import ScrimbaLink from './components/ScrimbaLink.vue'
-import WwAds from './components/WwAds.vue'
+// import ScrimbaLink from './components/ScrimbaLink.vue'
+// import WwAds from './components/WwAds.vue'
 // import Banner from './components/Banner.vue'
 // import TextAd from './components/TextAd.vue'
 
@@ -26,7 +26,7 @@ export default Object.assign({}, VPTheme, {
       // 'sidebar-top': () => h(PreferenceSwitch),
       // 'sidebar-bottom': () => h(SecurityUpdateBtn),
       // 'aside-mid': () => h(SponsorsAside),
-      'aside-bottom': () => h(WwAds)
+      // 'aside-bottom': () => h(WwAds)
     })
   },
   enhanceApp({app}: { app: App }) {
@@ -34,7 +34,7 @@ export default Object.assign({}, VPTheme, {
     app.provide('prefer-sfc', preferSFC)
     app.provide('filter-headers', filterHeadersByPreference)
     // app.component('VueSchoolLink', VueSchoolLink)
-    app.component('ScrimbaLink', ScrimbaLink)
+    // app.component('ScrimbaLink', ScrimbaLink)
     // app.component('TextAd', TextAd)
   }
 })
