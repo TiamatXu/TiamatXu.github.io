@@ -40,7 +40,9 @@ export default defineConfigWithTheme<ThemeConfig>({
   ],
 
   themeConfig: {
-    socialLinks: [{ icon: 'github', link: 'https://github.com/TiamatXu' }],
+    socialLinks: [
+      { icon: 'github', link: 'https://github.com/TiamatXu' }
+    ],
 
     nav: [
       {
@@ -64,10 +66,7 @@ export default defineConfigWithTheme<ThemeConfig>({
           {
             text: '开发项目',
             items: [
-              {
-                text: 'ZooKeeper',
-                link: 'https://www.google.com/search?q=Zookeeper'
-              },
+              { text: 'ZooKeeper', link: 'https://www.google.com/search?q=Zookeeper' },
               { text: 'Redis', link: 'https://www.baidu.com/s?wd=redis' },
               { text: 'Kafka', link: 'https://www.baidu.com/s?wd=Kafka' }
             ]
@@ -81,10 +80,7 @@ export default defineConfigWithTheme<ThemeConfig>({
         {
           text: '文档型网站',
           items: [
-            {
-              text: 'VitePress 部署指南',
-              link: '/doc-site/VitePress 部署指南'
-            }
+            { text: 'VitePress 部署指南', link: '/doc-site/VitePress 部署指南' }
           ]
         }
       ],
@@ -92,19 +88,13 @@ export default defineConfigWithTheme<ThemeConfig>({
         {
           text: '环境搭建',
           items: [
-            {
-              text: 'Docker-zookeeper 集群编排',
-              link: '/linux/Docker-zookeeper 集群编排'
-            }
+            { text: 'Docker-zookeeper 集群编排', link: '/linux/Docker-zookeeper 集群编排' }
           ]
         },
         {
           text: '系统开荒',
           items: [
-            {
-              text: 'Zsh 全局配置',
-              link: '/linux/Zsh 全局配置'
-            }
+            { text: 'Zsh 全局配置', link: '/linux/Zsh 全局配置' }
           ]
         }
       ]
@@ -119,23 +109,10 @@ export default defineConfigWithTheme<ThemeConfig>({
       previous: '前一篇',
       next: '下一篇',
       pageNotFound: '页面未找到',
-      deadLink: {
-        before: '你打开了一个不存在的链接：',
-        after: '。'
-      },
-      deadLinkReport: {
-        before: '不介意的话请提交到',
-        link: '这里',
-        after: '，我们会跟进修复。'
-      },
-      footerLicense: {
-        before: '',
-        after: ''
-      },
-      ariaAnnouncer: {
-        before: '',
-        after: '已经加载完毕'
-      },
+      deadLink: { before: '你打开了一个不存在的链接：', after: '。' },
+      deadLinkReport: { before: '不介意的话请提交到', link: '这里', after: '，我们会跟进修复。' },
+      footerLicense: { before: '', after: '' },
+      ariaAnnouncer: { before: '', after: '已经加载完毕' },
       ariaDarkMode: '切换深色模式',
       ariaSkipToContent: '直接跳到内容',
       ariaToC: '当前页面的目录',
@@ -157,16 +134,10 @@ export default defineConfigWithTheme<ThemeConfig>({
       }
     ],
 
-    editLink: {
-      repo: 'TiamatXu/TiamatXu.github.io#master',
-      text: '在 GitHub 上编辑此页'
-    },
+    editLink: { repo: 'TiamatXu/TiamatXu.github.io#master', text: '在 GitHub 上编辑此页' },
 
     footer: {
-      license: {
-        text: '版权声明',
-        link: 'https://github.com/TiamatXu/TiamatXu.github.io#许可证'
-      },
+      license: { text: '版权声明', link: 'https://github.com/TiamatXu/TiamatXu.github.io#许可证' },
       copyright: '本个人博客采用 MIT License 进行许可。'
     }
   }
