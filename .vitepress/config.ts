@@ -7,14 +7,8 @@ export default defineConfigWithTheme<ThemeConfig>({
   extends: baseConfig,
 
   vite: {
-    build: {
-      minify: false
-    },
-    resolve: {
-      alias: {
-        '@vue/theme': path.join(__dirname, '../src')
-      }
-    }
+    build: { minify: false },
+    resolve: { alias: { '@vue/theme': path.join(__dirname, '../src') } },
   },
 
   lang: 'zh-CN',
@@ -26,15 +20,9 @@ export default defineConfigWithTheme<ThemeConfig>({
     ['meta', { property: 'og:url', content: 'https://tiamatxu.github.io' }],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:title', content: 'TiamatXu' }],
-    [
-      'meta',
-      {
-        property: 'og:description',
-        content: 'TiamatXu 的文档库，分享技术文章和个人见解。'
-      }
-    ],
+    ['meta', { property: 'og:description', content: 'TiamatXu 的文档库，分享技术文章和个人见解。' }],
     ['meta', { property: 'og:image', content: '/logo.png' }],
-    ['link', { rel: 'preconnect', href: 'https://tiamatxu.github.io' }]
+    ['link', { rel: 'preconnect', href: 'https://tiamatxu.github.io' }],
   ],
 
   themeConfig: {
@@ -63,10 +51,7 @@ export default defineConfigWithTheme<ThemeConfig>({
           {
             text: '开发项目',
             items: [
-              {
-                text: 'ZooKeeper',
-                link: 'https://www.google.com/search?q=Zookeeper'
-              },
+              { text: 'ZooKeeper', link: 'https://www.google.com/search?q=Zookeeper' },
               { text: 'Redis', link: 'https://www.baidu.com/s?wd=redis' },
               { text: 'Kafka', link: 'https://www.baidu.com/s?wd=Kafka' }
             ]
@@ -120,11 +105,7 @@ export default defineConfigWithTheme<ThemeConfig>({
       next: '下一篇',
       pageNotFound: '页面未找到',
       deadLink: { before: '你打开了一个不存在的链接：', after: '。' },
-      deadLinkReport: {
-        before: '不介意的话请提交到',
-        link: '这里',
-        after: '，我们会跟进修复。'
-      },
+      deadLinkReport: { before: '不介意的话请提交到', link: '这里', after: '，我们会跟进修复。' },
       footerLicense: { before: '', after: '' },
       ariaAnnouncer: { before: '', after: '已经加载完毕' },
       ariaDarkMode: '切换深色模式',
@@ -136,28 +117,14 @@ export default defineConfigWithTheme<ThemeConfig>({
     },
 
     localeLinks: [
-      {
-        link: 'https://tiamatxu.github.io',
-        text: '简体中文',
-        repo: 'https://github.com/TiamatXu/TiamatXu.github.io'
-      },
-      {
-        link: '',
-        text: '暂无其他语言!',
-        isTranslationsDesc: true
-      }
+      { link: 'https://tiamatxu.github.io', text: '简体中文', repo: 'https://github.com/TiamatXu/TiamatXu.github.io' },
+      { link: '', text: '暂无其他语言!', isTranslationsDesc: true }
     ],
 
-    editLink: {
-      repo: 'TiamatXu/TiamatXu.github.io#master',
-      text: '在 GitHub 上编辑此页'
-    },
+    editLink: { repo: 'TiamatXu/TiamatXu.github.io#master', text: '在 GitHub 上编辑此页' },
 
     footer: {
-      license: {
-        text: '版权声明',
-        link: 'https://github.com/TiamatXu/TiamatXu.github.io#许可证'
-      },
+      license: { text: '版权声明', link: 'https://github.com/TiamatXu/TiamatXu.github.io#许可证' },
       copyright: '本个人博客采用 MIT License 进行许可。'
     }
   }
