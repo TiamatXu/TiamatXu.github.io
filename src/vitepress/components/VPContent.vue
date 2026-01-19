@@ -40,7 +40,6 @@ const {hasSidebar} = useSidebar()
       <template #aside-bottom>
         <slot name="aside-bottom"/>
       </template>
-      \
     </VPContentDoc>
   </div>
 </template>
