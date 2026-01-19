@@ -8,7 +8,7 @@ export default defineConfigWithTheme<ThemeConfig>({
 
   vite: {
     build: { minify: false },
-    resolve: { alias: { '@vue/theme': path.join(__dirname, '../src') } },
+    resolve: { alias: { '@vue/theme': path.join(__dirname, '../src') } }
   },
 
   lang: 'zh-CN',
@@ -22,7 +22,7 @@ export default defineConfigWithTheme<ThemeConfig>({
     ['meta', { property: 'og:title', content: 'TiamatXu' }],
     ['meta', { property: 'og:description', content: 'TiamatXu 的文档库，分享技术文章和个人见解。' }],
     ['meta', { property: 'og:image', content: '/logo.png' }],
-    ['link', { rel: 'preconnect', href: 'https://tiamatxu.github.io' }],
+    ['link', { rel: 'preconnect', href: 'https://tiamatxu.github.io' }]
   ],
 
   themeConfig: {
@@ -44,9 +44,7 @@ export default defineConfigWithTheme<ThemeConfig>({
         items: [
           {
             text: 'Github',
-            items: [
-              { text: 'Github 主页', link: 'https://github.com/TiamatXu' }
-            ]
+            items: [{ text: 'Github 主页', link: 'https://github.com/TiamatXu' }]
           },
           {
             text: '开发项目',
@@ -64,23 +62,17 @@ export default defineConfigWithTheme<ThemeConfig>({
       '/doc-site/': [
         {
           text: '文档型网站',
-          items: [
-            { text: 'VitePress 部署指南', link: '/doc-site/vitepress-deployment-guide' }
-          ]
+          items: [{ text: 'VitePress 部署指南', link: '/doc-site/vitepress-deployment-guide' }]
         }
       ],
       '/linux/': [
         {
           text: '环境搭建',
-          items: [
-            { text: 'Docker-Zookeeper 集群编排', link: '/linux/zookeeper-docker-arrangement' }
-          ]
+          items: [{ text: 'Docker-Zookeeper 集群编排', link: '/linux/zookeeper-docker-arrangement' }]
         },
         {
           text: '系统开荒',
-          items: [
-            { text: 'Zsh 全局配置', link: '/linux/global-zsh-configuration' }
-          ]
+          items: [{ text: 'Zsh 全局配置', link: '/linux/global-zsh-configuration' }]
         }
       ],
       '/todo/': [
@@ -89,7 +81,7 @@ export default defineConfigWithTheme<ThemeConfig>({
           items: [
             { text: '待办清单', link: '/todo/todolists' },
             { text: '开发计划', link: '/todo/dev-plan' },
-            { text: '模块详情', link: '/todo/module' },
+            { text: '模块详情', link: '/todo/module' }
           ]
         }
       ]
