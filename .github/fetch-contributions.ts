@@ -30,9 +30,9 @@ interface ContributionCalendar {
   weeks: ContributionWeek[];
 }
 
-// --- Main Function (fetch public SVG and parse) ---
-async function fetchAndSaveContributionsFromSvg() {
-  console.log(`Fetching public contribution SVG for ${GITHUB_USERNAME}...`);
+// --- Main Function (fetch public data and parse) ---
+async function fetchAndSaveGithubContributions() {
+  console.log(`Fetching public contribution data for ${GITHUB_USERNAME}...`);
   try {
     const res = await fetch(`https://github.com/users/${GITHUB_USERNAME}/contributions`);
     if (!res.ok) {
@@ -127,10 +127,10 @@ async function fetchAndSaveContributionsFromSvg() {
     console.log(`Saved contribution data to ${OUTPUT_FILE}`);
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err);
-    console.error('Failed to fetch/parse contribution SVG:', msg);
+    console.error('Failed to fetch/parse contribution data:', msg);
     writeFileSync(OUTPUT_FILE, JSON.stringify({error: msg}, null, 2));
     process.exit(1);
   }
 }
 
-fetchAndSaveContributionsFromSvg();
+fetchAndSaveGithubContributions();
