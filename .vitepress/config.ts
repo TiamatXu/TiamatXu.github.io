@@ -79,9 +79,12 @@ export default defineConfigWithTheme<ThemeConfig>({
         {
           text: '待办清单',
           items: [
-            { text: '待办清单', link: '/todo/todolists' },
-            { text: '开发计划', link: '/todo/dev-plan' },
-            { text: '模块详情', link: '/todo/module' }
+            { text: '参考', link: 'todo/reference' },
+            { text: '任务调度与执行系统', link: 'todo/1-distributed-task-scheduling' },
+            { text: '实时数据处理监控平台', link: '/todo/2-real-time-data-processing' },
+            { text: '跨语言“推荐 / 排序 / 推送引擎”', link: '/todo/3-cross-language-recommendation-engine' },
+            { text: '在线多人对战游戏后端', link: '/todo/4-online-multiplayer-game-backend' },
+            { text: '跨语言“数据管道 + 任务中心”', link: '/todo/5-cross-language-data-pipeline-task-center' }
           ]
         }
       ]
