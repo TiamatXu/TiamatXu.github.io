@@ -24,10 +24,17 @@ provide('close-screen', closeScreen)
 
 <style scoped>
 .VPNav {
-  position: fixed;
-  top: var(--vt-banner-height, 0px);
+  position: relative;
+  top: 0;
   left: 0;
-  width: 100%;
   z-index: var(--vp-z-index-nav);
+}
+
+@media (min-width: 960px) {
+  .VPNav {
+    position: fixed;
+    top: var(--vt-banner-height, 0px);
+    width: 100%;
+  }
 }
 </style>

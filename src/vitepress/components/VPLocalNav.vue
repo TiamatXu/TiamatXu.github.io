@@ -30,8 +30,8 @@ const {frontmatter} = useData()
 
 <style scoped>
 .VPLocalNav {
-  position: fixed;
-  top: calc(var(--vt-banner-height, 0px) + var(--vt-nav-height));
+  position: sticky;
+  top: var(--vt-banner-height, 0px);
   left: 0;
   z-index: var(--vp-z-index-local-nav);
   width: 100%;
