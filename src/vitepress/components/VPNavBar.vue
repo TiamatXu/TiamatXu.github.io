@@ -10,8 +10,6 @@ import VPNavBarHamburger from './VPNavBarHamburger.vue'
 defineProps<{
   isScreenOpen: boolean
 }>()
-const buildTime = import.meta.env.VITE_APP_BUILD_TIME
-const formattedBuildTime = buildTime ? new Date(buildTime).toString() : 'Fetch failed with no build time.'
 </script>
 
 <template>
@@ -29,10 +27,6 @@ const formattedBuildTime = buildTime ? new Date(buildTime).toString() : 'Fetch f
         <VPNavBarSocialLinks class="social-links" />
         <VPNavBarExtra class="extra" />
         <VPNavBarHamburger class="hamburger" :active="isScreenOpen" @click="$emit('toggle-screen')" />
-      </div>
-      <div class="time-tag">
-        <div class="create-time">创建于: 2025/12/25</div>
-        <div v-if="formattedBuildTime" class="build-time">最后部署于: {{ formattedBuildTime }}</div>
       </div>
     </div>
   </div>
@@ -88,20 +82,5 @@ const formattedBuildTime = buildTime ? new Date(buildTime).toString() : 'Fetch f
 
 .appearance + .social-links {
   margin-left: 12px;
-}
-
-.time-tag {
-  display: flex;
-  justify-content: space-between;
-  position: absolute;
-  width: 100%;
-  top: calc(var(--vt-nav-height) + 5px);
-  z-index: -1;
-}
-
-.create-time,
-.build-time {
-  font-size: 0.8em;
-  color: var(--vt-c-text-3);
 }
 </style>
