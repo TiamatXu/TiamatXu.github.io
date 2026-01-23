@@ -1,37 +1,30 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import SiteMap from './SiteMap.vue'
 import ContributionGraph from './ContributionGraph.vue'
+// import { onMounted } from 'vue'
+// import { base, data, load } from './sponsors'
+// import SponsorsGroup from './SponsorsGroup.vue'
 
 const githubUsername = 'TiamatXu'
+// onMounted(load)
 
-// 同步且唯一地格式化构建时间，附加时区短名（例如 GMT+8 / CST）
-const buildTimeRaw = import.meta.env.VITE_APP_BUILD_TIME
-const formattedBuildTime = buildTimeRaw
-  ? (() => {
-      const d = new Date(buildTimeRaw)
-      const dtf = new Intl.DateTimeFormat('zh-CN', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: false,
-        timeZoneName: 'short' // 显示时区短名
-      })
-      return dtf.format(d)
-    })()
-  : 'Fetch failed with deployment time.'
-
-// 控制是否渲染 build-time 节点，并配合 v-once 防止后续更新导致页面变化
-const showBuildTime = ref(!!formattedBuildTime)
+const buildTime = import.meta.env.VITE_APP_BUILD_TIME
+const formattedBuildTime = buildTime
+  ? new Date(buildTime).toLocaleString('zh-CN', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false
+    })
+  : ''
 </script>
 
 <template>
   <section id="hero">
-    <div class="create-time">创建于: 2025/12/25</div>
-    <div v-if="showBuildTime" v-once class="build-time">最后部署于: {{ formattedBuildTime }}</div>
+    <div v-if="formattedBuildTime" class="build-time">最后部署于: {{ formattedBuildTime }}</div>
     <h1 class="tagline">
       <span class="accent">Tiamat Xu</span>
       <br />的个人文档库
@@ -75,29 +68,19 @@ section {
 }
 
 #hero {
-  padding-top: 72px;
   position: relative;
   text-align: center;
   //border-bottom: 1px solid var(--vt-c-divider-light);
 }
 
-.create-time {
-  top: 0;
-  left: 0;
-}
-
-.build-time {
-  top: 0;
-  right: 0;
-}
-
-.create-time,
 .build-time {
   position: absolute;
-  padding: 8px 20px;
+  top: 0;
+  right: 0;
+  padding: 8px 12px;
   font-size: 12px;
   font-weight: 500;
-  color: var(--vt-c-text-3);
+  color: var(--vt-c-text-2);
 }
 
 .tagline {
