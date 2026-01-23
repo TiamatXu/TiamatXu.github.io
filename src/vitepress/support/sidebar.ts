@@ -1,5 +1,5 @@
-import {SidebarConfig, SidebarGroup} from '../config'
-import {ensureStartingSlash} from './utils'
+import { SidebarConfig, SidebarGroup } from '../config'
+import { ensureStartingSlash } from './utils'
 
 /**
  * Get the `SidebarConfig` from sidebar option. This method will ensure to get
@@ -7,10 +7,7 @@ import {ensureStartingSlash} from './utils'
  * combinations such as matching `guide/` and `/guide/`. If no matching config
  * was found, it will return empty array.
  */
-export function getSidebar(
-  sidebar: SidebarConfig | undefined,
-  path: string
-): SidebarGroup[] {
+export function getSidebar(sidebar: SidebarConfig | undefined, path: string): SidebarGroup[] {
   if (Array.isArray(sidebar)) {
     return sidebar
   }

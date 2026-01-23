@@ -1,7 +1,7 @@
-import {computed, inject, onMounted, onUnmounted, onUpdated, Ref} from 'vue'
-import {Header, useData} from 'vitepress'
-import {useMediaQuery} from '@vueuse/core'
-import {MenuItemWithLink} from '../../core'
+import { computed, inject, onMounted, onUnmounted, onUpdated, Ref } from 'vue'
+import { Header, useData } from 'vitepress'
+import { useMediaQuery } from '@vueuse/core'
+import { MenuItemWithLink } from '../../core'
 
 export interface HeaderWithChildren extends Header {
   hidden?: boolean
@@ -13,7 +13,7 @@ export interface MenuItemWithLinkAndChildren extends MenuItemWithLink {
 }
 
 export function useOutlineHeaders() {
-  const {page} = useData()
+  const { page } = useData()
   const filterHeaders = inject('filter-headers', null) as any
   return computed(() => {
     return resolveHeaders(page.value.headers, filterHeaders)
@@ -27,17 +27,12 @@ function resolveHeaders(
   return headers.map((header) => ({
     text: header.title,
     link: header.link,
-    children: header.children?.length
-      ? resolveHeaders(header.children, filter)
-      : undefined,
+    children: header.children?.length ? resolveHeaders(header.children, filter) : undefined,
     hidden: filter ? !filter(header) : false
   }))
 }
 
-export function useActiveAnchor(
-  container: Ref<HTMLElement>,
-  bg: Ref<HTMLElement>
-) {
+export function useActiveAnchor(container: Ref<HTMLElement>, bg: Ref<HTMLElement>) {
   const isOutlineEnabled = useMediaQuery('(min-width: 1280px)')
   const onScroll = throttleAndDebounce(setActiveLink, 100)
 
@@ -46,16 +41,12 @@ export function useActiveAnchor(
       return
     }
 
-    const links = [].slice.call(
-      container.value.querySelectorAll('.outline-link')
-    ) as HTMLAnchorElement[]
+    const links = [].slice.call(container.value.querySelectorAll('.outline-link')) as HTMLAnchorElement[]
 
     const anchors = [].slice
       .call(document.querySelectorAll('.content .header-anchor'))
       .filter((anchor: HTMLAnchorElement) =>
-        links.some(
-          (link) => link.hash === anchor.hash && anchor.offsetParent !== null
-        )
+        links.some((link) => link.hash === anchor.hash && anchor.offsetParent !== null)
       ) as HTMLAnchorElement[]
 
     // page bottom - highlight last one
@@ -91,9 +82,7 @@ export function useActiveAnchor(
     const activeLink = (prevActiveLink =
       hash == null
         ? null
-        : (container.value.querySelector(
-          `a[href="${decodeURIComponent(hash)}"]`
-        ) as HTMLAnchorElement))
+        : (container.value.querySelector(`a[href="${decodeURIComponent(hash)}"]`) as HTMLAnchorElement))
     if (activeLink) {
       activeLink.classList.add('active')
       bg.value.style.opacity = '1'

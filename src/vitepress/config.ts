@@ -1,10 +1,4 @@
-import {
-  LocaleLinkItem,
-  MenuItemChildWithChildren,
-  MenuItemWithLink,
-  MenuBadgeItem,
-  SocialLink
-} from '../core'
+import { LocaleLinkItem, MenuItemChildWithChildren, MenuItemWithLink, MenuBadgeItem, SocialLink } from '../core'
 
 export interface Config {
   /**

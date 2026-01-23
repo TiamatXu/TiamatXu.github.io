@@ -1,4 +1,4 @@
-import {Ref, ref, watch, readonly, onUnmounted} from 'vue'
+import { Ref, ref, watch, readonly, onUnmounted } from 'vue'
 
 interface FocusContainerOptions {
   elRef: Ref<HTMLElement | undefined>
@@ -17,10 +17,7 @@ export function useFocusContainer(options: FocusContainerOptions) {
     listeners++
 
     const unwatch = watch(focusedElement, (el) => {
-      if (
-        el === options.elRef.value ||
-        options.elRef.value?.contains(el as Node)
-      ) {
+      if (el === options.elRef.value || options.elRef.value?.contains(el as Node)) {
         containsFocus.value = true
         options.onFocus?.()
       } else {
