@@ -7,9 +7,17 @@ import ContributionGraph from './ContributionGraph.vue'
 
 const githubUsername = 'TiamatXu'
 // onMounted(load)
+const buildTime = import.meta.env.VITE_APP_BUILD_TIME
+const formattedBuildTime = buildTime ? new Date(buildTime).toString() : 'Fetch failed with no build time.'
 </script>
 
 <template>
+  <div class="time-tag-container">
+    <div class="time-tag">
+      <div class="create-time">创建于: 2025/12/25</div>
+      <div v-if="formattedBuildTime" class="build-time">最后部署于: {{ formattedBuildTime }}</div>
+    </div>
+  </div>
   <section id="hero">
     <h1 class="tagline">
       <span class="accent">Tiamat Xu</span>
@@ -249,5 +257,36 @@ html:not(.dark) .accent,
   margin-bottom: 0.75em;
   font-size: 20px;
   font-weight: 600;
+}
+
+.time-tag-container {
+  position: absolute;
+  width: 100%;
+  padding: 0 12px 0 24px;
+}
+
+@media (min-width: 768px) {
+  .time-tag-container {
+    padding: 0 12px 0 32px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .time-tag-container {
+    padding: 0 32px;
+  }
+}
+
+.time-tag {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: var(--vp-screen-max-width);
+}
+
+.create-time,
+.build-time {
+  font-size: 0.8em;
+  color: var(--vt-c-text-3);
 }
 </style>
