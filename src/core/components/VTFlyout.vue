@@ -27,27 +27,15 @@ useFocusContainer({
 </script>
 
 <template>
-  <div
-    class="vt-flyout"
-    ref="elRef"
-    @mouseenter="open = true"
-    @mouseleave="open = false"
-  >
-    <button
-      type="button"
-      class="vt-flyout-button"
-      aria-haspopup="true"
-      :aria-expanded="open"
-      :aria-label="label"
-      @click="open = !open"
-    >
+  <div class="vt-flyout" ref="elRef" @mouseenter="open = true" @mouseleave="open = false">
+    <button type="button" class="vt-flyout-button" aria-haspopup="true" :aria-expanded="open" :aria-label="label"
+            @click="open = !open">
       <slot name="btn-slot">
         <span v-if="props.button" class="vt-flyout-button-text">
           {{ props.button }}
           <VTMenuBadge v-if="badge" :item="badge"/>
           <VTIconChevronDown class="vt-flyout-button-text-icon"/>
         </span>
-
         <VTIconMoreHorizontal v-else class="vt-flyout-button-icon"/>
       </slot>
     </button>

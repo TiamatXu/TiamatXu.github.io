@@ -16,7 +16,6 @@ defineProps<{
         <VTMenuGroup v-else :text="item.text" :items="item.items"/>
       </template>
     </div>
-
     <slot/>
   </div>
 </template>

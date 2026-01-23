@@ -10,23 +10,13 @@ const tabs = children?.filter(({type}) => type === VTCodeGroupTab)
 <template>
   <div class="vt-code-group">
     <div class="vt-code-group-tabs">
-      <div
-        v-for="tab, idx in tabs"
-        @click="activeTabIndex = idx"
-        class="vt-code-group-tab"
-        :class="{
-          'vt-code-group-tab-active': activeTabIndex === idx
-        }"
-      >{{ tab.props?.label }}
+      <div v-for="(tab, idx) in tabs" @click="activeTabIndex = idx" class="vt-code-group-tab"
+           :class="{'vt-code-group-tab-active': activeTabIndex === idx}">
+        {{ tab.props?.label }}
       </div>
     </div>
     <div class="vt-code-group-contents">
-      <component
-        v-for="tab, idx in tabs"
-        v-show="activeTabIndex === idx"
-        :is="tab"
-        :active="activeTabIndex === idx"
-      />
+      <component v-for="(tab, idx) in tabs" v-show="activeTabIndex === idx" :is="tab" :active="activeTabIndex === idx"/>
     </div>
   </div>
 </template>

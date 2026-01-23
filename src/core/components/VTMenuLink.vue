@@ -1,12 +1,10 @@
 <script lang="ts" setup>
 import VTLink from './VTLink.vue'
-import {MenuItemWithLink} from '../types/menu'
+import {MenuItemWithLink} from '@vue/theme'
 
 defineProps<{ item: MenuItemWithLink }>()
 </script>
 
 <template>
-  <VTLink class="vt-menu-link" :href="item.link" :badge="item.badge">
-    {{ item.text }}
-  </VTLink>
+  <VTLink class="vt-menu-link" :href="item.link" :badge="item.badge"> {{ item.text }} </VTLink>
 </template>

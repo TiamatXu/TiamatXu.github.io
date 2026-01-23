@@ -29,18 +29,9 @@ const icons = {
 </script>
 
 <template>
-  <a
-    class="vt-social-link"
-    :class="{
-      'is-small': size === 'small',
-      'is-medium': size === 'medium'
-    }"
-    :href="link"
-    :title="icon"
-    :target="target"
-    rel="noopener noreferrer"
-  >
+  <a class="vt-social-link" :href="link" :title="icon" :target="target" rel="noopener noreferrer"
+     :class="{'is-small': size === 'small','is-medium': size === 'medium'}">
     <component :is="icons[icon]" class="vt-social-link-icon"/>
-    <span class="visually-hidden">{{ icon }}</span>
+    <span class="visually-hidden"> {{ icon }} </span>
   </a>
 </template>
