@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-import {computed} from 'vue'
-import {useData} from 'vitepress'
+import { computed } from 'vue'
+import { useData } from 'vitepress'
 import VPContentDocOutline from './VPContentDocOutline.vue'
 import VPContentDocFooter from './VPContentDocFooter.vue'
 import VPCarbonAds from './VPCarbonAds.vue'
-import {VTLink, VTIconEdit} from '../../core'
-import {useConfig} from '../composables/config'
+import { VTLink, VTIconEdit } from '../../core'
+import { useConfig } from '../composables/config'
 
-const {page, frontmatter} = useData()
-const {config} = useConfig()
+const { page, frontmatter } = useData()
+const { config } = useConfig()
 
 const hashMatch = /#(\w+)$/
 
@@ -19,45 +19,34 @@ const repoUrl = computed(() => {
 })
 
 const pageClass = computed(() => {
-  const {relativePath} = page.value
+  const { relativePath } = page.value
   return relativePath.slice(0, relativePath.indexOf('/'))
 })
 </script>
 
 <template>
-  <div
-    class="VPContentDoc"
-    :class="{ 'has-aside': frontmatter.aside !== false }"
-  >
+  <div class="VPContentDoc" :class="{ 'has-aside': frontmatter.aside !== false }">
     <div class="container">
       <div class="aside" v-if="frontmatter.aside !== false">
         <div class="aside-container">
-          <slot name="aside-top"/>
-          <VPContentDocOutline
-            v-if="page.headers && frontmatter.outline !== false"
-          />
-          <slot name="aside-mid"/>
-          <VPCarbonAds v-if="config.carbonAds && frontmatter.ads !== false"/>
-          <slot name="aside-bottom"/>
+          <slot name="aside-top" />
+          <VPContentDocOutline v-if="page.headers && frontmatter.outline !== false" />
+          <slot name="aside-mid" />
+          <VPCarbonAds v-if="config.carbonAds && frontmatter.ads !== false" />
+          <slot name="aside-bottom" />
         </div>
       </div>
       <div class="content">
-        <slot name="content-top"/>
+        <slot name="content-top" />
         <main>
-          <Content class="vt-doc" :class="pageClass"/>
-          <p
-            class="edit-link"
-            v-if="config.editLink && frontmatter.editLink !== false"
-          >
-            <VTIconEdit class="vt-icon"/>
-            <VTLink :href="repoUrl" :no-icon="true">{{
-                config.editLink.text
-              }}
-            </VTLink>
+          <Content class="vt-doc" :class="pageClass" />
+          <p class="edit-link" v-if="config.editLink && frontmatter.editLink !== false">
+            <VTIconEdit class="vt-icon" />
+            <VTLink :href="repoUrl" :no-icon="true">{{ config.editLink.text }} </VTLink>
           </p>
         </main>
-        <slot name="content-bottom"/>
-        <VPContentDocFooter v-if="frontmatter.footer !== false"/>
+        <slot name="content-bottom" />
+        <VPContentDocFooter v-if="frontmatter.footer !== false" />
       </div>
     </div>
   </div>

@@ -1,187 +1,184 @@
 <script setup lang="ts">
-import {ref, computed} from 'vue'
+import { ref, computed } from 'vue'
 import contributionData from '../contribution-data.json'
 
 // --- Type Definitions ---
-type ContributionLevel =
-  | 'NONE'
-  | 'FIRST_QUARTILE'
-  | 'SECOND_QUARTILE'
-  | 'THIRD_QUARTILE'
-  | 'FOURTH_QUARTILE';
+type ContributionLevel = 'NONE' | 'FIRST_QUARTILE' | 'SECOND_QUARTILE' | 'THIRD_QUARTILE' | 'FOURTH_QUARTILE'
 
 interface ContributionDay {
-  contributionCount: number;
-  date: string; // YYYY-MM-DD
-  weekday: number; // 0 (Sunday) to 6 (Saturday)
-  contributionLevel: ContributionLevel;
+  contributionCount: number
+  date: string // YYYY-MM-DD
+  weekday: number // 0 (Sunday) to 6 (Saturday)
+  contributionLevel: ContributionLevel
 }
 
 interface ContributionWeek {
-  contributionDays: ContributionDay[];
+  contributionDays: ContributionDay[]
 }
 
 interface ContributionCalendar {
-  totalContributions: number;
-  weeks: ContributionWeek[];
-  error?: string;
+  totalContributions: number
+  weeks: ContributionWeek[]
+  error?: string
 }
 
 // --- Props ---
 defineProps<{
-  githubUsername: string;
-}>();
+  githubUsername: string
+}>()
 
 // --- Component Logic ---
-const calendar = contributionData as ContributionCalendar;
+const calendar = contributionData as ContributionCalendar
 
-const calendarContainerRef = ref<HTMLDivElement | null>(null);
+const calendarContainerRef = ref<HTMLDivElement | null>(null)
 
 // Tooltip state
-const showTooltip = ref(false);
-const tooltipContent = ref('');
-const tooltipPos = ref({x: 0, y: 0});
+const showTooltip = ref(false)
+const tooltipContent = ref('')
+const tooltipPos = ref({ x: 0, y: 0 })
 
 // Data transformation for table rendering (7 rows for days, N columns for weeks)
 const grid = computed(() => {
-  if (calendar.error || !calendar.weeks) return [];
-  const numWeeks = calendar.weeks.length;
+  if (calendar.error || !calendar.weeks) return []
+  const numWeeks = calendar.weeks.length
   // Initialize a 7xN grid with nulls
-  const grid: (ContributionDay | null)[][] = Array.from({length: 7}, () => Array(numWeeks).fill(null));
+  const grid: (ContributionDay | null)[][] = Array.from({ length: 7 }, () => Array(numWeeks).fill(null))
 
   calendar.weeks.forEach((week, weekIndex) => {
-    week.contributionDays.forEach(day => {
+    week.contributionDays.forEach((day) => {
       // day.weekday is 0 (Sun) to 6 (Sat)
       if (day.weekday < 7) {
-        grid[day.weekday][weekIndex] = day;
+        grid[day.weekday][weekIndex] = day
       }
-    });
-  });
-  return grid;
-});
+    })
+  })
+  return grid
+})
 
 // Helper to find the starting week index for each month
 const months = computed(() => {
-  if (calendar.error || !calendar.weeks) return [];
-  const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  const uniqueMonths: { name: string, weekIndex: number }[] = [];
+  if (calendar.error || !calendar.weeks) return []
+  const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  const uniqueMonths: { name: string; weekIndex: number }[] = []
 
   calendar.weeks.forEach((week, weekIndex) => {
-    const firstDayOfWeek = week.contributionDays[0];
-    if (!firstDayOfWeek) return;
+    const firstDayOfWeek = week.contributionDays[0]
+    if (!firstDayOfWeek) return
 
-    const date = new Date(firstDayOfWeek.date);
-    const month = date.getMonth();
+    const date = new Date(firstDayOfWeek.date)
+    const month = date.getMonth()
     // A new month label is added if the month of the first day of the week is different from the previous one.
     if (weekIndex === 0 || new Date(calendar.weeks[weekIndex - 1].contributionDays[0].date).getMonth() !== month) {
       uniqueMonths.push({
         name: monthNames[month],
         weekIndex: weekIndex
-      });
+      })
     }
-  });
-  return uniqueMonths;
-});
+  })
+  return uniqueMonths
+})
 
 // Calculate colspan for each month header
 const monthsWithColspan = computed(() => {
-  if (!months.value || months.value.length === 0) return [];
+  if (!months.value || months.value.length === 0) return []
 
-  const spans: { name: string, colspan: number }[] = [];
+  const spans: { name: string; colspan: number }[] = []
   for (let i = 0; i < months.value.length; i++) {
-    const currentMonth = months.value[i];
-    const nextMonth = months.value[i + 1];
-    const colspan = nextMonth ? nextMonth.weekIndex - currentMonth.weekIndex : (grid.value[0]?.length || 0) - currentMonth.weekIndex;
+    const currentMonth = months.value[i]
+    const nextMonth = months.value[i + 1]
+    const colspan = nextMonth
+      ? nextMonth.weekIndex - currentMonth.weekIndex
+      : (grid.value[0]?.length || 0) - currentMonth.weekIndex
     if (colspan > 0) {
-      spans.push({name: currentMonth.name, colspan});
+      spans.push({ name: currentMonth.name, colspan })
     }
   }
-  return spans;
-});
+  return spans
+})
 
-
-const weekdayLabels = ['', 'Mon', '', 'Wed', '', 'Fri', ''];
+const weekdayLabels = ['', 'Mon', '', 'Wed', '', 'Fri', '']
 
 // Helper to map contribution level to CSS class
 const getLevelClass = (level: ContributionLevel) => {
   switch (level) {
     case 'NONE':
-      return 'contrib-level-0';
+      return 'contrib-level-0'
     case 'FIRST_QUARTILE':
-      return 'contrib-level-1';
+      return 'contrib-level-1'
     case 'SECOND_QUARTILE':
-      return 'contrib-level-2';
+      return 'contrib-level-2'
     case 'THIRD_QUARTILE':
-      return 'contrib-level-3';
+      return 'contrib-level-3'
     case 'FOURTH_QUARTILE':
-      return 'contrib-level-4';
+      return 'contrib-level-4'
     default:
-      return 'contrib-level-0';
+      return 'contrib-level-0'
   }
-};
+}
 
 const getTooltipText = (day: ContributionDay) => {
-  return day.contributionCount === 0 ? `${day.date} | 无贡献` : `${day.date} | ${day.contributionCount} 次贡献`;
-};
+  return day.contributionCount === 0 ? `${day.date} | 无贡献` : `${day.date} | ${day.contributionCount} 次贡献`
+}
 
 const handleMouseOver = (event: MouseEvent, day: ContributionDay) => {
-  showTooltip.value = true;
-  tooltipContent.value = getTooltipText(day);
+  showTooltip.value = true
+  tooltipContent.value = getTooltipText(day)
 
-  if (!calendarContainerRef.value) return;
+  if (!calendarContainerRef.value) return
 
-  const calendarRect = calendarContainerRef.value.getBoundingClientRect();
-  const cellRect = (event.target as HTMLElement).getBoundingClientRect();
+  const calendarRect = calendarContainerRef.value.getBoundingClientRect()
+  const cellRect = (event.target as HTMLElement).getBoundingClientRect()
 
   tooltipPos.value = {
     x: cellRect.left - calendarRect.left + cellRect.width / 2,
-    y: cellRect.top - calendarRect.top,
-  };
-};
+    y: cellRect.top - calendarRect.top
+  }
+}
 
 const handleMouseOut = () => {
-  showTooltip.value = false;
-};
+  showTooltip.value = false
+}
 </script>
 
 <template>
   <div v-if="calendar.error" class="error-message">
-    获取贡献数据失败: {{ calendar.error }}
-    <br>请确保 `CONTRIBUTIONS_TOKEN` 已正确配置，且 GitHub 用户名 `{{ githubUsername }}` 正确。
+    获取贡献数据失败: {{ calendar.error }} <br />请确保 `CONTRIBUTIONS_TOKEN` 已正确配置，且 GitHub 用户名 `{{
+      githubUsername
+    }}` 正确。
   </div>
 
   <div v-else class="contribution-calendar" ref="calendarContainerRef">
     <div class="contribution-grid-wrapper">
       <table class="contribution-grid" @mouseleave="handleMouseOut">
         <thead>
-        <tr>
-          <th class="weekday-spacer"></th>
-          <th v-for="month in monthsWithColspan" :key="month.name" :colspan="month.colspan" class="month-header">
-            {{ month.name }}
-          </th>
-        </tr>
+          <tr>
+            <th class="weekday-spacer"></th>
+            <th v-for="month in monthsWithColspan" :key="month.name" :colspan="month.colspan" class="month-header">
+              {{ month.name }}
+            </th>
+          </tr>
         </thead>
         <tbody>
-        <tr v-for="(row, dayIndex) in grid" :key="dayIndex">
-          <th class="weekday-label">{{ weekdayLabels[dayIndex] }}</th>
-          <td
-            v-for="(day, weekIndex) in row"
-            :key="weekIndex"
-            :class="['contribution-cell', day ? getLevelClass(day.contributionLevel) : 'contribution-cell-empty']"
-            @mouseenter="day ? handleMouseOver($event, day) : undefined"
-            @mouseleave="day ? handleMouseOut : undefined"
-          >
-            <a
-              v-if="day"
-              :href="`https://github.com/${githubUsername}?tab=overview&from=${day.date}&to=${day.date}`"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="cell-link"
+          <tr v-for="(row, dayIndex) in grid" :key="dayIndex">
+            <th class="weekday-label">{{ weekdayLabels[dayIndex] }}</th>
+            <td
+              v-for="(day, weekIndex) in row"
+              :key="weekIndex"
+              :class="['contribution-cell', day ? getLevelClass(day.contributionLevel) : 'contribution-cell-empty']"
+              @mouseenter="day ? handleMouseOver($event, day) : undefined"
+              @mouseleave="day ? handleMouseOut : undefined"
             >
-              <span class="sr-only">{{ getTooltipText(day) }}</span>
-            </a>
-          </td>
-        </tr>
+              <a
+                v-if="day"
+                :href="`https://github.com/${githubUsername}?tab=overview&from=${day.date}&to=${day.date}`"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="cell-link"
+              >
+                <span class="sr-only">{{ getTooltipText(day) }}</span>
+              </a>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -203,7 +200,11 @@ const handleMouseOut = () => {
       </div>
     </div>
     <!-- Tooltip -->
-    <div v-if="showTooltip" class="contribution-tooltip" :style="{ left: tooltipPos.x + 'px', top: tooltipPos.y + 'px' }">
+    <div
+      v-if="showTooltip"
+      class="contribution-tooltip"
+      :style="{ left: tooltipPos.x + 'px', top: tooltipPos.y + 'px' }"
+    >
       {{ tooltipContent }}
     </div>
   </div>
@@ -211,7 +212,8 @@ const handleMouseOut = () => {
 
 <style>
 /* Define GitHub-like colors for contribution levels */
-:root { /* Light mode defaults */
+:root {
+  /* Light mode defaults */
   --color-contrib-text: #24292f;
   --color-legend-text: rgba(36, 41, 47, 0.7);
   --color-contrib-level-0: #ebedf0;
@@ -221,7 +223,8 @@ const handleMouseOut = () => {
   --color-contrib-level-4: #216e39;
 }
 
-html.dark { /* Dark mode overrides */
+html.dark {
+  /* Dark mode overrides */
   --color-contrib-text: #c9d1d9;
   --color-legend-text: rgba(201, 209, 217, 0.7);
   --color-contrib-level-0: #222830;
@@ -284,7 +287,8 @@ html.dark .contribution-grid-wrapper::-webkit-scrollbar-thumb:hover {
   display: inline-flex;
   flex-direction: column;
   align-items: stretch;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
   max-width: 100%;
   box-sizing: border-box;
   position: relative;

@@ -16,23 +16,23 @@ const githubUsername = 'TiamatXu'
       <br />的个人文档库
     </h1>
     <p class="description">一个开发者的个人知识库，在这里记录并分享我的学习与实践。</p>
-<!--    <p class="actions">-->
-<!--      <a class="get-started" href="/guide/introduction.html">-->
-<!--        快速上手-->
-<!--        <svg-->
-<!--            class="icon"-->
-<!--            xmlns="http://www.w3.org/2000/svg"-->
-<!--            width="10"-->
-<!--            height="10"-->
-<!--            viewBox="0 0 24 24"-->
-<!--        >-->
-<!--          <path-->
-<!--              d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z"-->
-<!--          />-->
-<!--        </svg>-->
-<!--      </a>-->
-<!--      <a class="setup" href="/guide/quick-start.html">安装</a>-->
-<!--    </p>-->
+    <!--    <p class="actions">-->
+    <!--      <a class="get-started" href="/guide/introduction.html">-->
+    <!--        快速上手-->
+    <!--        <svg-->
+    <!--            class="icon"-->
+    <!--            xmlns="http://www.w3.org/2000/svg"-->
+    <!--            width="10"-->
+    <!--            height="10"-->
+    <!--            viewBox="0 0 24 24"-->
+    <!--        >-->
+    <!--          <path-->
+    <!--              d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z"-->
+    <!--          />-->
+    <!--        </svg>-->
+    <!--      </a>-->
+    <!--      <a class="setup" href="/guide/quick-start.html">安装</a>-->
+    <!--    </p>-->
   </section>
 
   <section id="highlights" class="vt-box-container">
@@ -50,19 +50,19 @@ const githubUsername = 'TiamatXu'
     </div>
   </section>
 
-<!--  <section id="sponsors">-->
-<!--    <h2>Platinum Sponsors</h2>-->
-<!--    <SponsorsGroup tier="platinum" placement="landing"/>-->
-<!--    <h2>Gold Sponsors</h2>-->
-<!--    <SponsorsGroup tier="gold" placement="landing"/>-->
-<!--  </section>-->
+  <!--  <section id="sponsors">-->
+  <!--    <h2>Platinum Sponsors</h2>-->
+  <!--    <SponsorsGroup tier="platinum" placement="landing"/>-->
+  <!--    <h2>Gold Sponsors</h2>-->
+  <!--    <SponsorsGroup tier="gold" placement="landing"/>-->
+  <!--  </section>-->
 
   <section id="contribution-chart">
     <h2>GitHub Contribution Activity</h2>
-    <ContributionGraph :github-username="githubUsername"/>
+    <ContributionGraph :github-username="githubUsername" />
   </section>
 
-  <SiteMap/>
+  <SiteMap />
 </template>
 
 <style scoped>
@@ -108,7 +108,9 @@ html:not(.dark) .accent,
   padding: 8px 18px;
   font-weight: 500;
   border-radius: 8px;
-  transition: background-color 0.5s, color 0.5s;
+  transition:
+    background-color 0.5s,
+    color 0.5s;
 }
 
 .actions .get-started,
@@ -153,7 +155,9 @@ html:not(.dark) .accent,
   font-size: 16px;
   display: inline-block;
   border-radius: 8px;
-  transition: background-color 0.5s, color 0.5s;
+  transition:
+    background-color 0.5s,
+    color 0.5s;
   position: relative;
   font-weight: 600;
   background-color: var(--vt-c-green);

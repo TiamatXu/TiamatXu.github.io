@@ -1,20 +1,18 @@
 <script setup lang="ts">
-import {decode} from 'tiny-decode'
-import {useData} from 'vitepress'
-import type {MenuItemWithLinkAndChildren} from '../composables/outline.js'
+import { decode } from 'tiny-decode'
+import { useData } from 'vitepress'
+import type { MenuItemWithLinkAndChildren } from '../composables/outline.js'
 
 defineProps<{
   headers: MenuItemWithLinkAndChildren[]
   nested?: boolean
 }>()
 
-const {frontmatter} = useData()
+const { frontmatter } = useData()
 
-function onClick({target: el}: Event) {
+function onClick({ target: el }: Event) {
   const id = '#' + (el as HTMLAnchorElement).href!.split('#')[1]
-  const heading = document.querySelector<HTMLAnchorElement>(
-    decodeURIComponent(id)
-  )
+  const heading = document.querySelector<HTMLAnchorElement>(decodeURIComponent(id))
   heading?.focus()
 }
 </script>
@@ -26,7 +24,7 @@ function onClick({target: el}: Event) {
         {{ decode(text) }}
       </a>
       <template v-if="children?.length && frontmatter.outline === 'deep'">
-        <VPDocOutlineItem :headers="children" :nested="true"/>
+        <VPDocOutlineItem :headers="children" :nested="true" />
       </template>
     </li>
   </ul>

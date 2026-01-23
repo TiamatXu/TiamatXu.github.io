@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import {VTLink, MenuBadgeItem} from '../../core'
-import {inject} from 'vue'
+import { VTLink, MenuBadgeItem } from '../../core'
+import { inject } from 'vue'
 
 defineProps<{
   text: string

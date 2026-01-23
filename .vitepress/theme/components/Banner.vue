@@ -5,8 +5,8 @@
  * 2. uncomment and update BANNER_ID in ../../inlined-scripts/restorePreferences.ts
  * 3. update --vt-banner-height if necessary
  */
-import {ref} from 'vue'
-import {VTIconPlus} from '@vue/theme'
+import { ref } from 'vue'
+import { VTIconPlus } from '@vue/theme'
 
 const open = ref(true)
 
@@ -24,7 +24,7 @@ function dismiss() {
   <div class="banner" v-if="open">
     <a target="_blank"></a>
     <button @click="dismiss">
-      <VTIconPlus class="close"/>
+      <VTIconPlus class="close" />
     </button>
   </div>
 </template>
@@ -50,12 +50,7 @@ html:not(.banner-dismissed) {
   font-weight: 600;
   color: #fff;
   background-color: var(--vt-c-green);
-  background: linear-gradient(
-    90deg,
-    rgba(66, 184, 131, 1) 0%,
-    rgba(39, 179, 137, 1) 19%,
-    rgba(100, 126, 255, 1) 100%
-  );
+  background: linear-gradient(90deg, rgba(66, 184, 131, 1) 0%, rgba(39, 179, 137, 1) 19%, rgba(100, 126, 255, 1) 100%);
 }
 
 .banner-dismissed .banner {

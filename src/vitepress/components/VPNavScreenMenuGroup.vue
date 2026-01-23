@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import {computed, ref} from 'vue'
-import {VTIconPlus, MenuItemChild, MenuBadgeItem} from '../../core'
+import { computed, ref } from 'vue'
+import { VTIconPlus, MenuItemChild, MenuBadgeItem } from '../../core'
 import VPNavScreenMenuGroupLink from './VPNavScreenMenuGroupLink.vue'
 import VPNavScreenMenuGroupSection from './VPNavScreenMenuGroupSection.vue'
 import VTMenuBadge from '../../core/components/VTMenuBadge.vue'
@@ -13,9 +13,7 @@ const props = defineProps<{
 
 const isOpen = ref(false)
 
-const groupId = computed(() =>
-  `NavScreenGroup-${props.text.replace(' ', '-').toLowerCase()}`
-)
+const groupId = computed(() => `NavScreenGroup-${props.text.replace(' ', '-').toLowerCase()}`)
 
 function toggle() {
   isOpen.value = !isOpen.value
@@ -24,34 +22,22 @@ function toggle() {
 
 <template>
   <div class="VPNavScreenMenuGroup" :class="{ open: isOpen }">
-    <button
-      class="button"
-      :aria-controls="groupId"
-      :aria-expanded="isOpen"
-      @click="toggle"
-    >
+    <button class="button" :aria-controls="groupId" :aria-expanded="isOpen" @click="toggle">
       <div>
         <span class="button-text">{{ text }}</span>
-        <VTMenuBadge v-if="badge" :item="badge"/>
+        <VTMenuBadge v-if="badge" :item="badge" />
       </div>
-      <VTIconPlus class="button-icon"/>
+      <VTIconPlus class="button-icon" />
     </button>
 
     <div :id="groupId" class="items">
       <template v-for="item in items" :key="item.text">
         <div v-if="'link' in item" :key="item.text" class="item">
-          <VPNavScreenMenuGroupLink
-            :text="item.text"
-            :link="item.link"
-            :badge="item.badge"
-          />
+          <VPNavScreenMenuGroupLink :text="item.text" :link="item.link" :badge="item.badge" />
         </div>
 
         <div v-else class="group">
-          <VPNavScreenMenuGroupSection
-            :text="item.text"
-            :items="item.items"
-          />
+          <VPNavScreenMenuGroupSection :text="item.text" :items="item.items" />
         </div>
       </template>
     </div>
@@ -109,7 +95,9 @@ function toggle() {
   width: 14px;
   height: 14px;
   fill: var(--vt-c-text-2);
-  transition: fill 0.5s, transform 0.25s;
+  transition:
+    fill 0.5s,
+    transform 0.25s;
 }
 
 .group:first-child {

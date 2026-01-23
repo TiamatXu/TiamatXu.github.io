@@ -1,19 +1,12 @@
 <script setup lang="ts">
-import {VTSwitch, VTIconChevronDown} from '@vue/theme'
-import {useRoute} from 'vitepress'
-import {ref, computed, inject, Ref} from 'vue'
-import {
-  preferCompositionKey,
-  preferComposition,
-  preferSFCKey,
-  preferSFC
-} from './preferences'
+import { VTSwitch, VTIconChevronDown } from '@vue/theme'
+import { useRoute } from 'vitepress'
+import { ref, computed, inject, Ref } from 'vue'
+import { preferCompositionKey, preferComposition, preferSFCKey, preferSFC } from './preferences'
 import PreferenceTooltip from './PreferenceTooltip.vue'
 
 const route = useRoute()
-const show = computed(() =>
-  /^\/(guide|tutorial|examples|style-guide)\//.test(route.path)
-)
+const show = computed(() => /^\/(guide|tutorial|examples|style-guide)\//.test(route.path))
 const showSFC = computed(() => !/^\/guide|style-guide/.test(route.path))
 
 let isOpen = ref(true)
@@ -30,22 +23,13 @@ const restoreOutline = (e: Event) => {
   ;(e.target as HTMLElement).classList.remove('no-outline')
 }
 
-const toggleCompositionAPI = useToggleFn(
-  preferCompositionKey,
-  preferComposition,
-  'prefer-composition'
-)
+const toggleCompositionAPI = useToggleFn(preferCompositionKey, preferComposition, 'prefer-composition')
 const toggleSFC = useToggleFn(preferSFCKey, preferSFC, 'prefer-sfc')
 const closeSideBar = inject('close-sidebar') as () => void
 
-function useToggleFn(
-  storageKey: string,
-  state: Ref<boolean>,
-  className: string
-) {
+function useToggleFn(storageKey: string, state: Ref<boolean>, className: string) {
   if (typeof localStorage === 'undefined') {
-    return () => {
-    }
+    return () => {}
   }
   const classList = document.documentElement.classList
   return (value = !state.value) => {
@@ -71,49 +55,32 @@ function useToggleFn(
       @blur="restoreOutline"
     >
       <span>API 风格偏好</span>
-      <VTIconChevronDown class="vt-link-icon" :class="{ open: isOpen }"/>
+      <VTIconChevronDown class="vt-link-icon" :class="{ open: isOpen }" />
     </button>
     <div id="preference-switches" :hidden="!isOpen" :aria-hidden="!isOpen">
       <div class="switch-container">
-        <label class="options-label" @click="toggleCompositionAPI(false)"
-        >选项式</label
-        >
+        <label class="options-label" @click="toggleCompositionAPI(false)">选项式</label>
         <VTSwitch
           class="api-switch"
           aria-label="偏好组合式 API"
           :aria-checked="preferComposition"
           @click="toggleCompositionAPI()"
         />
-        <label
-          class="composition-label"
-          @click="toggleCompositionAPI(true)"
-        >组合式</label
-        >
+        <label class="composition-label" @click="toggleCompositionAPI(true)">组合式</label>
         <a
           class="switch-link"
           title="关于 API 风格偏好"
           href="/guide/introduction.html#api-styles"
           @click="closeSideBar"
-        >?</a
+          >?</a
         >
-        <PreferenceTooltip/>
+        <PreferenceTooltip />
       </div>
       <div class="switch-container" v-if="showSFC">
         <label class="no-sfc-label" @click="toggleSFC(false)">HTML</label>
-        <VTSwitch
-          class="sfc-switch"
-          aria-label="偏好单文件组件"
-          :aria-checked="preferSFC"
-          @click="toggleSFC()"
-        />
+        <VTSwitch class="sfc-switch" aria-label="偏好单文件组件" :aria-checked="preferSFC" @click="toggleSFC()" />
         <label class="sfc-label" @click="toggleSFC(true)">单文件组件</label>
-        <a
-          class="switch-link"
-          title="关于单文件组件"
-          href="/guide/scaling-up/sfc.html"
-          @click="closeSideBar"
-        >?</a
-        >
+        <a class="switch-link" title="关于单文件组件" href="/guide/scaling-up/sfc.html" @click="closeSideBar">?</a>
       </div>
     </div>
   </div>
@@ -123,7 +90,9 @@ function useToggleFn(
 .preference-switch {
   font-size: 12px;
   border-bottom: 1px solid var(--vt-c-divider-light);
-  transition: border-color 0.5s, background-color 0.5s ease;
+  transition:
+    border-color 0.5s,
+    background-color 0.5s ease;
   margin-bottom: 20px;
   position: sticky;
   top: -0.5px;

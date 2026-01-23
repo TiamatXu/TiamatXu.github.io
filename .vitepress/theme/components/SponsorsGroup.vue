@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {ref, onMounted, onUnmounted} from 'vue'
-import {SponsorData, data, base, load} from './sponsors'
+import { ref, onMounted, onUnmounted } from 'vue'
+import { SponsorData, data, base, load } from './sponsors'
 
 type Placement = 'aside' | 'page' | 'landing'
 
@@ -26,7 +26,7 @@ onMounted(async () => {
         observer.disconnect()
       }
     },
-    {rootMargin: '0px 0px 300px 0px'}
+    { rootMargin: '0px 0px 300px 0px' }
   )
   observer.observe(container.value!)
   onUnmounted(() => observer.disconnect())
@@ -53,10 +53,7 @@ function resolveList(data: SponsorData) {
     if (props.tier === 'platinum') {
       currentTier = currentTier.filter((s) => !s.priority)
     } else if (props.tier === 'special') {
-      currentTier = [
-        ...currentTier,
-        ...data.platinum.filter((s) => s.priority)
-      ]
+      currentTier = [...currentTier, ...data.platinum.filter((s) => s.priority)]
     }
   }
   return currentTier
@@ -64,11 +61,7 @@ function resolveList(data: SponsorData) {
 </script>
 
 <template>
-  <div
-    ref="container"
-    class="spsr-container"
-    :class="[tier === 'platinum_china' ? 'special' : tier, placement]"
-  >
+  <div ref="container" class="spsr-container" :class="[tier === 'platinum_china' ? 'special' : tier, placement]">
     <template v-if="data && visible">
       <a
         v-for="{ url, url_cn, img, name } of resolveList(data)"
@@ -79,28 +72,21 @@ function resolveList(data: SponsorData) {
         @click="track()"
       >
         <picture v-if="img.endsWith('png')">
-          <source
-            type="image/avif"
-            :srcset="`${base}/images/${img.replace(/\.png$/, '.avif')}`"
-          />
-          <img :src="`${base}/images/${img}`" :alt="name"/>
+          <source type="image/avif" :srcset="`${base}/images/${img.replace(/\.png$/, '.avif')}`" />
+          <img :src="`${base}/images/${img}`" :alt="name" />
         </picture>
-        <img v-else :src="`${base}/images/${img}`" :alt="name"/>
+        <img v-else :src="`${base}/images/${img}`" :alt="name" />
       </a>
     </template>
-    <a
-      v-if="placement !== 'page' && tier !== 'special'"
-      href="/sponsor/"
-      class="spsr-item action"
-      @click="track(true)"
-    >成为赞助商</a
+    <a v-if="placement !== 'page' && tier !== 'special'" href="/sponsor/" class="spsr-item action" @click="track(true)"
+      >成为赞助商</a
     >
     <a
       v-if="tier === 'special' && data && !data[tier]?.length"
       href="/sponsor/#tier-benefits"
       class="spsr-item action"
       @click="track(true)"
-    >Inquire about Special Sponsorship</a
+      >Inquire about Special Sponsorship</a
     >
   </div>
 </template>

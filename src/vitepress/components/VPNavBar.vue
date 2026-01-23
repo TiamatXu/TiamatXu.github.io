@@ -17,20 +17,16 @@ defineProps<{
     <div class="container">
       <VPNavBarTitle>
         <template #navbar-title>
-          <slot name="navbar-title"/>
+          <slot name="navbar-title" />
         </template>
       </VPNavBarTitle>
       <div class="content">
-        <VPNavBarSearch class="search"/>
-        <VPNavBarMenu class="menu"/>
-        <VPNavBarAppearance class="appearance"/>
-        <VPNavBarSocialLinks class="social-links"/>
-        <VPNavBarExtra class="extra"/>
-        <VPNavBarHamburger
-          class="hamburger"
-          :active="isScreenOpen"
-          @click="$emit('toggle-screen')"
-        />
+        <VPNavBarSearch class="search" />
+        <VPNavBarMenu class="menu" />
+        <VPNavBarAppearance class="appearance" />
+        <VPNavBarSocialLinks class="social-links" />
+        <VPNavBarExtra class="extra" />
+        <VPNavBarHamburger class="hamburger" :active="isScreenOpen" @click="$emit('toggle-screen')" />
       </div>
     </div>
   </div>
@@ -44,7 +40,9 @@ defineProps<{
   height: var(--vt-nav-height);
   background-color: var(--vt-c-bg);
   white-space: nowrap;
-  transition: border-color 0.5s, background-color 0.5s;
+  transition:
+    border-color 0.5s,
+    background-color 0.5s;
 }
 
 @media (min-width: 768px) {

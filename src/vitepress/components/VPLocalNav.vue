@@ -1,30 +1,25 @@
 <script lang="ts" setup>
-import {VTIconAlignLeft} from '../../core'
-import {useSidebar} from '../composables/sidebar'
-import {useConfig} from '../composables/config'
-import {useData} from 'vitepress'
+import { VTIconAlignLeft } from '../../core'
+import { useSidebar } from '../composables/sidebar'
+import { useConfig } from '../composables/config'
+import { useData } from 'vitepress'
 import VPLocalNavOutlineDropdown from './VPLocalNavOutlineDropdown.vue'
 
 defineProps<{ open: boolean }>()
 
-const {hasSidebar} = useSidebar()
-const {config} = useConfig()
-const {frontmatter} = useData()
+const { hasSidebar } = useSidebar()
+const { config } = useConfig()
+const { frontmatter } = useData()
 </script>
 
 <template>
   <div v-if="hasSidebar" class="VPLocalNav">
-    <button
-      class="menu"
-      :aria-expanded="open"
-      aria-controls="VPSidebarNav"
-      @click="$emit('open-menu')"
-    >
-      <VTIconAlignLeft class="menu-icon"/>
+    <button class="menu" :aria-expanded="open" aria-controls="VPSidebarNav" @click="$emit('open-menu')">
+      <VTIconAlignLeft class="menu-icon" />
       <span class="menu-text">{{ config.i18n?.menu || 'Menu' }}</span>
     </button>
 
-    <VPLocalNavOutlineDropdown v-if="frontmatter.outline !== false"/>
+    <VPLocalNavOutlineDropdown v-if="frontmatter.outline !== false" />
   </div>
 </template>
 
@@ -39,7 +34,9 @@ const {frontmatter} = useData()
   justify-content: space-between;
   border-bottom: 1px solid var(--vt-c-divider-light);
   background-color: var(--vt-c-bg);
-  transition: border-color 0.5s, background-color 0.5s;
+  transition:
+    border-color 0.5s,
+    background-color 0.5s;
 }
 
 @media (min-width: 960px) {

@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import {VTLink} from '@vue/theme'
-import {useData} from 'vitepress'
+import { VTLink } from '@vue/theme'
+import { useData } from 'vitepress'
 
 const data = useData()
 const nav = data.site.value.themeConfig.nav
 const project = nav.find((i: any) => i.activeMatch?.includes('project'))
-const items = nav
-  .filter((i: any) => i !== project && i.items)
-  .concat(project.items)
+const items = nav.filter((i: any) => i !== project && i.items).concat(project.items)
 </script>
 
 <template>

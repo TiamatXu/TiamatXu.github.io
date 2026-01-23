@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {MenuBadgeItem} from '../../core'
+import { MenuBadgeItem } from '../../core'
 
 defineProps<{ item: MenuBadgeItem }>()
 </script>

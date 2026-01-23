@@ -1,15 +1,15 @@
 <script lang="ts" setup>
-import {useData} from 'vitepress'
-import {ref, inject, onMounted, watchPostEffect} from 'vue'
-import {MenuItemWithLink} from '../../core'
+import { useData } from 'vitepress'
+import { ref, inject, onMounted, watchPostEffect } from 'vue'
+import { MenuItemWithLink } from '../../core'
 import VTMenuBadge from '../../core/components/VTMenuBadge.vue'
-import {isActive} from '../support/utils'
+import { isActive } from '../support/utils'
 
 const props = defineProps<{
   item: MenuItemWithLink
 }>()
 
-const {page} = useData()
+const { page } = useData()
 const closeSideBar = inject('close-sidebar') as () => void
 
 // https://github.com/vuejs/theme/issues/97#issuecomment-1666562964
@@ -22,14 +22,10 @@ watchPostEffect(updateActive)
 </script>
 
 <template>
-  <a
-    :class="{ link: true, active }"
-    :href="item.link"
-    @click="closeSideBar"
-  >
+  <a :class="{ link: true, active }" :href="item.link" @click="closeSideBar">
     <p class="link-text">
       {{ item.text }}
-      <VTMenuBadge v-if="item.badge" :item="item.badge"/>
+      <VTMenuBadge v-if="item.badge" :item="item.badge" />
     </p>
   </a>
 </template>

@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import {nextTick, ref, watchPostEffect} from 'vue'
-import {useConfig} from '../composables/config'
-import {useSidebar} from '../composables/sidebar'
+import { nextTick, ref, watchPostEffect } from 'vue'
+import { useConfig } from '../composables/config'
+import { useSidebar } from '../composables/sidebar'
 import VPSidebarGroup from './VPSidebarGroup.vue'
 
-const {sidebar, hasSidebar} = useSidebar()
-const {config} = useConfig()
+const { sidebar, hasSidebar } = useSidebar()
+const { config } = useConfig()
 
 const props = defineProps<{
   open: boolean
@@ -22,22 +22,16 @@ watchPostEffect(async () => {
 </script>
 
 <template>
-  <aside
-    v-if="hasSidebar"
-    ref="navEl"
-    class="VPSidebar"
-    :class="{ open }"
-    @click.stop
-  >
+  <aside v-if="hasSidebar" ref="navEl" class="VPSidebar" :class="{ open }" @click.stop>
     <nav id="VPSidebarNav" aria-labelledby="sidebar-aria-label" tabindex="-1">
-      <slot name="top"/>
+      <slot name="top" />
       <span id="sidebar-aria-label" class="visually-hidden">{{
-          config.i18n?.ariaSidebarNav ?? 'Sidebar Navigation'
-        }}</span>
+        config.i18n?.ariaSidebarNav ?? 'Sidebar Navigation'
+      }}</span>
       <div v-for="group in sidebar" :key="group.text" class="group">
-        <VPSidebarGroup :text="group.text" :badge="group.badge" :items="group.items"/>
+        <VPSidebarGroup :text="group.text" :badge="group.badge" :items="group.items" />
       </div>
-      <slot name="bottom"/>
+      <slot name="bottom" />
     </nav>
   </aside>
 </template>
@@ -58,7 +52,10 @@ watchPostEffect(async () => {
   overflow-x: hidden;
   overflow-y: auto;
   transform: translateX(-100%);
-  transition: background-color 0.5s, opacity 0.5s, transform 0.3s ease;
+  transition:
+    background-color 0.5s,
+    opacity 0.5s,
+    transform 0.3s ease;
   /* -ms-overflow-style: none; */
   /* scrollbar-width: none; */
 }
@@ -83,16 +80,16 @@ watchPostEffect(async () => {
     visibility: visible;
     box-shadow: none;
     transform: translateX(0);
-    transition: border-color 0.5s, background-color 0.5s;
+    transition:
+      border-color 0.5s,
+      background-color 0.5s;
   }
 }
 
 @media (min-width: 1440px) {
   .VPSidebar {
     padding: 0 32px 96px calc((100% - var(--vp-screen-max-width)) / 2);
-    width: calc(
-      (100% - var(--vp-screen-max-width)) / 2 + var(--vp-sidebar-width-small)
-    );
+    width: calc((100% - var(--vp-screen-max-width)) / 2 + var(--vp-sidebar-width-small));
   }
 }
 
@@ -100,8 +97,10 @@ watchPostEffect(async () => {
   opacity: 1;
   visibility: visible;
   transform: translateX(0);
-  transition: background-color 0.5s, opacity 0.25s,
-  transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  transition:
+    background-color 0.5s,
+    opacity 0.25s,
+    transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .dark .VPSidebar {

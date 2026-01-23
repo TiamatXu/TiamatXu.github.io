@@ -1,5 +1,5 @@
 <template>
   <div class="vt-code-group-content">
-    <slot/>
+    <slot />
   </div>
 </template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {computed, onMounted, ref, shallowRef} from 'vue'
+import { computed, onMounted, ref, shallowRef } from 'vue'
 
 const props = withDefaults(
   defineProps<{
@@ -22,9 +22,7 @@ const props = withDefaults(
 const isMounted = ref(false)
 const items = shallowRef([...props.items])
 
-const filteredItems = computed(() =>
-  props.filter ? items.value.filter(props.filter) : items.value
-)
+const filteredItems = computed(() => (props.filter ? items.value.filter(props.filter) : items.value))
 
 onMounted(() => {
   isMounted.value = true
@@ -32,8 +30,8 @@ onMounted(() => {
 })
 
 function processItems(items: Array<any>, splitBy: string, shouldShuffle: boolean) {
-  const splitItems = items.filter(item => item[splitBy])
-  const otherItems = items.filter(item => !item[splitBy])
+  const splitItems = items.filter((item) => item[splitBy])
+  const otherItems = items.filter((item) => !item[splitBy])
 
   if (shouldShuffle) {
     shuffleArray(splitItems)
@@ -45,8 +43,8 @@ function processItems(items: Array<any>, splitBy: string, shouldShuffle: boolean
 
 function shuffleArray(array: Array<any>) {
   for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1)); // don't remove semicolon
-    [array[i], array[j]] = [array[j], array[i]]
+    const j = Math.floor(Math.random() * (i + 1)) // don't remove semicolon
+    ;[array[i], array[j]] = [array[j], array[i]]
   }
 }
 </script>
@@ -55,19 +53,10 @@ function shuffleArray(array: Array<any>) {
   <div v-show="isMounted" class="card-list">
     <!-- to skip SSG since the partners are shuffled -->
     <ClientOnly>
-      <component
-        :is="cardComponent"
-        v-for="item in filteredItems"
-        :key="item.id || item.name"
-        :data="item"
-      />
+      <component :is="cardComponent" v-for="item in filteredItems" :key="item.id || item.name" :data="item" />
     </ClientOnly>
 
-    <a
-      v-if="showLinkToAll && filteredItems.length % 2"
-      :href="browseLinkUrl"
-      class="browse-all-link"
-    >
+    <a v-if="showLinkToAll && filteredItems.length % 2" :href="browseLinkUrl" class="browse-all-link">
       {{ browseLinkText }}
     </a>
   </div>

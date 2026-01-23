@@ -1,25 +1,21 @@
 <script lang="ts" setup>
-import {VTLink} from '../../core'
-import {useData} from 'vitepress'
-import {isActive} from '../support/utils'
-import {NavItemWithLink} from '../config'
+import { VTLink } from '../../core'
+import { useData } from 'vitepress'
+import { isActive } from '../support/utils'
+import { NavItemWithLink } from '../config'
 
 defineProps<{
   item: NavItemWithLink
 }>()
 
-const {page} = useData()
+const { page } = useData()
 </script>
 
 <template>
   <VTLink
     :class="{
       VPNavBarMenuLink: true,
-      active: isActive(
-        page.relativePath,
-        item.activeMatch || item.link,
-        !!item.activeMatch
-      )
+      active: isActive(page.relativePath, item.activeMatch || item.link, !!item.activeMatch)
     }"
     :href="item.link"
     :badge="item.badge"
