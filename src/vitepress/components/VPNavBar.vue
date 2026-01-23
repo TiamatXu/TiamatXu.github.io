@@ -96,6 +96,7 @@ const formattedBuildTime = buildTime ? new Date(buildTime).toString() : 'Fetch f
   position: absolute;
   width: 100%;
   top: calc(var(--vt-nav-height) + 5px);
+  z-index: -1;
 }
 
 .create-time,
