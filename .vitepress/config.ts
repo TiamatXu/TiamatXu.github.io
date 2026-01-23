@@ -78,7 +78,10 @@ export default defineConfigWithTheme<ThemeConfig>({
       '/todo/': [
         {
           text: 'Reference',
-          items: [{ text: '参考', link: 'todo/reference' }]
+          items: [
+            { text: '参考', link: 'todo/reference' },
+            { text: '待办事项', link: 'todo/todolists' }
+          ]
         },
         {
           text: '项目列表',
