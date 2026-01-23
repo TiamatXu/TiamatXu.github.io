@@ -89,7 +89,7 @@ const pageClass = computed(() => {
 .aside-container {
   position: sticky;
   width: 224px;
-  top: calc(var(--vt-nav-height) + var(--vt-banner-height, 0px) + 24px);
+  top: calc(var(--vt-nav-height) + var(--vt-banner-height, 0px) + 54px);
   bottom: 0;
 }
 
@@ -126,13 +126,13 @@ const pageClass = computed(() => {
 
 @media (min-width: 960px) {
   .VPContentDoc {
-    padding: 64px 64px 96px;
+    padding: 54px 64px 96px;
   }
 }
 
 @media (min-width: 1280px) {
   .VPContentDoc {
-    padding: 64px 0 96px 64px;
+    padding: 54px 0 96px 64px;
   }
 
   .VPContentDoc:not(.has-sidebar.has-aside) {
@@ -165,7 +165,7 @@ const pageClass = computed(() => {
 
 @media (min-width: 1440px) {
   .VPContentDoc {
-    padding: 64px 0 96px 96px;
+    padding: 54px 0 96px 96px;
   }
 
   .aside {
