@@ -18,7 +18,23 @@ const { config } = useConfig()
 
 @media (min-width: 1280px) {
   .VPNavBarAppearance {
-    display: block;
+    display: flex;
+  }
+
+  .VPNavBarAppearance::before,
+  .VPNavBarAppearance::after {
+    width: 1px;
+    height: 24px;
+    background-color: var(--vt-c-divider-light);
+    content: '';
+  }
+
+  .VPNavBarAppearance::before {
+    margin-right: 4px;
+  }
+
+  .VPNavBarAppearance::after {
+    margin-left: 4px;
   }
 }
 </style>

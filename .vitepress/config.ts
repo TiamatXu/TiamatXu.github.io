@@ -31,7 +31,7 @@ export default defineConfigWithTheme<ThemeConfig>({
     nav: [
       {
         text: '文档',
-        activeMatch: `^/(Linux|文档|TODO)/`,
+        activeMatch: `^/(linux|doc-site|todo)/`,
         items: [
           { text: 'Linux', link: '/linux/zookeeper-docker-arrangement' },
           { text: '文档', link: '/doc-site/vitepress-deployment-guide' },
@@ -116,11 +116,6 @@ export default defineConfigWithTheme<ThemeConfig>({
       ariaMobileNav: '移动版导航',
       ariaSidebarNav: '侧边栏导航'
     },
-
-    localeLinks: [
-      { link: 'https://tiamatxu.github.io', text: '简体中文', repo: 'https://github.com/TiamatXu/TiamatXu.github.io' },
-      { link: '', text: '暂无其他语言!', isTranslationsDesc: true }
-    ],
 
     editLink: { repo: 'TiamatXu/TiamatXu.github.io#master', text: '在 GitHub 上编辑此页' },
 
