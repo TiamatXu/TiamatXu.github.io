@@ -7,48 +7,45 @@ import ContributionGraph from './ContributionGraph.vue'
 
 const githubUsername = 'TiamatXu'
 // onMounted(load)
+
+const buildTime = import.meta.env.VITE_APP_BUILD_TIME
+const formattedBuildTime = buildTime
+  ? new Date(buildTime).toLocaleString('zh-CN', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false
+    })
+  : ''
 </script>
 
 <template>
   <section id="hero">
+    <div v-if="formattedBuildTime" class="build-time">最后部署于: {{ formattedBuildTime }}</div>
     <h1 class="tagline">
       <span class="accent">Tiamat Xu</span>
       <br />的个人文档库
     </h1>
     <p class="description">一个开发者的个人知识库，在这里记录并分享我的学习与实践。</p>
-    <!--    <p class="actions">-->
-    <!--      <a class="get-started" href="/guide/introduction.html">-->
-    <!--        快速上手-->
-    <!--        <svg-->
-    <!--            class="icon"-->
-    <!--            xmlns="http://www.w3.org/2000/svg"-->
-    <!--            width="10"-->
-    <!--            height="10"-->
-    <!--            viewBox="0 0 24 24"-->
-    <!--        >-->
-    <!--          <path-->
-    <!--              d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z"-->
-    <!--          />-->
-    <!--        </svg>-->
-    <!--      </a>-->
-    <!--      <a class="setup" href="/guide/quick-start.html">安装</a>-->
-    <!--    </p>-->
   </section>
 
-  <section id="highlights" class="vt-box-container">
-    <div class="vt-box">
-      <h2>易学易用</h2>
-      <p>基于标准 HTML、CSS 和 JavaScript 构建，提供容易上手的 API 和一流的文档。</p>
-    </div>
-    <div class="vt-box">
-      <h2>性能出色</h2>
-      <p>经过编译器优化、完全响应式的渲染系统，几乎不需要手动优化。</p>
-    </div>
-    <div class="vt-box">
-      <h2>灵活多变</h2>
-      <p>丰富的、可渐进式集成的生态系统，可以根据应用规模在库和框架间切换自如。</p>
-    </div>
-  </section>
+  <!--  <section id="highlights" class="vt-box-container">-->
+  <!--    <div class="vt-box">-->
+  <!--      <h2>易学易用</h2>-->
+  <!--      <p>基于标准 HTML、CSS 和 JavaScript 构建，提供容易上手的 API 和一流的文档。</p>-->
+  <!--    </div>-->
+  <!--    <div class="vt-box">-->
+  <!--      <h2>性能出色</h2>-->
+  <!--      <p>经过编译器优化、完全响应式的渲染系统，几乎不需要手动优化。</p>-->
+  <!--    </div>-->
+  <!--    <div class="vt-box">-->
+  <!--      <h2>灵活多变</h2>-->
+  <!--      <p>丰富的、可渐进式集成的生态系统，可以根据应用规模在库和框架间切换自如。</p>-->
+  <!--    </div>-->
+  <!--  </section>-->
 
   <!--  <section id="sponsors">-->
   <!--    <h2>Platinum Sponsors</h2>-->
@@ -71,8 +68,19 @@ section {
 }
 
 #hero {
-  padding: 50px 40px;
+  position: relative;
   text-align: center;
+  //border-bottom: 1px solid var(--vt-c-divider-light);
+}
+
+.build-time {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--vt-c-text-2);
 }
 
 .tagline {
@@ -233,9 +241,6 @@ html:not(.dark) .accent,
 }
 
 @media (max-width: 576px) {
-  #hero {
-    padding: 56px 32px;
-  }
   .description {
     font-size: 16px;
     margin: 18px 0 30px;
@@ -258,7 +263,6 @@ html:not(.dark) .accent,
 }
 
 #contribution-chart {
-  padding: 42px 32px;
   text-align: center;
 }
 
