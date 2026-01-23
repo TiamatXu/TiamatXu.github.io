@@ -279,6 +279,7 @@ html:not(.dark) .accent,
 
 .time-tag {
   display: flex;
+	flex-wrap: wrap;
   justify-content: space-between;
   margin: 0 auto;
   max-width: var(--vp-screen-max-width);
