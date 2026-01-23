@@ -9,7 +9,7 @@ const githubUsername = 'TiamatXu'
 // onMounted(load)
 
 const buildTime = import.meta.env.VITE_APP_BUILD_TIME
-const formattedBuildTime = buildTime ? new Date(buildTime).toUTCString() : 'Fetch failed with no build time.'
+const formattedBuildTime = buildTime ? new Date(buildTime).toTimeString() : 'Fetch failed with no build time.'
 </script>
 
 <template>
