@@ -30,11 +30,11 @@ const { config } = useConfig()
   }
 
   .VPNavBarAppearance::before {
-    margin-right: 4px;
+    margin-right: 12px;
   }
 
   .VPNavBarAppearance::after {
-    margin-left: 4px;
+    margin-left: 12px;
   }
 }
 </style>
