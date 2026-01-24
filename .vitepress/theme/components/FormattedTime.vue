@@ -1,5 +1,6 @@
 <template>
   <div v-if="formattedTime" class="formatted-time">{{ description }}: {{ formattedTime }}</div>
+  <div v-else class="formatted-time">{{ description }}: Fetch failed with no time.</div>
 </template>
 
 <script setup lang="ts">
@@ -23,7 +24,6 @@ const formatTime = () => {
       const date = new Date(timeValue.value)
       formattedTime.value = format(date, formatString?.value || defaultFullFormatString)
     } catch (e) {
-      console.error(`Failed to parse time for '${description.value}':`, e)
       formattedTime.value = 'Invalid date'
     }
   } else {
