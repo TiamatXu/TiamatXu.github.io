@@ -59,7 +59,6 @@ section {
 
 #time-tag {
   position: absolute;
-  top: 2px;
   left: 0;
   right: 0;
   z-index: 0;
