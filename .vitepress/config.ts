@@ -122,7 +122,8 @@ export default defineConfigWithTheme<ThemeConfig>({
       ariaToC: '当前页面的目录',
       ariaMainNav: '主导航',
       ariaMobileNav: '移动版导航',
-      ariaSidebarNav: '侧边栏导航'
+      ariaSidebarNav: '侧边栏导航',
+      locales: '翻译'
     },
 
     editLink: { repo: 'TiamatXu/TiamatXu.github.io#master', text: '在 GitHub 上编辑此页' },

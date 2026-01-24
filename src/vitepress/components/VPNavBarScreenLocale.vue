@@ -7,7 +7,7 @@ const { config } = useConfig()
 </script>
 
 <template>
-  <div v-if="config.appearance" class="VPNavBarLocaleScreen">
+  <div v-if="config.localeLinks" class="VPNavBarLocaleScreen">
     <p class="title">{{ config.i18n?.locales ?? 'Translations' }}</p>
     <VPNavBarLocaleItems />
     <VPNavBarLocaleJoin />
