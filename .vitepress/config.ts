@@ -55,6 +55,14 @@ export default defineConfigWithTheme<ThemeConfig>({
             ]
           }
         ]
+      },
+      {
+        text: '关于',
+        activeMatch: `^/about/`,
+        items: [
+          { text: 'about', link: '/about/index' },
+          { text: 'author', link: '/about/author' }
+        ]
       }
     ],
 
