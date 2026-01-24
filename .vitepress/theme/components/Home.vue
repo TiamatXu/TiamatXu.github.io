@@ -8,11 +8,9 @@ const buildTime = import.meta.env.VITE_APP_BUILD_TIME
 </script>
 
 <template>
-  <section id="time-tag-container">
-    <div class="time-tag">
-      <FormattedTime description="创建于" timeValue="2025-12-25" formatString="yyyy/MM/dd" />
-      <FormattedTime description="最后部署于" :timeValue="buildTime" formatString="yyyy/MM/dd HH:mm:ss 'UTC'xxx" />
-    </div>
+  <section id="time-tag">
+    <FormattedTime description="创建于" timeValue="2025-12-25" formatString="yyyy/MM/dd" />
+    <FormattedTime description="最后部署于" :timeValue="buildTime" formatString="yyyy/MM/dd HH:mm:ss 'UTC'xxx" />
   </section>
   <section id="hero">
     <h1 class="tagline">
@@ -57,33 +55,30 @@ section {
   padding: 42px 32px;
 }
 
-#time-tag-container {
+#time-tag {
   position: absolute;
   top: 2px;
   left: 0;
   right: 0;
   z-index: 0;
   padding: 0 12px 0 24px;
-}
-
-@media (min-width: 768px) {
-  #time-tag-container {
-    padding: 0 12px 0 32px;
-  }
-}
-
-@media (min-width: 1280px) {
-  #time-tag-container {
-    padding: 0 32px;
-  }
-}
-
-.time-tag {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   margin: 0 auto;
   max-width: var(--vp-screen-max-width);
+}
+
+@media (min-width: 768px) {
+  #time-tag {
+    padding: 0 12px 0 32px;
+  }
+}
+
+@media (min-width: 1280px) {
+  #time-tag {
+    padding: 0 32px;
+  }
 }
 
 #hero {

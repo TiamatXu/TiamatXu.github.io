@@ -38,6 +38,6 @@ watch([timeValue, formatString], formatTime)
 <style scoped>
 .formatted-time {
   font-size: 0.8em;
-  color: var(--vt-c-text-3);
+  color: var(--vt-c-text-2);
 }
 </style>
