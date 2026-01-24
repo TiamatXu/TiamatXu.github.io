@@ -1,23 +1,19 @@
 <script setup lang="ts">
 import SiteMap from './SiteMap.vue'
 import ContributionGraph from './ContributionGraph.vue'
-// import { onMounted } from 'vue'
-// import { base, data, load } from './sponsors'
-// import SponsorsGroup from './SponsorsGroup.vue'
+import FormattedTime from './FormattedTime.vue'
 
 const githubUsername = 'TiamatXu'
-// onMounted(load)
 const buildTime = import.meta.env.VITE_APP_BUILD_TIME
-const formattedBuildTime = buildTime ? new Date(buildTime).toString() : 'Fetch failed with no build time.'
 </script>
 
 <template>
-  <div class="time-tag-container">
+  <section id="time-tag-container">
     <div class="time-tag">
-      <div class="create-time">创建于: 2025/12/25</div>
-      <div v-if="formattedBuildTime" class="build-time">最后部署于: {{ formattedBuildTime }}</div>
+      <FormattedTime description="创建于" timeValue="2025-12-25" formatString="yyyy/MM/dd" />
+      <FormattedTime description="最后部署于" :timeValue="buildTime" formatString="yyyy/MM/dd HH:mm:ss 'UTC'xxx" />
     </div>
-  </div>
+  </section>
   <section id="hero">
     <h1 class="tagline">
       <span class="accent">Tiamat Xu</span>
@@ -61,11 +57,39 @@ section {
   padding: 42px 32px;
 }
 
+#time-tag-container {
+  position: absolute;
+  top: 2px;
+  left: 0;
+  right: 0;
+  z-index: 0;
+  padding: 0 12px 0 24px;
+}
+
+@media (min-width: 768px) {
+  #time-tag-container {
+    padding: 0 12px 0 32px;
+  }
+}
+
+@media (min-width: 1280px) {
+  #time-tag-container {
+    padding: 0 32px;
+  }
+}
+
+.time-tag {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: var(--vp-screen-max-width);
+}
+
 #hero {
   padding-top: 72px;
   position: relative;
   text-align: center;
-  //border-bottom: 1px solid var(--vt-c-divider-light);
 }
 
 .tagline {
@@ -257,37 +281,5 @@ html:not(.dark) .accent,
   margin-bottom: 0.75em;
   font-size: 20px;
   font-weight: 600;
-}
-
-.time-tag-container {
-  position: absolute;
-  width: 100%;
-  padding: 0 12px 0 24px;
-}
-
-@media (min-width: 768px) {
-  .time-tag-container {
-    padding: 0 12px 0 32px;
-  }
-}
-
-@media (min-width: 1280px) {
-  .time-tag-container {
-    padding: 0 32px;
-  }
-}
-
-.time-tag {
-  display: flex;
-	flex-wrap: wrap;
-  justify-content: space-between;
-  margin: 0 auto;
-  max-width: var(--vp-screen-max-width);
-}
-
-.create-time,
-.build-time {
-  font-size: 0.8em;
-  color: var(--vt-c-text-3);
 }
 </style>
