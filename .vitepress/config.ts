@@ -31,11 +31,12 @@ export default defineConfigWithTheme<ThemeConfig>({
     nav: [
       {
         text: '文档',
-        activeMatch: `^/(linux|doc-site|todo)/`,
+        activeMatch: `^/(linux|doc-site|todo|showcase)/`,
         items: [
           { text: 'Linux', link: '/linux/zookeeper-docker-arrangement' },
           { text: '文档', link: '/doc-site/vitepress-deployment-guide' },
-          { text: 'TODO', link: '/todo/todolists' }
+          { text: 'TODO', link: '/todo/todolists' },
+          { text: 'Showcase', link: '/showcase/icons' }
         ]
       },
       {
