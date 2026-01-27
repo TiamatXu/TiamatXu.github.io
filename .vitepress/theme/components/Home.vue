@@ -2,7 +2,7 @@
 import SiteMap from './SiteMap.vue'
 import ContributionGraph from './ContributionGraph.vue'
 import FormattedTime from './FormattedTime.vue'
-import ITab from './ITab.vue'
+// import ITab from './ITab.vue'
 
 const githubUsername = 'TiamatXu'
 const buildTime = import.meta.env.VITE_APP_BUILD_TIME
@@ -23,9 +23,9 @@ const buildTime = import.meta.env.VITE_APP_BUILD_TIME
     <p class="description">一个开发者的个人知识库，在这里记录并分享我的学习与实践。</p>
   </section>
 
-  <section id="itab">
-    <ITab />
-  </section>
+  <!--  <section id="itab">-->
+  <!--    <ITab />-->
+  <!--  </section>-->
 
   <!--  <section id="highlights" class="vt-box-container">-->
   <!--    <div class="vt-box">-->
