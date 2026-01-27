@@ -80,17 +80,15 @@ const months = computed(() => {
 
 // Calculate colspan for each month header
 const monthsWithColspan = computed(() => {
-  if (!months.value || months.value.length === 0) return []
-
+  if (!months.value?.length) return []
+  const weeksCount = grid.value[0]?.length ?? 0
   const spans: { name: string; colspan: number }[] = []
   for (let i = 0; i < months.value.length; i++) {
-    const currentMonth = months.value[i]
-    const nextMonth = months.value[i + 1]
-    const colspan = nextMonth
-      ? nextMonth.weekIndex - currentMonth.weekIndex
-      : (grid.value[0]?.length || 0) - currentMonth.weekIndex
+    const current = months.value[i]
+    const next = months.value[i + 1]
+    const colspan = next ? next.weekIndex - current.weekIndex : weeksCount - current.weekIndex
     if (colspan > 0) {
-      spans.push({ name: currentMonth.name, colspan })
+      spans.push({ name: colspan > 1 ? current.name : '', colspan })
     }
   }
   return spans
