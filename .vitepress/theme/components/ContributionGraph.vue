@@ -275,6 +275,13 @@ html.dark .contribution-grid-wrapper::-webkit-scrollbar-thumb:hover {
 </style>
 
 <style scoped>
+/* 为组件内所有颜色相关属性添加过渡（color 与 background-color）*/
+.contribution-calendar * {
+  transition:
+    color 0.5s,
+    background-color 0.5s;
+}
+
 .error-message {
   color: var(--vt-c-text-1);
   margin-top: 20px;
