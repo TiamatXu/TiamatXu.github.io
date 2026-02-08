@@ -43,6 +43,23 @@ jobs:
       - name: Build VitePress Site
         run: pnpm run build
 
+      # 在上传之前创建一个 deployment 记录（用于在仓库 Deployments 中显示）
+      - name: Create deployment record
+        id: create_deploy
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const dep = await github.rest.repos.createDeployment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: process.env.GITHUB_SHA || context.sha,
+              required_contexts: [],
+              environment: "github-pages",
+              transient_environment: false,
+              description: "Deploy via Actions (Pages)"
+            });
+            core.setOutput("deployment_id", String(dep.data.id));
+
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v4
 
@@ -54,3 +71,23 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      # 部署完成后，把上面创建的 deployment 标记为 success，并附带 pages URL（如果可用）
+      - name: Mark deployment status success
+        if: always()
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const deploymentId = parseInt(core.getInput('deployment_id') || `${{ steps.create_deploy.outputs.deployment_id }}`);
+            // 优先使用 deploy-pages 输出的 page_url（若可用），否则尝试构造一个通用的 pages URL
+            const pageUrl = (typeof steps !== 'undefined' && steps.deployment && steps.deployment.outputs && steps.deployment.outputs.page_url)
+              ? steps.deployment.outputs.page_url
+              : `https://${context.repo.owner}.github.io/${context.repo.repo}`;
+            await github.rest.repos.createDeploymentStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              deployment_id: deploymentId,
+              state: "success",
+              environment_url: pageUrl,
+              log_url: `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`
+            });
