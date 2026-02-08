@@ -1,13 +1,13 @@
 name: Deploy Pages
 
 on:
-  push:
-    branches:
-      - master
+#  push:
+#    branches:
+#      - master
   workflow_dispatch:
-  # 04:30 (UTC+8) |\ 20:30 (UTC)
+  #   04:00 (UTC+8) |\ 20:00 (UTC)
   schedule:
-    - cron: '30 20 * * *'
+    - cron: '0 20 * * *'
 
 permissions:
   contents: read
