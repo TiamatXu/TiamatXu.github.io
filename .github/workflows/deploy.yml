@@ -3,11 +3,17 @@ name: Deploy Github Pages
 on:
   push:
     branches:
-      - main
       - master
+      - main
+    paths:
+      - '.vitepress/**'
+      - 'src/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - '.github/workflows/**'
   workflow_dispatch:
-  #   04:00 (UTC+8) | 20:00 (UTC)
   schedule:
+    # 04:00 (UTC+8) | 20:00 (UTC)
     - cron: '0 20 * * *'
 
 permissions:
@@ -16,78 +22,132 @@ permissions:
   id-token: write
   deployments: write
 
+environment:
+  name: github-pages
+  url: ${{ steps.deployment.outputs.page_url }}
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-      - name: Checkout
+      - name: Create deployment record
+        id: create_deploy
+        uses: actions/github-script@v7
+        with:
+          script: |
+            try {
+              const dep = await github.rest.repos.createDeployment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: process.env.GITHUB_SHA || context.sha,
+                required_contexts: [],
+                environment: "github-pages",
+                transient_environment: false,
+                description: `Deploy via Actions (Pages) - ${new Date().toISOString()}`
+              });
+              core.setOutput("deployment_id", String(dep.data.id));
+              core.info(`Created deployment record with ID: ${dep.data.id}`);
+            } catch (error) {
+              core.setFailed(`Failed to create deployment record: ${error.message}`);
+              throw error;
+            }
+
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # 如果需要 git 最后更新时间等信息，则必需
+          fetch-depth: 0
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
+        with:
+          version: latest
+          run_install: false
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: 'pnpm'
+          registry-url: https://registry.npmmirror.com/
 
-      - name: Install Dependencies
-        run: pnpm install
+      - name: Install dependencies
+        run: |
+          pnpm --version
+          pnpm install --frozen-lockfile
+        continue-on-error: false
 
-      - name: Set Build Time
-        run: echo "VITE_APP_BUILD_TIME=$(date -u --iso-8601=seconds)" >> $GITHUB_ENV
+      - name: Set build environment variables
+        run: |
+          echo "VITE_APP_BUILD_TIME=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_ENV
+          echo "VITE_APP_GIT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+          echo "VITE_APP_GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)" >> $GITHUB_ENV
 
       - name: Build VitePress Site
         run: pnpm run build
+        env:
+          NODE_ENV: production
+        continue-on-error: false
 
-      # 在上传之前创建一个 deployment 记录（用于在仓库 Deployments 中显示）
-      - name: Create deployment record
-        id: create_deploy
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const dep = await github.rest.repos.createDeployment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: process.env.GITHUB_SHA || context.sha,
-              required_contexts: [],
-              environment: "github-pages",
-              transient_environment: false,
-              description: "Deploy via Actions (Pages)"
-            });
-            core.setOutput("deployment_id", String(dep.data.id));
+      - name: Validate build output
+        run: |
+          if [ ! -d ".vitepress/dist" ]; then
+            echo "Error: Build directory .vitepress/dist does not exist!"
+            exit 1
+          fi
+          if [ -z "$(ls -A .vitepress/dist)" ]; then
+            echo "Error: Build directory is empty!"
+            exit 1
+          fi
+          echo "✅ Build output validation passed"
 
       - name: Setup GitHub Pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v5
 
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: .vitepress/dist
+          retention-days: 30
 
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        continue-on-error: false
 
-      # 部署完成后，把上面创建的 deployment 标记为 success，并附带 pages URL（如果可用）
-      - name: Mark deployment status success
+      - name: Update deployment status
         if: always()
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
             const deploymentId = parseInt(core.getInput('deployment_id') || `${{ steps.create_deploy.outputs.deployment_id }}`);
-            // 优先使用 deploy-pages 输出的 page_url（若可用），否则尝试构造一个通用的 pages URL
-            const pageUrl = (typeof steps !== 'undefined' && steps.deployment && steps.deployment.outputs && steps.deployment.outputs.page_url)
-              ? steps.deployment.outputs.page_url
-              : `https://${context.repo.owner}.github.io`;
-            await github.rest.repos.createDeploymentStatus({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              deployment_id: deploymentId,
-              state: "success",
-              environment_url: pageUrl,
-              log_url: `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`
-            });
+            // 确定部署状态：根据上一步的结果设置 success/failure
+            const deploymentState = ${{ steps.deployment.outcome == 'success' }} ? 'success' : 'failure';
+
+            // 构造 Pages URL（兼容不同仓库类型：用户/组织/项目）
+            const repoName = context.repo.repo;
+            const owner = context.repo.owner;
+            let pageUrl = '';
+            if (${{ steps.deployment.outputs.page_url }}) {
+              pageUrl = '${{ steps.deployment.outputs.page_url }}';
+            } else {
+              // 通用 Pages URL 构造规则
+              pageUrl = repoName === `${owner}.github.io`
+                ? `https://${owner}.github.io`
+                : `https://${owner}.github.io/${repoName}`;
+            }
+
+            try {
+              await github.rest.repos.createDeploymentStatus({
+                owner: owner,
+                repo: repoName,
+                deployment_id: deploymentId,
+                state: deploymentState,
+                environment_url: pageUrl,
+                log_url: `https://github.com/${owner}/${repoName}/actions/runs/${context.runId}`,
+                description: `Deployment ${deploymentState}: ${new Date().toISOString()}`
+              });
+              core.info(`Updated deployment ${deploymentId} status to ${deploymentState}`);
+            } catch (error) {
+              core.warning(`Failed to update deployment status: ${error.message}`);
+            }
