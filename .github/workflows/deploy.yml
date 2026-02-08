@@ -6,7 +6,7 @@ on:
       - main
       - master
   workflow_dispatch:
-  #   04:00 (UTC+8) |\ 20:00 (UTC)
+  #   04:00 (UTC+8) | 20:00 (UTC)
   schedule:
     - cron: '0 20 * * *'
 
@@ -82,7 +82,7 @@ jobs:
             // 优先使用 deploy-pages 输出的 page_url（若可用），否则尝试构造一个通用的 pages URL
             const pageUrl = (typeof steps !== 'undefined' && steps.deployment && steps.deployment.outputs && steps.deployment.outputs.page_url)
               ? steps.deployment.outputs.page_url
-              : `https://${context.repo.owner}.github.io/${context.repo.repo}`;
+              : `https://${context.repo.owner}.github.io`;
             await github.rest.repos.createDeploymentStatus({
               owner: context.repo.owner,
               repo: context.repo.repo,
