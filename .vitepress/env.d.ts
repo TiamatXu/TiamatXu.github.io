@@ -11,3 +11,4 @@
 //   const createHighlighter: () => Promise<(input: string) => string>
 //   export default createHighlighter
 // }
+//
