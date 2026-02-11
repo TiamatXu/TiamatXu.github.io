@@ -23,7 +23,8 @@
   },
   "include": [
     "docs",
-    ".vitepress/theme"
+    ".vitepress/theme",
+    ".github/fetch-contributions.ts"
   ],
   "exclude": [
     "node_modules"
