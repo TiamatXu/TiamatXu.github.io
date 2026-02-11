@@ -1,18 +1,18 @@
 <script lang="ts" setup>
-import {useData} from 'vitepress'
+import { useData } from 'vitepress'
 import VPFooter from './VPFooter.vue'
 
-const {frontmatter} = useData()
+const { frontmatter } = useData()
 </script>
 
 <template>
   <div class="VPContentPage">
     <main>
-      <Content/>
+      <Content />
     </main>
 
-    <slot name="footer-before"/>
-    <VPFooter v-if="frontmatter.footer !== false"/>
-    <slot name="footer-after"/>
+    <slot name="footer-before" />
+    <VPFooter v-if="frontmatter.footer !== false" />
+    <slot name="footer-after" />
   </div>
 </template>

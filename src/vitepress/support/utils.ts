@@ -1,5 +1,5 @@
-import {withBase} from 'vitepress'
-import {ref} from 'vue'
+import { withBase } from 'vitepress'
+import { ref } from 'vue'
 
 export const hashRE = /#.*$/
 export const extRE = /(index)?\.(md|html)$/
@@ -17,7 +17,7 @@ export function normalizeLink(url: string): string {
   if (isExternal(url)) {
     return url
   }
-  const {pathname, search, hash} = new URL(url, 'http://vuejs.org')
+  const { pathname, search, hash } = new URL(url, 'http://vuejs.org')
   return withBase(
     pathname.endsWith('/') || pathname.endsWith('.html')
       ? url
@@ -33,11 +33,7 @@ if (inBrowser) {
   })
 }
 
-export function isActive(
-  currentPath: string,
-  matchPath?: string,
-  asRegex = false
-): boolean {
+export function isActive(currentPath: string, matchPath?: string, asRegex = false): boolean {
   if (matchPath === undefined) {
     return false
   }

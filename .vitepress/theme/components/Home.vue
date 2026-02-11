@@ -1,68 +1,60 @@
 <script setup lang="ts">
 import SiteMap from './SiteMap.vue'
 import ContributionGraph from './ContributionGraph.vue'
-// import { onMounted } from 'vue'
-// import { base, data, load } from './sponsors'
-// import SponsorsGroup from './SponsorsGroup.vue'
+import FormattedTime from './FormattedTime.vue'
+// import ITab from './ITab.vue'
 
 const githubUsername = 'TiamatXu'
-// onMounted(load)
+const buildTime = import.meta.env.VITE_APP_BUILD_TIME
 </script>
 
 <template>
+  <section id="time-tag">
+    <div class="time-tag-content">
+      <FormattedTime description="创建于" timeValue="2025-12-25" formatString="yyyy/MM/dd" />
+      <FormattedTime description="最后部署于" :timeValue="buildTime" formatString="yyyy/MM/dd HH:mm:ss 'UTC'xxx" />
+    </div>
+  </section>
   <section id="hero">
     <h1 class="tagline">
       <span class="accent">Tiamat Xu</span>
       <br />的个人文档库
     </h1>
     <p class="description">一个开发者的个人知识库，在这里记录并分享我的学习与实践。</p>
-<!--    <p class="actions">-->
-<!--      <a class="get-started" href="/guide/introduction.html">-->
-<!--        快速上手-->
-<!--        <svg-->
-<!--            class="icon"-->
-<!--            xmlns="http://www.w3.org/2000/svg"-->
-<!--            width="10"-->
-<!--            height="10"-->
-<!--            viewBox="0 0 24 24"-->
-<!--        >-->
-<!--          <path-->
-<!--              d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z"-->
-<!--          />-->
-<!--        </svg>-->
-<!--      </a>-->
-<!--      <a class="setup" href="/guide/quick-start.html">安装</a>-->
-<!--    </p>-->
   </section>
 
-  <section id="highlights" class="vt-box-container">
-    <div class="vt-box">
-      <h2>易学易用</h2>
-      <p>基于标准 HTML、CSS 和 JavaScript 构建，提供容易上手的 API 和一流的文档。</p>
-    </div>
-    <div class="vt-box">
-      <h2>性能出色</h2>
-      <p>经过编译器优化、完全响应式的渲染系统，几乎不需要手动优化。</p>
-    </div>
-    <div class="vt-box">
-      <h2>灵活多变</h2>
-      <p>丰富的、可渐进式集成的生态系统，可以根据应用规模在库和框架间切换自如。</p>
-    </div>
-  </section>
+  <!--  <section id="itab">-->
+  <!--    <ITab />-->
+  <!--  </section>-->
 
-<!--  <section id="sponsors">-->
-<!--    <h2>Platinum Sponsors</h2>-->
-<!--    <SponsorsGroup tier="platinum" placement="landing"/>-->
-<!--    <h2>Gold Sponsors</h2>-->
-<!--    <SponsorsGroup tier="gold" placement="landing"/>-->
-<!--  </section>-->
+  <!--  <section id="highlights" class="vt-box-container">-->
+  <!--    <div class="vt-box">-->
+  <!--      <h2>易学易用</h2>-->
+  <!--      <p>基于标准 HTML、CSS 和 JavaScript 构建，提供容易上手的 API 和一流的文档。</p>-->
+  <!--    </div>-->
+  <!--    <div class="vt-box">-->
+  <!--      <h2>性能出色</h2>-->
+  <!--      <p>经过编译器优化、完全响应式的渲染系统，几乎不需要手动优化。</p>-->
+  <!--    </div>-->
+  <!--    <div class="vt-box">-->
+  <!--      <h2>灵活多变</h2>-->
+  <!--      <p>丰富的、可渐进式集成的生态系统，可以根据应用规模在库和框架间切换自如。</p>-->
+  <!--    </div>-->
+  <!--  </section>-->
+
+  <!--  <section id="sponsors">-->
+  <!--    <h2>Platinum Sponsors</h2>-->
+  <!--    <SponsorsGroup tier="platinum" placement="landing"/>-->
+  <!--    <h2>Gold Sponsors</h2>-->
+  <!--    <SponsorsGroup tier="gold" placement="landing"/>-->
+  <!--  </section>-->
 
   <section id="contribution-chart">
     <h2>GitHub Contribution Activity</h2>
-    <ContributionGraph :github-username="githubUsername"/>
+    <ContributionGraph :github-username="githubUsername" />
   </section>
 
-  <SiteMap/>
+  <SiteMap />
 </template>
 
 <style scoped>
@@ -70,8 +62,38 @@ section {
   padding: 42px 32px;
 }
 
+#time-tag {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 0;
+  padding: 0 12px 0 24px;
+}
+
+@media (min-width: 768px) {
+  #time-tag {
+    padding: 0 12px 0 32px;
+  }
+}
+
+@media (min-width: 1280px) {
+  #time-tag {
+    padding: 0 32px;
+  }
+}
+
+/* Inner container: handles max-width, centering, and flex layout for content */
+.time-tag-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: var(--vp-screen-max-width);
+}
+
 #hero {
-  padding: 50px 40px;
+  padding-top: 72px;
+  position: relative;
   text-align: center;
 }
 
@@ -81,7 +103,7 @@ section {
   font-weight: 900;
   letter-spacing: -1.5px;
   max-width: 960px;
-  margin: 0px auto;
+  margin: 0 auto;
 }
 
 html:not(.dark) .accent,
@@ -108,7 +130,9 @@ html:not(.dark) .accent,
   padding: 8px 18px;
   font-weight: 500;
   border-radius: 8px;
-  transition: background-color 0.5s, color 0.5s;
+  transition:
+    background-color 0.5s,
+    color 0.5s;
 }
 
 .actions .get-started,
@@ -153,7 +177,9 @@ html:not(.dark) .accent,
   font-size: 16px;
   display: inline-block;
   border-radius: 8px;
-  transition: background-color 0.5s, color 0.5s;
+  transition:
+    background-color 0.5s,
+    color 0.5s;
   position: relative;
   font-weight: 600;
   background-color: var(--vt-c-green);
@@ -229,9 +255,6 @@ html:not(.dark) .accent,
 }
 
 @media (max-width: 576px) {
-  #hero {
-    padding: 56px 32px;
-  }
   .description {
     font-size: 16px;
     margin: 18px 0 30px;
@@ -254,7 +277,6 @@ html:not(.dark) .accent,
 }
 
 #contribution-chart {
-  padding: 42px 32px;
   text-align: center;
 }
 

@@ -1,20 +1,13 @@
 <script setup lang="ts">
-import {onMounted, ref, watch} from 'vue'
-import {
-  inBrowser,
-  preferComposition,
-  preferCompositionKey
-} from './preferences'
-import {useData, type Header} from 'vitepress'
+import { onMounted, ref, watch } from 'vue'
+import { inBrowser, preferComposition, preferCompositionKey } from './preferences'
+import { useData, type Header } from 'vitepress'
 
 const show = ref(false)
-const {page} = useData()
+const { page } = useData()
 
 type Source = 'url-query' | 'url-header' | 'default'
-let source: Source | false =
-  inBrowser && localStorage.getItem(preferCompositionKey) === null
-    ? 'default'
-    : false
+let source: Source | false = inBrowser && localStorage.getItem(preferCompositionKey) === null ? 'default' : false
 
 if (inBrowser) {
   // 1. check if URL contains explicit preference
@@ -42,9 +35,9 @@ function findHeader(
   link: string
 ):
   | (Header & {
-  optionsOnly?: boolean
-  compositionOnly?: boolean
-})
+      optionsOnly?: boolean
+      compositionOnly?: boolean
+    })
   | undefined {
   for (const h of headers) {
     if (h.link === link) {
@@ -70,10 +63,7 @@ function setPreference(capi: boolean, s: Source) {
 }
 
 onMounted(() => {
-  if (
-    !page.value.relativePath.startsWith('tutorial/') &&
-    source !== false
-  ) {
+  if (!page.value.relativePath.startsWith('tutorial/') && source !== false) {
     show.value = true
     // dismiss if user switches with the tooltip open
     const stop = watch(preferComposition, () => {
@@ -87,10 +77,7 @@ function dismiss() {
   show.value = false
   // save if default
   if (source === 'default') {
-    localStorage.setItem(
-      preferCompositionKey,
-      String(preferComposition.value)
-    )
+    localStorage.setItem(preferCompositionKey, String(preferComposition.value))
   }
 }
 </script>
@@ -100,23 +87,15 @@ function dismiss() {
     <div class="preference-tooltip" v-if="show">
       <template v-if="source === 'default'">
         <p>现在将默认使用组合式 API 风格。</p>
-        <p>
-          一些页面根据所选的 API 风格将包含不同的内容。可以通过此开关在它们之间切换。
-        </p>
+        <p>一些页面根据所选的 API 风格将包含不同的内容。可以通过此开关在它们之间切换。</p>
       </template>
       <template v-if="source && source.startsWith('url')">
         <p>
           正在显示
           {{ preferComposition ? '组合式' : '选项式' }} API 的内容，这是因为
-          {{
-            source === 'url-query'
-              ? '通过 URL 查询参数指定了。'
-              : '目标章节仅适用于此 API。'
-          }}
+          {{ source === 'url-query' ? '通过 URL 查询参数指定了。' : '目标章节仅适用于此 API。' }}
         </p>
-        <p>
-          这与你已保存的首选项不同，且仅会影响当前的浏览会话。
-        </p>
+        <p>这与你已保存的首选项不同，且仅会影响当前的浏览会话。</p>
       </template>
       <p class="actions">
         <a href="/guide/introduction#api-styles">了解详情</a>

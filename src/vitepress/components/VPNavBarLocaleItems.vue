@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import {computed} from 'vue';
-import {useRoute} from 'vitepress'
-import {useConfig} from '../composables/config'
-import {VTIconExternalLink} from '../../core';
-import VTIconGitHub from '../../core/components/icons/VTIconGitHub.vue';
+import { computed } from 'vue'
+import { useRoute } from 'vitepress'
+import { useConfig } from '../composables/config'
+import { VTIconExternalLink } from '../../core'
+import VTIconGitHub from '../../core/components/icons/VTIconGitHub.vue'
 
 const route = useRoute()
-const {config} = useConfig()
+const { config } = useConfig()
 const localeLinks = computed(() => {
   const items = config.value.localeLinks || []
   const pathname = route.path || ''
   return items
-    .filter(({isTranslationsDesc}) => !isTranslationsDesc)
-    .map(({text, link, repo}) => {
+    .filter(({ isTranslationsDesc }) => !isTranslationsDesc)
+    .map(({ text, link, repo }) => {
       return {
         text,
         link: new URL(pathname, link).toString(),
-        repo,
+        repo
       }
     })
 })
@@ -24,13 +24,9 @@ const localeLinks = computed(() => {
 
 <template>
   <div v-for="item in localeLinks" :key="item.text" class="vt-locales-menu-item">
-    <a
-      :href="item.link"
-      target="_blank"
-      class="vt-locales-menu-item-text"
-    >
+    <a :href="item.link" target="_blank" class="vt-locales-menu-item-text">
       {{ item.text }}
-      <VTIconExternalLink class="vt-link-icon"/>
+      <VTIconExternalLink class="vt-link-icon" />
     </a>
     <a
       v-if="item.repo"
@@ -39,7 +35,7 @@ const localeLinks = computed(() => {
       target="_blank"
       class="vt-locales-btn-icon-container"
     >
-      <VTIconGitHub class="vt-locales-btn-icon repo"/>
+      <VTIconGitHub class="vt-locales-btn-icon repo" />
     </a>
   </div>
 </template>

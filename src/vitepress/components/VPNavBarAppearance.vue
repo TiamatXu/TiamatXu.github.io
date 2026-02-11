@@ -1,13 +1,13 @@
 <script lang="ts" setup>
-import {VTSwitchAppearance} from '../../core'
-import {useConfig} from '../composables/config'
+import { VTSwitchAppearance } from '../../core'
+import { useConfig } from '../composables/config'
 
-const {config} = useConfig()
+const { config } = useConfig()
 </script>
 
 <template>
   <div v-if="config.appearance" class="VPNavBarAppearance">
-    <VTSwitchAppearance/>
+    <VTSwitchAppearance />
   </div>
 </template>
 
@@ -18,7 +18,23 @@ const {config} = useConfig()
 
 @media (min-width: 1280px) {
   .VPNavBarAppearance {
-    display: block;
+    display: flex;
+  }
+
+  .VPNavBarAppearance::before,
+  .VPNavBarAppearance::after {
+    width: 1px;
+    height: 24px;
+    background-color: var(--vt-c-divider-light);
+    content: '';
+  }
+
+  .VPNavBarAppearance::before {
+    margin-right: 12px;
+  }
+
+  .VPNavBarAppearance::after {
+    margin-left: 12px;
   }
 }
 </style>

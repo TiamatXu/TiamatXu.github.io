@@ -6,6 +6,6 @@ defineProps<{
 
 <template>
   <transition name="fade">
-    <div v-if="show" class="vt-backdrop"/>
+    <div v-if="show" class="vt-backdrop" />
   </transition>
 </template>

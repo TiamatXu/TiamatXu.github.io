@@ -1,4 +1,4 @@
-# `Docker` 配置 `zookeeper` 集群
+# `Docker` 编排 `zookeeper` 集群
 
 #docker #zookeeper
 
@@ -72,7 +72,7 @@ networks:
 
 ## 2. `.env`
 
-```env
+```plaintext
 VERSION=latest
 CONTAINER_NAME=zk
 HOST_IP=0.0.0.0

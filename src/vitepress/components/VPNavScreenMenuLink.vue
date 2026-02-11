@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import {MenuBadgeItem, VTLink} from '../../core'
-import {inject} from 'vue'
+import { MenuBadgeItem, VTLink } from '../../core'
+import { inject } from 'vue'
 
 defineProps<{
   text: string
@@ -26,7 +26,9 @@ const closeScreen = inject('close-screen') as () => void
   font-size: 14px;
   font-weight: 500;
   color: var(--vt-c-text-1);
-  transition: border-color 0.5s, color 0.25s;
+  transition:
+    border-color 0.5s,
+    color 0.25s;
 }
 
 .VPNavScreenMenuLink:hover {

@@ -1,5 +1,5 @@
 <script lang="ts">
-import {ref} from 'vue'
+import { ref } from 'vue'
 
 // shared data across instances so we load only once
 const base = 'https://app.vuejobs.com/feed/vuejs/docs?format=json'
@@ -21,11 +21,9 @@ type Organization = {
 </script>
 
 <script setup lang="ts">
-import {onMounted, computed} from 'vue'
+import { onMounted, computed } from 'vue'
 
-const openings = computed(() =>
-  items.value.sort(() => 0.5 - Math.random()).slice(0, 2)
-)
+const openings = computed(() => items.value.sort(() => 0.5 - Math.random()).slice(0, 2))
 
 onMounted(async () => {
   if (!items.value.length) {
@@ -37,27 +35,11 @@ onMounted(async () => {
 <template>
   <div class="vuejobs-wrapper">
     <div class="vj-container">
-      <a
-        class="vj-item"
-        v-for="(job, n) in openings"
-        :key="n"
-        :href="job.link"
-        target="_blank"
-      >
+      <a class="vj-item" v-for="(job, n) in openings" :key="n" :href="job.link" target="_blank">
         <div class="vj-company-logo">
-          <img
-            :src="job.organization.avatar"
-            :alt="`Logo for ${job.organization.name}`"
-          />
+          <img :src="job.organization.avatar" :alt="`Logo for ${job.organization.name}`" />
         </div>
-        <div
-          style="
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-          "
-        >
+        <div style="overflow: hidden; display: flex; flex-direction: column; justify-content: center">
           <div class="vj-job-title">{{ job.title }}</div>
           <div class="vj-job-info">
             {{ job.organization.name }} <span>· </span>
@@ -72,7 +54,7 @@ onMounted(async () => {
         href="https://vuejobs.com/?utm_source=vuejs&utm_medium=referral&utm_campaign=jobs_widget&utm_content=bottom_link"
         target="_blank"
         title="Hire Vue.js developers"
-      >vuejobs.com</a
+        >vuejobs.com</a
       >
     </div>
   </div>

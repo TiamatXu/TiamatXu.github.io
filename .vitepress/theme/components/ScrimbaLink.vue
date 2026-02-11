@@ -1,11 +1,6 @@
 <template>
   <div class="scrimba">
-    <a
-      :href="href"
-      target="_blank"
-      rel="sponsored noopener"
-      :title="title"
-    >
+    <a :href="href" target="_blank" rel="sponsored noopener" :title="title">
       <slot>Watch a free interactive tutorial on Scrimba</slot>
     </a>
   </div>
@@ -13,8 +8,8 @@
 <script>
 export default {
   props: {
-    href: {type: String, required: true},
-    title: {type: String, required: true}
+    href: { type: String, required: true },
+    title: { type: String, required: true }
   }
 }
 </script>

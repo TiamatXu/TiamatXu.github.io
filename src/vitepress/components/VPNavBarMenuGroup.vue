@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-import {VTFlyout} from '../../core'
-import {isActive} from '../support/utils'
-import {useData} from 'vitepress'
-import {NavItemWithChildren} from '../config'
+import { VTFlyout } from '../../core'
+import { isActive } from '../support/utils'
+import { useData } from 'vitepress'
+import { NavItemWithChildren } from '../config'
 
 defineProps<{
   item: NavItemWithChildren
 }>()
 
-const {page} = useData()
+const { page } = useData()
 </script>
 
 <template>
@@ -25,7 +25,7 @@ const {page} = useData()
 
 <style scoped>
 .VPNavBarMenuGroup.active {
-  border-bottom: 1px solid var(--vt-c-brand);
+  border-bottom: 2px solid var(--vt-c-brand);
   height: var(--vt-nav-height);
 }
 </style>

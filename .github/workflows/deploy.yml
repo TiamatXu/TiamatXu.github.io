@@ -1,13 +1,14 @@
-name: Deploy Pages
+name: Deploy Github Pages
 
 on:
   push:
     branches:
+      - main
       - master
   workflow_dispatch:
-  # 北京时间 每天凌晨 05:00 自动执行
+  # 04:00 (UTC+8) | 20:00 (UTC)
   schedule:
-    - cron: '0 21 * * *'
+    - cron: '0 20 * * *'
 
 permissions:
   contents: read
@@ -17,11 +18,15 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # 如果需要 git 最后更新时间等信息，则必需
+          fetch-depth: 0
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
@@ -30,15 +35,16 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: 'pnpm'
+          cache: pnpm
 
       - name: Install Dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
+
+      - name: Set Build Time
+        run: echo "VITE_APP_BUILD_TIME=$(date -u --iso-8601=seconds)" >> $GITHUB_ENV
 
       - name: Build VitePress Site
         run: pnpm run build
-        env:
-          CONTRIBUTIONS_TOKEN: ${{ secrets.CONTRIBUTIONS_TOKEN }}
 
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v4

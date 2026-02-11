@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import {computed} from 'vue'
-import {MenuBadgeItem} from '../types/menu'
+import { computed } from 'vue'
+import { MenuBadgeItem } from '../types/menu'
 import VTIconExternalLink from './icons/VTIconExternalLink.vue'
 import VTMenuBadge from './VTMenuBadge.vue'
 
@@ -21,8 +21,8 @@ const isExternal = computed(() => props.href && /^[a-z]+:/i.test(props.href))
     :target="isExternal ? '_blank' : undefined"
     :rel="isExternal ? 'noopener noreferrer' : undefined"
   >
-    <slot/>
-    <VTMenuBadge v-if="badge" :item="badge"/>
-    <VTIconExternalLink v-if="isExternal && !noIcon" class="vt-link-icon"/>
+    <slot />
+    <VTMenuBadge v-if="badge" :item="badge" />
+    <VTIconExternalLink v-if="isExternal && !noIcon" class="vt-link-icon" />
   </component>
 </template>

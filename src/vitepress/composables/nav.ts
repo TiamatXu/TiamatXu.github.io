@@ -1,4 +1,4 @@
-import {ref} from 'vue'
+import { ref } from 'vue'
 
 export function useNav() {
   const isScreenOpen = ref(false)

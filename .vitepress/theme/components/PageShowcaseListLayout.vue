@@ -93,7 +93,9 @@ const props = defineProps<{
   padding: 12px 24px;
   font-weight: 600;
   border-radius: 6px;
-  transition: background-color 0.5s, color 0.5s;
+  transition:
+    background-color 0.5s,
+    color 0.5s;
   text-decoration: none;
 }
 

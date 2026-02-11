@@ -1,22 +1,8 @@
-import {
-  Component,
-  computed,
-  defineComponent,
-  h,
-  inject,
-  InjectionKey,
-  provide,
-  Ref
-} from 'vue'
-import {useData} from 'vitepress'
-import {
-  Config,
-  MultiSidebarConfig,
-  SidebarConfig,
-  SidebarGroup
-} from '../config'
-import {MenuItem, MenuItemChild} from '../../core'
-import {normalizeLink} from '../support/utils'
+import { Component, computed, defineComponent, h, inject, InjectionKey, provide, Ref } from 'vue'
+import { useData } from 'vitepress'
+import { Config, MultiSidebarConfig, SidebarConfig, SidebarGroup } from '../config'
+import { MenuItem, MenuItemChild } from '../../core'
+import { normalizeLink } from '../support/utils'
 
 const configSymbol: InjectionKey<Ref<Config>> = Symbol('config')
 
@@ -28,8 +14,8 @@ const configSymbol: InjectionKey<Ref<Config>> = Symbol('config')
 export function withConfigProvider(App: Component) {
   return defineComponent({
     name: 'VPConfigProvider',
-    setup(_, {slots}) {
-      const {theme} = useData()
+    setup(_, { slots }) {
+      const { theme } = useData()
       const config = computed(() => resolveConfig(theme.value))
       provide(configSymbol, config)
       return () => h(App, null, slots)
@@ -62,7 +48,7 @@ function normalizeMenuItem<T extends MenuItem | MenuItemChild>(item: T): T {
       link: normalizeLink(item.link)
     })
   } else {
-    return Object.assign({}, item, {items: item.items.map(normalizeMenuItem)})
+    return Object.assign({}, item, { items: item.items.map(normalizeMenuItem) })
   }
 }
 

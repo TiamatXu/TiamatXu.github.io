@@ -1,16 +1,16 @@
 <script lang="ts" setup>
-import {useConfig} from '../composables/config'
-import VPNavBarLocaleItems from './VPNavBarLocaleItems.vue';
-import VPNavBarLocaleJoin from './VPNavBarLocaleJoin.vue';
+import { useConfig } from '../composables/config'
+import VPNavBarLocaleItems from './VPNavBarLocaleItems.vue'
+import VPNavBarLocaleJoin from './VPNavBarLocaleJoin.vue'
 
-const {config} = useConfig()
+const { config } = useConfig()
 </script>
 
 <template>
-  <div v-if="config.appearance" class="VPNavBarLocaleScreen">
+  <div v-if="config.localeLinks" class="VPNavBarLocaleScreen">
     <p class="title">{{ config.i18n?.locales ?? 'Translations' }}</p>
-    <VPNavBarLocaleItems/>
-    <VPNavBarLocaleJoin/>
+    <VPNavBarLocaleItems />
+    <VPNavBarLocaleJoin />
   </div>
 </template>
 

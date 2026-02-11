@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {MenuItemChild} from '../types/menu'
+import { MenuItemChild } from '@vue/theme'
 import VTMenuLink from './VTMenuLink.vue'
 
 defineProps<{
@@ -13,7 +13,7 @@ defineProps<{
     <p v-if="text" class="vt-menu-group-title">{{ text }}</p>
 
     <template v-for="item in items">
-      <VTMenuLink v-if="'link' in item" :item="item"/>
+      <VTMenuLink v-if="'link' in item" :item="item" />
     </template>
   </div>
 </template>

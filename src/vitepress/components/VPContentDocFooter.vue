@@ -1,25 +1,19 @@
 <script setup lang="ts">
-import {computed} from 'vue'
-import {useData} from 'vitepress'
-import {getSidebar} from '../support/sidebar'
-import {SidebarGroup} from '../config'
-import {isActive} from '../support/utils'
-import {
-  VTIconChevronLeft,
-  VTIconChevronRight,
-  MenuItemWithLink
-} from '../../core'
-import {useConfig} from '../composables/config'
+import { computed } from 'vue'
+import { useData } from 'vitepress'
+import { getSidebar } from '../support/sidebar'
+import { SidebarGroup } from '../config'
+import { isActive } from '../support/utils'
+import { VTIconChevronLeft, VTIconChevronRight, MenuItemWithLink } from '../../core'
+import { useConfig } from '../composables/config'
 
-const {page} = useData()
-const {config} = useConfig()
+const { page } = useData()
+const { config } = useConfig()
 
 const links = computed(() => {
   const sidebar = getSidebar(config.value.sidebar, page.value.relativePath)
   const candidates = getFlatSideBarLinks(sidebar)
-  const index = candidates.findIndex((link) =>
-    isActive(page.value.relativePath, link.link)
-  )
+  const index = candidates.findIndex((link) => isActive(page.value.relativePath, link.link))
   return {
     prev: candidates[index - 1],
     next: candidates[index + 1]
@@ -39,25 +33,17 @@ function getFlatSideBarLinks(sidebar: SidebarGroup[]): MenuItemWithLink[] {
 
 <template>
   <footer v-if="links.prev || links.next" class="VPContentDocFooter">
-    <a
-      v-if="links.prev"
-      class="prev-link"
-      :href="links.prev.link"
-    >
+    <a v-if="links.prev" class="prev-link" :href="links.prev.link">
       <span class="desc">
-        <VTIconChevronLeft class="vt-link-icon"/>
+        <VTIconChevronLeft class="vt-link-icon" />
         {{ config.i18n?.previous ?? 'Previous' }}
       </span>
       <span class="title">{{ links.prev.text }} </span>
     </a>
-    <a
-      v-if="links.next"
-      class="next-link"
-      :href="links.next.link"
-    >
+    <a v-if="links.next" class="next-link" :href="links.next.link">
       <span class="desc">
         {{ config.i18n?.next ?? 'Next' }}
-        <VTIconChevronRight class="vt-link-icon"/>
+        <VTIconChevronRight class="vt-link-icon" />
       </span>
       <span class="title">{{ links.next.text }}</span>
     </a>
