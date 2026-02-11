@@ -23,8 +23,10 @@
   },
   "include": [
     "docs",
-    ".vitepress/theme",
-    ".github/fetch-contributions.ts"
+    ".github/fetch-contributions.ts",
+    "env.d.ts",
+    "docs/**/*",
+    ".vitepress/**/*"
   ],
   "exclude": [
     "node_modules"
