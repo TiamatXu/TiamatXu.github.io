@@ -42,7 +42,7 @@
     "test": "pnpm run lint && pnpm run type",
     "fetch-contributions": "tsx .github/fetch-contributions.ts",
     "dev": "vitepress dev",
-    "build": "tsx .github/fetch-contributions.ts && vitepress build",
+    "build": "vitepress build",
     "serve": "pnpm run build && vitepress serve",
     "preview": "vitepress preview",
     "clean": "rm -rf .vitepress/dist"
