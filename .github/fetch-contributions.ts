@@ -202,4 +202,4 @@ async function fetchAndSaveGithubContributions() {
   }
 }
 
-fetchAndSaveGithubContributions()
+fetchAndSaveGithubContributions().catch(() => {});
