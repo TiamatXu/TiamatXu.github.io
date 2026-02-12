@@ -1,6 +1,6 @@
 ---
 page: true
-footer: false
+footer: true
 ---
 
 <script setup>

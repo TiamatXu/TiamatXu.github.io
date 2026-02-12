@@ -9,7 +9,20 @@ import ContributionGraph from '../../../../.vitepress/theme/components/Contribut
       <p class="tagline">一个完全独立的 GitHub 风格贡献图组件。</p>
 
       <section class="action-section">
-        <a class="action-button" href="./guide">查看集成教程 →</a>
+        <a class="action-button" href="./guide">
+          集成教程
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24">
+            <path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z" />
+          </svg>
+        </a>
+        <a class="github-repo" href="https://github.com/TiamatXu/github-contributions-graph" target="_blank">
+          GitHub Repo
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <path
+              d="M320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7L201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L448 109.3V192c0 17.7 14.3 32 32 32s32-14.3 32-32V32c0-17.7-14.3-32-32-32H320zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z"
+            />
+          </svg>
+        </a>
       </section>
 
       <section class="features">
@@ -111,22 +124,78 @@ import ContributionGraph from '../../../../.vitepress/theme/components/Contribut
 
 .action-section {
   text-align: center;
-  margin-top: 40px;
+  margin-top: 30px;
+}
+
+/* Base button styles */
+.action-button,
+.github-repo {
+  font-size: 16px;
+  display: inline-block;
+  border-radius: 24px;
+  transition: background-color 0.5s, color 0.5s;
+  position: relative;
+  font-weight: 600;
+  padding: 8px 18px;
+  text-decoration: none;
 }
 
 .action-button {
-  display: inline-block;
-  background-color: var(--vt-c-brand);
-  color: var(--vt-c-bg);
-  padding: 12px 32px;
-  border-radius: 24px;
-  font-weight: 600;
-  transition: opacity 0.2s;
+  background-color: var(--vt-c-green);
+  color: #fff;
+  margin-right: 18px;
+}
+
+.dark .action-button {
+  color: var(--vt-c-indigo);
 }
 
 .action-button:hover {
-  opacity: 0.8;
-  text-decoration: none;
+  background-color: var(--vt-c-green-dark);
+  transition-duration: 0.2s;
+}
+
+.dark .action-button:hover {
+  background-color: var(--vt-c-green-light);
+}
+
+.github-repo {
+  font-weight: 500;
+  background: linear-gradient(var(--vt-c-bg-mute), var(--vt-c-bg-mute)) padding-box,
+              linear-gradient(45deg, #42d392, #647eff) border-box;
+  border: 2px solid transparent;
+  color: var(--vt-c-text-code);
+}
+
+.github-repo:hover {
+  background: linear-gradient(var(--vt-c-gray-light-4), var(--vt-c-gray-light-4)) padding-box,
+              linear-gradient(45deg, #42d392, #647eff) border-box;
+  transition-duration: 0.2s;
+}
+
+.dark .github-repo:hover {
+  background: linear-gradient(var(--vt-c-gray-dark-3), var(--vt-c-gray-dark-3)) padding-box,
+              linear-gradient(45deg, #42d392, #647eff) border-box;
+}
+
+.action-button .icon,
+.github-repo .icon {
+  display: inline;
+  position: relative;
+  top: -1px;
+  margin-left: 2px;
+  fill: currentColor;
+  transition: transform 0.2s;
+}
+
+.github-repo .icon {
+  width: 12px;
+  height: 12px;
+  margin-left: 4px;
+}
+
+.action-button:hover .icon {
+  transform: translateX(2px);
 }
 
 @media (max-width: 768px) {
@@ -135,6 +204,10 @@ import ContributionGraph from '../../../../.vitepress/theme/components/Contribut
   }
   .tagline {
     font-size: 18px;
+  }
+  .action-button {
+    margin-right: 0;
+    margin-bottom: 12px;
   }
 }
 </style>
