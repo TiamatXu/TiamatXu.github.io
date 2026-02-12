@@ -182,8 +182,8 @@ const handleMouseOut = () => {
     </div>
 
     <div class="calendar-footer">
-      <a class="footer-link" href="https://github.com/TiamatXu" target="_blank" rel="noopener noreferrer">
-        Learn how to achieve the same effect. (Not configured)
+      <a class="footer-link" href="/github-contributions-graph" target="_self" rel="noopener noreferrer">
+        Learn how to achieve the same effect.
       </a>
       <div class="legend">
         <span class="legend-label">Less</span>
@@ -329,7 +329,7 @@ html.dark .contribution-grid-wrapper::-webkit-scrollbar-thumb:hover {
   left: 0;
   z-index: 1;
   background-color: var(--vt-c-bg);
-  //box-shadow: 3px 0 0 0 var(--vp-c-bg-soft);
+  box-shadow: 3px 0 0 0 var(--vp-c-bg-soft);
 }
 
 .weekday-label {
