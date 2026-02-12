@@ -54,6 +54,12 @@ export default defineConfigWithTheme<ThemeConfig>({
               { text: 'Redis', link: 'https://www.baidu.com/s?wd=redis' },
               { text: 'Kafka', link: 'https://www.baidu.com/s?wd=Kafka' }
             ]
+          },
+          {
+            text: 'OTHER',
+            items:[
+              { text: 'Github 热力图组件', link: '/project/contribution-graph' },
+            ]
           }
         ]
       },
