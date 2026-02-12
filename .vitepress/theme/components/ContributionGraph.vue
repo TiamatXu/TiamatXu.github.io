@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
+import { useData } from 'vitepress'
 import contributionData from '../contribution-data.json'
 
 // --- Type Definitions ---
@@ -26,6 +27,12 @@ interface ContributionCalendar {
 defineProps<{
   githubUsername: string
 }>()
+
+const showFooterLink = computed(() => {
+  const path = useData().page.value.relativePath
+  // Ensure the condition matches the actual path in Tiamat-Docs
+  return !path.includes('project/contribution-graph')
+})
 
 // --- Component Logic ---
 const calendar = contributionData as ContributionCalendar
@@ -140,9 +147,7 @@ const handleMouseOut = () => {
 
 <template>
   <div v-if="calendar.error" class="error-message">
-    获取贡献数据失败: {{ calendar.error }} <br />请确保 `CONTRIBUTIONS_TOKEN` 已正确配置，且 GitHub 用户名 `{{
-      githubUsername
-    }}` 正确。
+    获取贡献数据失败: {{ calendar.error }} <br />请确保已正确抓取数据，且 GitHub 用户名 `{{ githubUsername }}` 正确。
   </div>
 
   <div v-else class="contribution-calendar" ref="calendarContainerRef">
@@ -182,7 +187,7 @@ const handleMouseOut = () => {
     </div>
 
     <div class="calendar-footer">
-      <a class="footer-link" href="/github-contributions-graph" target="_self" rel="noopener noreferrer">
+      <a v-if="showFooterLink" class="footer-link" href="/project/contribution-graph/">
         Learn how to achieve the same effect.
       </a>
       <div class="legend">
