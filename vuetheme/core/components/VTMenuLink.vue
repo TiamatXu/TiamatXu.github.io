@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import VTLink from './VTLink.vue'
-import { MenuItemWithLink } from '@vue/theme'
+import { MenuItemWithLink } from '@vuetheme'
 
 defineProps<{ item: MenuItemWithLink }>()
 </script>

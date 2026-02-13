@@ -8,7 +8,7 @@
  */
 
 // for local-linked development
-const deps = ['@vue/theme', '@vueuse/core', 'body-scroll-lock']
+const deps = ['@vuetheme', '@vueuse/core', 'body-scroll-lock']
 
 /**
  * @type {import('vitepress').UserConfig}

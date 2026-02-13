@@ -16,8 +16,9 @@
     ],
     "skipLibCheck": true,
     "paths": {
-      "@vue/theme": ["vuetheme/index.ts"],
-      "@custom/theme/*": [".vitepress/theme/*"]
+      "@vuetheme/*": ["vuetheme/*"],
+      "@vuetheme": ["vuetheme/index.ts"],
+      "@customtheme/*": [".vitepress/theme/*"]
     }
   },
   "include": [

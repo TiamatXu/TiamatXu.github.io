@@ -10,8 +10,8 @@ export default defineConfigWithTheme<ThemeConfig>({
     build: { minify: false },
     resolve: {
       alias: {
-        '@vue/theme': path.join(__dirname, '../vuetheme'),
-        '@custom/theme': path.join(__dirname, './theme')
+        '@vuetheme': path.join(__dirname, '../vuetheme'),
+        '@customtheme': path.join(__dirname, './theme')
       }
     }
   },

@@ -1,6 +1,6 @@
 import './styles/index.css'
 import { h, App } from 'vue'
-import { VPTheme } from '@vue/theme'
+import { VPTheme } from '@vuetheme'
 // import PreferenceSwitch from './components/PreferenceSwitch.vue'
 // import SecurityUpdateBtn from './components/SecurityUpdateBtn.vue'
 import { preferComposition, preferSFC, filterHeadersByPreference } from './components/preferences'
