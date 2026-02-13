@@ -6,12 +6,13 @@ import FormattedTime from './FormattedTime.vue'
 
 const githubUsername = 'TiamatXu'
 const buildTime = import.meta.env.VITE_APP_BUILD_TIME
+const runningDays = Math.floor((new Date().getTime() - new Date('2025-12-25').getTime()) / (1000 * 60 * 60 * 24))
 </script>
 
 <template>
   <section id="time-tag">
     <div class="time-tag-content">
-      <FormattedTime description="创建于" timeValue="2025-12-25" formatString="yyyy/MM/dd" />
+      <FormattedTime description="创建于" timeValue="2025-12-25" formatString="yyyy/MM/dd" :suffix="`(已运行 ${runningDays} 天)`" />
       <FormattedTime description="最后部署于" :timeValue="buildTime" formatString="yyyy/MM/dd HH:mm:ss 'UTC'xxx" />
     </div>
   </section>

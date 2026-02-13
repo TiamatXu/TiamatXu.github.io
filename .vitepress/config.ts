@@ -1,7 +1,7 @@
 import { defineConfigWithTheme } from 'vitepress'
 import path from 'path'
-import baseConfig from '../src/vitepress/config/baseConfig'
-import type { Config as ThemeConfig } from '../src/vitepress/config'
+import baseConfig from '../vuetheme/vitepress/config/baseConfig'
+import type { Config as ThemeConfig } from '../vuetheme/vitepress/config'
 
 export default defineConfigWithTheme<ThemeConfig>({
   extends: baseConfig,
@@ -10,7 +10,7 @@ export default defineConfigWithTheme<ThemeConfig>({
     build: { minify: false },
     resolve: {
       alias: {
-        '@vue/theme': path.join(__dirname, '../src'),
+        '@vue/theme': path.join(__dirname, '../vuetheme'),
         '@custom/theme': path.join(__dirname, './theme')
       }
     }

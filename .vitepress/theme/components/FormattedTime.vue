@@ -1,5 +1,8 @@
 <template>
-  <div v-if="formattedTime" class="formatted-time">{{ description }}: {{ formattedTime }}</div>
+  <div v-if="formattedTime" class="formatted-time">
+    {{ description }}: {{ formattedTime }}
+    <span v-if="suffix" class="time-suffix">{{ suffix }}</span>
+  </div>
   <div v-else class="formatted-time">{{ description }}: Fetch failed with no time.</div>
 </template>
 
@@ -11,9 +14,10 @@ const props = defineProps<{
   description: string
   timeValue: string | null | undefined
   formatString?: string
+  suffix?: string
 }>()
 
-const { description, timeValue, formatString } = toRefs(props)
+const { description, timeValue, formatString, suffix } = toRefs(props)
 const formattedTime = ref('')
 
 const defaultFullFormatString = "yyyy/MM/dd HH:mm:ss 'UTC'xxx"
