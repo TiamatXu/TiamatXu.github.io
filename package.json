@@ -8,24 +8,11 @@
   "bugs": {
     "url": "https://github.com/TiamatXu/TiamatXu.github.io/issues"
   },
-  "main": "src/index.ts",
   "type": "module",
   "engines": {
     "node": ">=18.0.0",
     "pnpm": ">=7.4.0"
   },
-  "exports": {
-    ".": "./src/index.ts",
-    "./config": {
-      "types": "./src/vitepress/config/baseConfig.d.ts",
-      "default": "./src/vitepress/config/baseConfig.js"
-    },
-    "./src/*": "./src/*"
-  },
-  "files": [
-    "src",
-    "types"
-  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/TiamatXu/TiamatXu.github.io.git"
@@ -36,8 +23,8 @@
     "technology"
   ],
   "scripts": {
-    "lint": "prettier --check --write --parser typescript \"{__tests__,docs,src,types}/**/*.ts\"",
-    "lint:fail": "prettier --check --parser typescript \"{__tests__,docs,src,types}/**/*.ts\"",
+    "lint": "prettier --check --write \"{.vitepress,docs,vuetheme}/**/*.{ts,vue,css,md}\"",
+    "lint:fail": "prettier --check \"{.vitepress,docs,vuetheme}/**/*.{ts,vue,css,md}\"",
     "type": "vue-tsc --noEmit",
     "test": "pnpm run lint && pnpm run type",
     "fetch-contributions": "tsx .github/fetch-contributions.ts",
