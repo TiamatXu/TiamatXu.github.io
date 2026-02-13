@@ -56,7 +56,7 @@ export default defineConfigWithTheme<ThemeConfig>({
             ]
           },
           {
-            text: 'OTHER',
+            text: 'Other',
             items:[
               { text: 'Github 热力图组件', link: '/project/contribution-graph' },
             ]
