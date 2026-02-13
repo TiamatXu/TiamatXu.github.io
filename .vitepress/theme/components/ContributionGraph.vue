@@ -106,23 +106,30 @@ const weekdayLabels = ['', 'Mon', '', 'Wed', '', 'Fri', '']
 // Helper to map contribution level to CSS class
 const getLevelClass = (level: ContributionLevel) => {
   switch (level) {
-    case 'NONE':
-      return 'contrib-level-0'
-    case 'FIRST_QUARTILE':
-      return 'contrib-level-1'
-    case 'SECOND_QUARTILE':
-      return 'contrib-level-2'
-    case 'THIRD_QUARTILE':
-      return 'contrib-level-3'
     case 'FOURTH_QUARTILE':
       return 'contrib-level-4'
+    case 'THIRD_QUARTILE':
+      return 'contrib-level-3'
+    case 'SECOND_QUARTILE':
+      return 'contrib-level-2'
+    case 'FIRST_QUARTILE':
+      return 'contrib-level-1'
+    case 'NONE':
     default:
       return 'contrib-level-0'
   }
 }
 
 const getTooltipText = (day: ContributionDay) => {
-  return day.contributionCount === 0 ? `${day.date} | 无贡献` : `${day.date} | ${day.contributionCount} 次贡献`
+  const emojiMap: Record<ContributionLevel, string> = {
+    NONE: '〇',
+    FIRST_QUARTILE: 'Ⅰ',
+    SECOND_QUARTILE: 'Ⅱ',
+    THIRD_QUARTILE: 'Ⅲ',
+    FOURTH_QUARTILE: 'Ⅳ'
+  }
+  const emoji = emojiMap[day.contributionLevel] ?? ''
+  return `${emoji} ${day.date} | ${day.contributionCount} 次`
 }
 
 const handleMouseOver = (event: MouseEvent, day: ContributionDay) => {
@@ -169,7 +176,7 @@ const handleMouseOut = () => {
               :key="weekIndex"
               :class="['contribution-cell', day ? getLevelClass(day.contributionLevel) : 'contribution-cell-empty']"
               @mouseenter="day ? handleMouseOver($event, day) : undefined"
-              @mouseleave="day ? handleMouseOut : undefined"
+              @mouseleave="handleMouseOut"
             >
               <a
                 v-if="day"
@@ -177,9 +184,7 @@ const handleMouseOut = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 class="cell-link"
-              >
-                <span class="sr-only">{{ getTooltipText(day) }}</span>
-              </a>
+              />
             </td>
           </tr>
         </tbody>
@@ -351,6 +356,7 @@ html.dark .contribution-grid-wrapper::-webkit-scrollbar-thumb:hover {
 .contribution-cell {
   width: 14px;
   height: 14px;
+  padding: 0;
   background-color: var(--color-contrib-level-0);
   border-radius: 3px;
   outline: 2px solid transparent;
@@ -440,29 +446,17 @@ html.dark .contribution-grid .contribution-cell:not(.contribution-cell-empty):ho
   text-decoration: underline;
 }
 
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
 .contribution-tooltip {
   position: absolute;
   padding: 8px 12px;
-  background-color: #3d444d;
-  color: white;
+  background-color: var(--vt-c-bg-soft);
+  color: var(--color-contrib-text);
   border-radius: 6px;
-  font-size: 12px;
+  font-size: 14px;
   pointer-events: none;
   z-index: 1000;
   white-space: nowrap;
-  transform: translateX(-50%) translateY(-100%) translateY(-8px); /* Adjusted for positioning above */
+  transform: translateX(-50%) translateY(-100%) translateY(-8px);
   box-sizing: border-box;
 }
 
@@ -474,6 +468,6 @@ html.dark .contribution-grid .contribution-cell:not(.contribution-cell-empty):ho
   transform: translateX(-50%);
   border-width: 5px;
   border-style: solid;
-  border-color: #3d444d transparent transparent transparent; /* Arrow pointing downwards */
+  border-color: var(--vt-c-bg-soft) transparent transparent transparent; /* Arrow pointing downwards */
 }
 </style>
