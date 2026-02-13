@@ -1,5 +1,6 @@
 import { defineConfigWithTheme } from 'vitepress'
 import path from 'path'
+import yaml from '@rollup/plugin-yaml'
 import baseConfig from '../vuetheme/vitepress/config/baseConfig'
 import type { Config as ThemeConfig } from '../vuetheme/vitepress/config'
 
@@ -7,6 +8,7 @@ export default defineConfigWithTheme<ThemeConfig>({
   extends: baseConfig,
 
   vite: {
+    plugins: [yaml()],
     build: { minify: false },
     resolve: {
       alias: {
@@ -86,6 +88,10 @@ export default defineConfigWithTheme<ThemeConfig>({
         }
       ],
       '/linux/': [
+        {
+          text: '系统交互',
+          items: [{ text: 'Bash 命令构建器', link: '/linux/bash-builder' }]
+        },
         {
           text: '环境搭建',
           items: [{ text: 'Docker-Zookeeper 集群编排', link: '/linux/zookeeper-docker-arrangement' }]
