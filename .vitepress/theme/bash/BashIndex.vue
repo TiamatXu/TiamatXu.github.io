@@ -1,337 +1,400 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, computed, reactive, onMounted } from 'vue'
 import { data as bashGroups } from './bash.data'
-import type { CommandData } from './types'
-import CommandBuilder from './components/CommandBuilder.vue'
+import type { CommandData, CommandOption } from './types'
+import { buildCommand, getOptionStatus } from './builder'
 
+// 全局变量：系统选择
+const system = ref<'ubuntu' | 'centos'>('ubuntu')
 const query = ref('')
-const selectedCommand = ref<CommandData | null>(null)
 const searchInput = ref<HTMLInputElement>()
-const showDropdown = ref(false)
+
+// 存储每个命令选中的参数，格式: { 'ls': Set(['-l', '-a']), 'grep': Set(['-i']) }
+const selections = reactive<Record<string, Set<string>>>({})
 
 onMounted(() => {
   searchInput.value?.focus()
 })
 
-const normalize = (s: string) => s.toLowerCase().trim()
+const allCommands = computed(() => bashGroups.flatMap(g => g.commands))
 
-// 平铺所有命令方便搜索
-const allCommands = computed(() => {
-  return bashGroups.flatMap(g => g.commands)
-})
-
-const searchResults = computed(() => {
-  const q = normalize(query.value)
+const filteredResults = computed(() => {
+  const q = query.value.toLowerCase().trim()
   if (!q) return []
   return allCommands.value.filter(cmd => 
-    normalize(cmd.name).includes(q) || normalize(cmd.desc).includes(q)
-  ).slice(0, 8) // 最多显示8个结果
+    cmd.name.toLowerCase().includes(q) || cmd.desc.toLowerCase().includes(q)
+  )
 })
 
-// 当有搜索结果且用户正在输入时显示下拉列表
-watch(query, (newVal) => {
-  showDropdown.value = newVal.length > 0
-})
-
-function selectCommand(cmd: CommandData) {
-  selectedCommand.value = cmd
-  query.value = cmd.name
-  showDropdown.value = false
+function toggleOption(cmd: CommandData, flag: string) {
+  if (!selections[cmd.name]) {
+    selections[cmd.name] = new Set()
+  }
+  
+  const set = selections[cmd.name]
+  if (set.has(flag)) {
+    set.delete(flag)
+  } else {
+    // 简单的规则验证逻辑（复用之前的 builder 逻辑）
+    const state = { 
+      command: cmd.name, 
+      system: system.value, 
+      options: set, 
+      args: {} 
+    }
+    const status = getOptionStatus(flag, cmd, state)
+    if (!status.disabled) {
+      set.add(flag)
+    }
+  }
 }
 
-function clearSearch() {
-  query.value = ''
-  selectedCommand.value = null
-  showDropdown.value = false
-  searchInput.value?.focus()
+function getGeneratedCommand(cmd: CommandData) {
+  const set = selections[cmd.name] || new Set()
+  const state = { 
+    command: cmd.name, 
+    system: system.value, 
+    options: set, 
+    args: {} // 极简版暂不处理复杂位置参数
+  }
+  return buildCommand(cmd, state)
 }
+
+function copyToClipboard(text: string) {
+  navigator.clipboard.writeText(text)
+  // 这里可以加一个简单的反馈效果
+}
+
+const systems = [
+  { id: 'ubuntu', label: 'Ubuntu / Debian', icon: '🟠' },
+  { id: 'centos', label: 'CentOS / RHEL', icon: '🔵' }
+]
 </script>
 
 <template>
-  <div class="bash-container">
-    <div class="search-wrapper" :class="{ 'is-focused': showDropdown || selectedCommand }">
-      <div class="search-bar">
-        <span class="search-icon">🔍</span>
-        <input
-          ref="searchInput"
-          type="search"
-          v-model="query"
-          placeholder="输入 Linux 命令 (如 ls, grep)..."
-          @focus="showDropdown = query.length > 0"
-          @keydown.escape="showDropdown = false"
-        />
-        <button v-if="query || selectedCommand" class="clear-btn" @click="clearSearch">✕</button>
+  <div class="bash-explorer">
+    <!-- 顶部控制栏：系统选择 -->
+    <div class="top-controls">
+      <div class="system-toggle">
+        <button 
+          v-for="s in systems" 
+          :key="s.id"
+          :class="{ active: system === s.id }"
+          @click="system = s.id as any"
+        >
+          <span class="icon">{{ s.icon }}</span>
+          <span class="label">{{ s.label }}</span>
+        </button>
       </div>
-
-      <!-- 动态下拉列表 -->
-      <Transition name="fade">
-        <div v-if="showDropdown && searchResults.length > 0" class="search-dropdown">
-          <div 
-            v-for="cmd in searchResults" 
-            :key="cmd.name" 
-            class="dropdown-item"
-            @click="selectCommand(cmd)"
-          >
-            <div class="item-info">
-              <span class="item-name">{{ cmd.name }}</span>
-              <span class="item-desc">{{ cmd.desc }}</span>
-            </div>
-            <div class="item-flags" v-if="cmd.options">
-              <span v-for="opt in cmd.options.slice(0, 3)" :key="opt.flag" class="mini-flag">
-                {{ opt.flag }}
-              </span>
-              <span v-if="cmd.options.length > 3" class="more">...</span>
-            </div>
-          </div>
-        </div>
-      </Transition>
     </div>
 
-    <main class="content-area">
-      <!-- 选中的命令构建器：直接出现在顶部 -->
-      <Transition name="slide-up">
-        <div v-if="selectedCommand" class="active-builder-card">
-          <div class="builder-meta">
-            <span class="breadcrumb">BASH / {{ selectedCommand.category }}</span>
-            <h2>{{ selectedCommand.name }} <small>{{ selectedCommand.desc }}</small></h2>
-          </div>
-          <CommandBuilder :key="selectedCommand.name" :data="selectedCommand" />
-        </div>
-      </Transition>
+    <!-- 核心搜索框 -->
+    <div class="search-section">
+      <div class="search-input-wrapper">
+        <span class="prefix">$</span>
+        <input
+          ref="searchInput"
+          v-model="query"
+          type="text"
+          placeholder="搜索命令... (例如: ls, tar, find)"
+          spellcheck="false"
+          autocomplete="off"
+        />
+        <div class="search-hint" v-if="!query">输入以匹配命令及参数</div>
+      </div>
+    </div>
 
-      <!-- 默认分类展示：仅在未选中命令时显示 -->
-      <div v-if="!selectedCommand" class="default-view">
-        <div v-for="group in bashGroups" :key="group.category" class="cat-group">
-          <h3 class="cat-title">{{ group.category }}</h3>
-          <div class="cat-list">
-            <button 
-              v-for="cmd in group.commands" 
-              :key="cmd.name" 
-              class="cat-item"
-              @click="selectCommand(cmd)"
+    <!-- 结果列表：二级下拉展示 -->
+    <div class="results-container" v-if="query">
+      <div v-for="cmd in filteredResults" :key="cmd.name" class="cmd-item">
+        <div class="cmd-header">
+          <div class="title-row">
+            <span class="name">{{ cmd.name }}</span>
+            <span class="desc">{{ cmd.desc }}</span>
+          </div>
+          <div class="preview-row" @click="copyToClipboard(getGeneratedCommand(cmd))" title="点击复制">
+            <code>{{ getGeneratedCommand(cmd) }}</code>
+            <span class="copy-hint">📋 复制</span>
+          </div>
+        </div>
+
+        <!-- 二级参数展示区 -->
+        <div class="options-drawer" v-if="cmd.options?.length">
+          <div class="drawer-title">可用参数 ({{ system }})</div>
+          <div class="options-tags">
+            <button
+              v-for="opt in cmd.options.filter(o => !cmd.variants?.[system]?.availableOptions || cmd.variants[system].availableOptions.includes(o.flag))"
+              :key="opt.flag"
+              class="option-tag"
+              :class="{ 
+                selected: selections[cmd.name]?.has(opt.flag),
+                disabled: getOptionStatus(opt.flag, cmd, { command: cmd.name, system, options: selections[cmd.name] || new Set(), args: {} }).disabled 
+              }"
+              @click="toggleOption(cmd, opt.flag)"
             >
-              <span class="cmd-name">{{ cmd.name }}</span>
-              <span class="cmd-desc">{{ cmd.desc }}</span>
+              <span class="flag">{{ opt.flag }}</span>
+              <span class="label">{{ opt.desc }}</span>
             </button>
           </div>
         </div>
       </div>
-    </main>
+
+      <div v-if="filteredResults.length === 0" class="empty-state">
+        未找到匹配 "{{ query }}" 的命令
+      </div>
+    </div>
+
+    <!-- 默认推荐 -->
+    <div class="initial-state" v-if="!query">
+      <div class="hint-card">
+        <h3>💡 快速开始</h3>
+        <p>在上方搜索框输入命令。系统会自动为您展示对应的常用参数及其含义，您可以直接点击参数来组装命令。</p>
+      </div>
+    </div>
   </div>
 </template>
 
 <style scoped>
-.bash-container {
-  max-width: 800px;
+.bash-explorer {
+  max-width: 900px;
   margin: 0 auto;
-  padding: 80px 20px;
+  padding: 40px 20px;
+  font-family: var(--vt-font-family-base);
 }
 
-.search-wrapper {
+/* 系统切换器样式 */
+.top-controls {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.system-toggle {
+  display: flex;
+  background-color: var(--vt-c-bg-soft);
+  padding: 4px;
+  border-radius: 10px;
+  border: 1px solid var(--vt-c-divider-light);
+}
+
+.system-toggle button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.2s;
+  color: var(--vt-c-text-2);
+}
+
+.system-toggle button.active {
+  background-color: var(--vt-c-bg);
+  color: var(--vt-c-brand);
+  box-shadow: var(--vt-shadow-1);
+}
+
+/* 搜索框样式 */
+.search-section {
+  margin-bottom: 20px;
+}
+
+.search-input-wrapper {
   position: relative;
-  z-index: 100;
-  margin-bottom: 40px;
-}
-
-.search-bar {
   display: flex;
   align-items: center;
   background-color: var(--vt-c-bg-soft);
   border: 2px solid var(--vt-c-divider);
   border-radius: 12px;
-  padding: 12px 20px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: var(--vt-shadow-2);
+  padding: 16px 24px;
+  transition: all 0.3s;
 }
 
-.search-wrapper.is-focused .search-bar {
+.search-input-wrapper:focus-within {
   border-color: var(--vt-c-brand);
   background-color: var(--vt-c-bg);
-  box-shadow: 0 8px 30px rgba(66, 184, 131, 0.15);
-  transform: translateY(-2px);
+  box-shadow: 0 0 0 4px rgba(66, 184, 131, 0.1);
 }
 
-.search-icon {
-  margin-right: 12px;
-  font-size: 20px;
-  opacity: 0.5;
+.prefix {
+  font-family: var(--vt-font-family-mono);
+  font-weight: 700;
+  color: var(--vt-c-brand);
+  font-size: 24px;
+  margin-right: 15px;
+  user-select: none;
 }
 
 input {
   flex: 1;
   background: transparent;
   border: none;
-  font-size: 18px;
+  font-size: 20px;
   color: var(--vt-c-text-1);
-  font-family: var(--vt-font-family-base);
+  font-family: var(--vt-font-family-mono);
 }
 
 input:focus {
   outline: none;
 }
 
-.clear-btn {
-  padding: 4px 8px;
-  color: var(--vt-c-text-3);
-  font-size: 14px;
-}
-
-.clear-btn:hover {
-  color: var(--vt-c-red);
-}
-
-/* 下拉列表样式 */
-.search-dropdown {
+.search-hint {
   position: absolute;
-  top: calc(100% + 8px);
-  left: 0;
-  right: 0;
-  background-color: var(--vt-c-bg);
-  border: 1px solid var(--vt-c-divider);
-  border-radius: 12px;
-  box-shadow: var(--vt-shadow-4);
-  overflow: hidden;
-  animation: popIn 0.2s ease-out;
+  right: 24px;
+  font-size: 12px;
+  color: var(--vt-c-text-3);
+  pointer-events: none;
 }
 
-@keyframes popIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.dropdown-item {
+/* 结果列表样式 */
+.results-container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 14px 20px;
-  cursor: pointer;
-  border-bottom: 1px solid var(--vt-c-divider-light);
+  flex-direction: column;
+  gap: 16px;
 }
 
-.dropdown-item:last-child {
-  border-bottom: none;
-}
-
-.dropdown-item:hover {
+.cmd-item {
   background-color: var(--vt-c-bg-soft);
+  border: 1px solid var(--vt-c-divider-light);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.2s;
 }
 
-.item-name {
-  display: block;
-  font-weight: 700;
-  color: var(--vt-c-brand);
-  font-family: var(--vt-font-family-mono);
-  font-size: 16px;
-}
-
-.item-desc {
-  font-size: 13px;
-  color: var(--vt-c-text-2);
-}
-
-.item-flags {
+.cmd-header {
+  padding: 20px;
   display: flex;
-  gap: 4px;
-}
-
-.mini-flag {
-  font-size: 11px;
-  background-color: var(--vt-c-bg-mute);
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-family: var(--vt-font-family-mono);
-  color: var(--vt-c-text-2);
-}
-
-.more {
-  font-size: 11px;
-  color: var(--vt-c-text-3);
-}
-
-/* 构建器展示卡片 */
-.active-builder-card {
-  background-color: var(--vt-c-bg);
-  border: 1px solid var(--vt-c-divider);
-  border-radius: 16px;
-  padding: 32px;
-  box-shadow: var(--vt-shadow-3);
-}
-
-.builder-meta {
-  margin-bottom: 24px;
-}
-
-.breadcrumb {
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  color: var(--vt-c-text-3);
-  letter-spacing: 1px;
-}
-
-h2 {
-  margin: 8px 0 0 0;
-  font-size: 28px;
-  font-weight: 800;
-}
-
-h2 small {
-  font-size: 16px;
-  font-weight: 400;
-  color: var(--vt-c-text-2);
-  margin-left: 12px;
-}
-
-/* 默认分类视图 */
-.default-view {
-  display: grid;
-  gap: 40px;
-}
-
-.cat-title {
-  font-size: 14px;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: var(--vt-c-text-3);
-  margin-bottom: 16px;
-  letter-spacing: 1px;
-}
-
-.cat-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  flex-direction: column;
   gap: 12px;
 }
 
-.cat-item {
-  text-align: left;
-  padding: 16px;
-  background-color: var(--vt-c-bg-soft);
-  border: 1px solid var(--vt-c-divider-light);
-  border-radius: 10px;
-  transition: all 0.2s;
+.title-row {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
 }
 
-.cat-item:hover {
-  border-color: var(--vt-c-brand);
-  background-color: var(--vt-c-bg-mute);
-}
-
-.cmd-name {
-  display: block;
-  font-weight: 600;
+.name {
+  font-size: 20px;
+  font-weight: 700;
   color: var(--vt-c-text-1);
+  font-family: var(--vt-font-family-mono);
 }
 
-.cmd-desc {
-  font-size: 12px;
+.desc {
+  font-size: 14px;
   color: var(--vt-c-text-2);
 }
 
-/* 动画 */
-.fade-enter-active, .fade-leave-active { transition: opacity 0.2s; }
-.fade-enter-from, .fade-leave-to { opacity: 0; }
+.preview-row {
+  background-color: var(--vt-c-black-soft);
+  padding: 12px 16px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
 
-.slide-up-enter-active { transition: all 0.4s ease-out; }
-.slide-up-enter-from { opacity: 0; transform: translateY(30px); }
+.preview-row:hover {
+  border-color: var(--vt-c-brand);
+}
+
+.preview-row code {
+  color: #42d392;
+  font-family: var(--vt-font-family-mono);
+  font-size: 14px;
+}
+
+.copy-hint {
+  font-size: 11px;
+  color: #888;
+  text-transform: uppercase;
+}
+
+/* 二级抽屉样式 */
+.options-drawer {
+  background-color: var(--vt-c-bg-mute);
+  padding: 16px 20px;
+  border-top: 1px solid var(--vt-c-divider-light);
+}
+
+.drawer-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--vt-c-text-3);
+  margin-bottom: 12px;
+  letter-spacing: 0.5px;
+}
+
+.options-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.option-tag {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background-color: var(--vt-c-bg);
+  border: 1px solid var(--vt-c-divider);
+  border-radius: 6px;
+  font-size: 13px;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.option-tag:hover:not(.disabled) {
+  border-color: var(--vt-c-brand);
+}
+
+.option-tag.selected {
+  background-color: var(--vt-c-brand);
+  border-color: var(--vt-c-brand);
+  color: white;
+}
+
+.option-tag.selected .flag {
+  color: white;
+}
+
+.option-tag .flag {
+  font-family: var(--vt-font-family-mono);
+  font-weight: 700;
+  color: var(--vt-c-brand);
+}
+
+.option-tag.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  background-color: transparent;
+}
+
+.empty-state, .initial-state {
+  padding: 60px;
+  text-align: center;
+  color: var(--vt-c-text-3);
+}
+
+.hint-card {
+  background-color: var(--vt-c-bg-soft);
+  padding: 30px;
+  border-radius: 16px;
+  border: 1px dashed var(--vt-c-divider);
+}
+
+.hint-card h3 {
+  margin-top: 0;
+  color: var(--vt-c-text-1);
+}
+
+@media (max-width: 768px) {
+  .title-row { flex-direction: column; gap: 4px; }
+  .preview-row code { font-size: 12px; }
+}
 </style>
