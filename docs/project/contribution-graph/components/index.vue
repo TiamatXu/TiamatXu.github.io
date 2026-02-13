@@ -206,8 +206,7 @@ import ContributionGraph from '../../../../.vitepress/theme/components/Contribut
     font-size: 18px;
   }
   .action-button {
-    margin-right: 0;
-    margin-bottom: 12px;
+    margin-right: 18px;
   }
 }
 </style>
