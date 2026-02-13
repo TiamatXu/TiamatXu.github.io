@@ -8,7 +8,12 @@ export default defineConfigWithTheme<ThemeConfig>({
 
   vite: {
     build: { minify: false },
-    resolve: { alias: { '@vue/theme': path.join(__dirname, '../src') } }
+    resolve: {
+      alias: {
+        '@vue/theme': path.join(__dirname, '../src'),
+        '@custom/theme': path.join(__dirname, './theme')
+      }
+    }
   },
 
   lang: 'zh-CN',

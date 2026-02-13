@@ -1,5 +1,5 @@
 <script setup>
-import ContributionGraph from '../../../../.vitepress/theme/components/ContributionGraph.vue'
+import ContributionGraph from '@custom/theme/components/ContributionGraph.vue'
 </script>
 
 <template>

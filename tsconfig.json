@@ -18,6 +18,9 @@
     "paths": {
       "@vue/theme": [
         "src/index.ts"
+      ],
+      "@custom/theme/*": [
+        ".vitepress/theme/*"
       ]
     }
   },
