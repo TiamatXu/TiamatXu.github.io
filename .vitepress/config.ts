@@ -1,6 +1,5 @@
 import { defineConfigWithTheme } from 'vitepress'
 import path from 'path'
-import yaml from '@rollup/plugin-yaml'
 import baseConfig from '../vuetheme/vitepress/config/baseConfig'
 import type { Config as ThemeConfig } from '../vuetheme/vitepress/config'
 
@@ -8,7 +7,6 @@ export default defineConfigWithTheme<ThemeConfig>({
   extends: baseConfig,
 
   vite: {
-    plugins: [yaml()],
     build: { minify: false },
     resolve: {
       alias: {
@@ -21,6 +19,7 @@ export default defineConfigWithTheme<ThemeConfig>({
   lang: 'zh-CN',
   title: 'TiamatXu',
   srcDir: 'docs',
+  srcExclude: ['api/**'],
   description: 'TiamatXu 的文档库，分享技术文章和个人见解。',
 
   head: [
@@ -36,6 +35,11 @@ export default defineConfigWithTheme<ThemeConfig>({
     socialLinks: [{ icon: 'github', link: 'https://github.com/TiamatXu' }],
 
     nav: [
+      {
+        text: 'BashBuilder',
+        activeMatch: `^/(bash-builder)/`,
+        link: '/bash-builder/'
+      },
       {
         text: '文档',
         activeMatch: `^/(linux|doc-site|todo|showcase)/`,
@@ -64,9 +68,7 @@ export default defineConfigWithTheme<ThemeConfig>({
           },
           {
             text: 'Other',
-            items:[
-              { text: 'Github 热力图组件', link: '/project/contribution-graph' },
-            ]
+            items: [{ text: 'Github 热力图组件', link: '/project/contribution-graph' }]
           }
         ]
       },
