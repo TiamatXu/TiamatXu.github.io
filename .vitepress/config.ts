@@ -42,8 +42,9 @@ export default defineConfigWithTheme<ThemeConfig>({
       },
       {
         text: '文档',
-        activeMatch: `^/(linux|doc-site|todo|showcase)/`,
+        activeMatch: `^/(knowledge|linux|doc-site|todo|showcase)/`,
         items: [
+          { text: '八股文', link: '/knowledge/introduction' },
           { text: 'Linux', link: '/linux/zookeeper-docker-arrangement' },
           { text: '文档', link: '/doc-site/vitepress-deployment-guide' },
           { text: 'TODO', link: '/todo/todolists' },
@@ -83,6 +84,16 @@ export default defineConfigWithTheme<ThemeConfig>({
     ],
 
     sidebar: {
+      '/knowledge/': [
+        {
+          text: '八股文',
+          items: [
+            { text: '介绍', link: '/knowledge/introduction' },
+            // { text: '写作指南', link: '/knowledge/writing-guide' },
+            // { text: '常见问题', link: '/knowledge/faq' }
+          ]
+        }
+      ],
       '/doc-site/': [
         {
           text: '文档型网站',
