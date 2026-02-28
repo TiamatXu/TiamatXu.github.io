@@ -86,12 +86,15 @@ export default defineConfigWithTheme<ThemeConfig>({
     sidebar: {
       '/knowledge/': [
         {
-          text: '八股文',
+          text: '== 八股文 ==',
           items: [
             { text: '介绍', link: '/knowledge/introduction' },
-            // { text: '写作指南', link: '/knowledge/writing-guide' },
-            // { text: '常见问题', link: '/knowledge/faq' }
+            { text: '笔试指南', link: '/knowledge/exam-tutorial' }
           ]
+        },
+        {
+          text: 'Java',
+          items: [{ text: 'Java SE', link: '/knowledge/java/basic' }]
         }
       ],
       '/doc-site/': [
@@ -101,10 +104,6 @@ export default defineConfigWithTheme<ThemeConfig>({
         }
       ],
       '/linux/': [
-        {
-          text: '系统交互',
-          items: [{ text: 'Bash 命令构建器', link: '/linux/bash-builder' }]
-        },
         {
           text: '环境搭建',
           items: [{ text: 'Docker-Zookeeper 集群编排', link: '/linux/zookeeper-docker-arrangement' }]
