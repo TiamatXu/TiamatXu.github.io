@@ -4,6 +4,7 @@ import { VPTheme } from '@vuetheme'
 // import PreferenceSwitch from './components/PreferenceSwitch.vue'
 // import SecurityUpdateBtn from './components/SecurityUpdateBtn.vue'
 import { preferComposition, preferSFC, filterHeadersByPreference } from './components/preferences'
+import Giscus from '@customtheme/components/Giscus.vue'
 // import SponsorsAside from './components/SponsorsAside.vue'
 // import VueSchoolLink from './components/VueSchoolLink.vue'
 // import ScrimbaLink from './components/ScrimbaLink.vue'
@@ -22,7 +23,8 @@ export default Object.assign({}, VPTheme, {
       // 'sidebar-top': () => h(PreferenceSwitch),
       // 'sidebar-bottom': () => h(SecurityUpdateBtn),
       // 'aside-mid': () => h(SponsorsAside),
-      // 'aside-bottom': () => h(WwAds)
+      'content-bottom': () => h(Giscus)
+      // 'doc-after':
     })
   },
   enhanceApp({ app }: { app: App }) {
