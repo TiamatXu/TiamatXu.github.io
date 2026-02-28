@@ -94,7 +94,24 @@ export default defineConfigWithTheme<ThemeConfig>({
         },
         {
           text: 'Java',
-          items: [{ text: 'Java SE', link: '/knowledge/java/basic' }]
+          items: [
+            { text: 'Java SE', link: '/knowledge/java/basic' },
+            { text: '并发编程', link: '/knowledge/java/concurrent' },
+            { text: 'JVM 虚拟机', link: '/knowledge/java/jvm' },
+            { text: 'MQ 消息队列', link: '/knowledge/java/msg-queue' },
+            { text: 'Spring 框架', link: '/knowledge/java/spring' },
+            { text: '分布式缓存', link: '/knowledge/java/distributed-cache' },
+            { text: '搜索引擎', link: '/knowledge/java/search-engine' },
+            { text: '分布式事务', link: '/knowledge/java/distributed-transaction' },
+            { text: '微服务 RPC', link: '/knowledge/java/mservie' },
+            { text: '系统设计', link: '/knowledge/java/sys-design' },
+            { text: '数据库', link: '/knowledge/java/db' },
+            { text: '业务稳定性', link: '/knowledge/java/constancy' },
+            { text: '海量数据处理', link: '/knowledge/java/large-data' },
+            { text: '管理', link: '/knowledge/java/manage' },
+            { text: '设计模式', link: '/knowledge/java/design-pattern' },
+            { text: '容器 K8S', link: '/knowledge/java/k8s' },
+          ]
         }
       ],
       '/doc-site/': [
@@ -144,7 +161,7 @@ export default defineConfigWithTheme<ThemeConfig>({
       next: '下一篇',
       pageNotFound: '页面未找到',
       deadLink: { before: '你打开了一个不存在的链接：', after: '。' },
-      deadLinkReport: { before: '不介意的话请提交到', link: '这里', after: '，我们会跟进修复。' },
+      deadLinkReport: { before: '不介意的话请提交到', link: '这里', after: '，我会跟进修复。' },
       footerLicense: { before: '', after: '' },
       ariaAnnouncer: { before: '', after: '已经加载完毕' },
       ariaDarkMode: '切换深色模式',
