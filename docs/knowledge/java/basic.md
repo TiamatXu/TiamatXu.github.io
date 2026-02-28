@@ -17,7 +17,7 @@
 * 单线程下操作大量字符串⽤ StringBuilder
 * 多线程下，需要保证线程安全则⽤ StringBuffer
 
-## HashMap 底层数据结构
+## HashMap 底层数据结构是什么？为什么？
 
 :::info 知识点
 HashMap 底层实现、新旧版本数据结构变化
@@ -51,7 +51,7 @@ static final class TreeNode<K, V> extends LinkedHashMap.Entry<K, V> {
 ```
 :::
 
-
+## Java 接口是否支持多继承？接口里面是否可以有方法实现？
 
 
 
