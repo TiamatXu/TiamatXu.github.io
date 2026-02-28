@@ -19,10 +19,10 @@
       "@vuetheme/*": ["vuetheme/*"],
       "@vuetheme": ["vuetheme/index.ts"],
       "@customtheme/*": [".vitepress/theme/*"]
-    }
+    },
+    "types": ["vitepress/client"]
   },
   "include": [
-    "docs",
     ".github/fetch-contributions.ts",
     "env.d.ts",
     "docs/**/*",
