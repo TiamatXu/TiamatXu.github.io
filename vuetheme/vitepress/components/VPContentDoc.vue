@@ -72,12 +72,12 @@ const pageClass = computed(() => {
   display: none;
   flex-shrink: 0;
   padding-left: 64px;
-  width: 320px;
+  width: 476px;
 }
 
 .aside-container {
   position: sticky;
-  width: 224px;
+  width: 380px;
   top: calc(var(--vt-nav-height) + var(--vt-banner-height, 0px) + 54px);
   bottom: 0;
 }
