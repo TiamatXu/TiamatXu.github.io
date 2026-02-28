@@ -30,6 +30,7 @@
     "fetch-contributions": "tsx .github/fetch-contributions.ts",
     "dev": "vitepress dev",
     "build": "vitepress build",
+    "cf-build": "pnpm run fetch-contributions && pnpm run build",
     "serve": "pnpm run build && vitepress serve",
     "preview": "vitepress preview",
     "clean": "rm -rf .vitepress/dist"
