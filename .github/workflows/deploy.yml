@@ -40,6 +40,12 @@ jobs:
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Fetch Contributions
+        run: pnpm run fetch-contributions
+
+      - name: Set Build Time
+        run: echo "VITE_APP_BUILD_TIME=$(date -u --iso-8601=seconds)" >> $GITHUB_ENV
+
       - name: Build VitePress Site
         run: pnpm run build
 
