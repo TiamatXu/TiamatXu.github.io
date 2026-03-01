@@ -18,12 +18,12 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    permissions:
-      deployments: write
-      contents: read
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      deployments: write
+      contents: read
 
     steps:
       - name: Checkout
