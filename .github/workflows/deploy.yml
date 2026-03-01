@@ -24,6 +24,7 @@ jobs:
     permissions:
       deployments: write
       contents: read
+      id-token: write
 
     steps:
       - name: Checkout
