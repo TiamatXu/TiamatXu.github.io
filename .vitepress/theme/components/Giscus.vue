@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useRoute } from 'vitepress'
 import Giscus from '@giscus/vue'
 import { useAppearance } from '@vuetheme/core/composables/appearance'
 
+const route = useRoute()
 const { isDark } = useAppearance()
 const giscusTheme = computed(() => (isDark.value ? 'dark' : 'light'))
 </script>
@@ -10,6 +12,7 @@ const giscusTheme = computed(() => (isDark.value ? 'dark' : 'light'))
 <template>
   <div class="giscus-container">
     <Giscus
+      :key="route.path"
       repo="TiamatXu/TiamatXu.github.io"
       repoId="R_kgDOQupP8Q"
       category="Announcements"
