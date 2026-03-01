@@ -45,8 +45,8 @@ const pageClass = computed(() => {
             <VTLink :href="repoUrl" :no-icon="true">{{ config.editLink.text }} </VTLink>
           </p>
         </main>
-        <slot name="content-bottom" />
         <VPContentDocFooter v-if="frontmatter.footer !== false" />
+        <slot name="content-bottom" />
       </div>
     </div>
   </div>
