@@ -20,14 +20,14 @@ export default defineConfigWithTheme<ThemeConfig>({
   title: 'TiamatXu',
   srcDir: 'docs',
   srcExclude: ['api/**'],
-  description: 'TiamatXu 的文档库，分享技术文章和个人见解。',
+  description: 'TiamatXu 的个人网站，分享技术文章和个人见解。',
 
   head: [
     ['meta', { property: 'og:url', content: 'https://tiamatxu.github.io' }],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:title', content: 'TiamatXu' }],
-    ['meta', { property: 'og:description', content: 'TiamatXu 的文档库，分享技术文章和个人见解。' }],
-    ['meta', { property: 'og:image', content: '/logo.png' }],
+    ['meta', { property: 'og:description', content: 'TiamatXu 的个人网站，分享技术文章和个人见解。' }],
+    ['meta', { property: 'og:image', content: 'https://tiamatxu.github.io/logo.png' }],
     ['link', { rel: 'preconnect', href: 'https://tiamatxu.github.io' }]
   ],
 
@@ -110,7 +110,7 @@ export default defineConfigWithTheme<ThemeConfig>({
             { text: '海量数据处理', link: '/knowledge/java/large-data' },
             { text: '管理', link: '/knowledge/java/manage' },
             { text: '设计模式', link: '/knowledge/java/design-pattern' },
-            { text: '容器 K8S', link: '/knowledge/java/k8s' },
+            { text: '容器 K8S', link: '/knowledge/java/k8s' }
           ]
         }
       ],
