@@ -12,14 +12,13 @@ const runningDays = Math.floor((new Date().getTime() - new Date('2025-12-25').ge
 <template>
   <section id="time-tag">
     <div class="time-tag-content">
-      <FormattedTime description="创建于" timeValue="2025-12-25" formatString="yyyy/MM/dd" :suffix="`(已运行 ${runningDays} 天)`" />
-      <FormattedTime description="最后部署于" :timeValue="buildTime" formatString="yyyy/MM/dd HH:mm:ss 'UTC'xxx" />
+      <FormattedTime description="创建于" timeValue="2025-12-25" formatString="yyyy/MM/dd" :suffix="`已运行 ${runningDays} 天`" />
+      <FormattedTime description="部署时间" :timeValue="buildTime" formatString="yyyy/MM/dd HH:mm:ss 'UTC'xxx" :suffix="`持续维护中`" />
     </div>
   </section>
   <section id="hero">
     <h1 class="tagline">
-      <span class="accent">Tiamat Xu</span>
-      <br />的个人文档库
+      <span class="accent">Tiamat Xu 的个人网站</span>
     </h1>
     <p class="description">一个开发者的个人知识库，在这里记录并分享我的学习与实践。</p>
   </section>

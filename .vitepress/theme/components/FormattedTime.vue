@@ -1,9 +1,12 @@
 <template>
   <div v-if="formattedTime" class="formatted-time">
     {{ description }}: {{ formattedTime }}
-    <span v-if="suffix" class="time-suffix">{{ suffix }}</span>
+    <span v-if="suffix" class="time-suffix">{{ `(${suffix})` }}</span>
   </div>
-  <div v-else class="formatted-time">{{ description }}: Fetch failed with no time.</div>
+  <div v-else class="formatted-time">
+    {{ description }}: Fetch failed with no time.
+    <span v-if="suffix" class="time-suffix">{{ `(${suffix})` }}</span>
+  </div>
 </template>
 
 <script setup lang="ts">
