@@ -29,6 +29,12 @@ const giscusTheme = computed(() => (isDark.value ? 'dark' : 'light'))
   </div>
 </template>
 
+<style>
+.giscus .giscus-frame .giscus-container {
+  transition: color 2s, background-color 2s;
+}
+</style>
+
 <style scoped>
 .giscus-container {
   margin-top: 2rem;
