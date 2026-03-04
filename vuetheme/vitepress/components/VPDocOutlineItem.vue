@@ -1,20 +1,14 @@
 <script setup lang="ts">
-import { computed } from 'vue'
 import { decode } from 'tiny-decode'
 import { useData } from 'vitepress'
 import type { MenuItemWithLinkAndChildren } from '../composables/outline.js'
 
-const props = defineProps<{
+defineProps<{
   headers: MenuItemWithLinkAndChildren[]
-  nested?: boolean | number
+  nested?: boolean
 }>()
 
-const { frontmatter, theme } = useData()
-const currentLevel = computed(() => typeof props.nested === 'number' ? props.nested : props.nested ? 3 : 2)
-const maxLevel = computed(() => {
-  const outline = frontmatter.value.outline ?? theme.value.outline
-  return outline === 'deep' ? 6 : typeof outline === 'number' ? outline : 2
-})
+const { frontmatter } = useData()
 
 function onClick({ target: el }: Event) {
   const id = '#' + (el as HTMLAnchorElement).href!.split('#')[1]
@@ -29,8 +23,8 @@ function onClick({ target: el }: Event) {
       <a class="outline-link" :href="link" @click="onClick" v-show="!hidden">
         {{ decode(text) }}
       </a>
-      <template v-if="children?.length && currentLevel < maxLevel">
-        <VPDocOutlineItem :headers="children" :nested="currentLevel + 1" />
+      <template v-if="children?.length && frontmatter.outline === 'deep'">
+        <VPDocOutlineItem :headers="children" :nested="true" />
       </template>
     </li>
   </ul>
