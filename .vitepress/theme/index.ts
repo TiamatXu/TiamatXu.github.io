@@ -1,20 +1,13 @@
 import './styles/index.css'
 import { h, App } from 'vue'
 import { VPTheme } from '@vuetheme'
-import PreferenceSwitch from './components/PreferenceSwitch.vue'
-import SecurityUpdateBtn from './components/SecurityUpdateBtn.vue'
 import {
   preferComposition,
   preferSFC,
   filterHeadersByPreference
 } from './components/preferences'
-import Giscus from '@customtheme/components/Giscus.vue'
-import SponsorsAside from './components/SponsorsAside.vue'
-// import VueSchoolLink from './components/VueSchoolLink.vue'
+import Giscus from '@theme/components/Giscus.vue'
 import ScrimbaLink from './components/ScrimbaLink.vue'
-import WwAds from './components/WwAds.vue'
-// import Banner from './components/Banner.vue'
-// import TextAd from './components/TextAd.vue'
 
 import 'vitepress/dist/client/theme-default/styles/components/vp-code-group.css'
 import 'virtual:group-icons.css'
@@ -23,10 +16,6 @@ export default Object.assign({}, VPTheme, {
   Layout: () => {
     // @ts-ignore
     return h(VPTheme.Layout, null, {
-      // banner: () => h(Banner),
-      'sidebar-top': () => h(PreferenceSwitch),
-      'sidebar-bottom': () => h(SecurityUpdateBtn),
-      'aside-mid': () => h(SponsorsAside),
       'content-bottom': () => h(Giscus)
     })
   },
@@ -34,8 +23,6 @@ export default Object.assign({}, VPTheme, {
     app.provide('prefer-composition', preferComposition)
     app.provide('prefer-sfc', preferSFC)
     app.provide('filter-headers', filterHeadersByPreference)
-    // app.component('VueSchoolLink', VueSchoolLink)
     app.component('ScrimbaLink', ScrimbaLink)
-    // app.component('TextAd', TextAd)
   }
 })

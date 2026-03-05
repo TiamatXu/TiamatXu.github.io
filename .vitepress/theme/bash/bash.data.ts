@@ -13,7 +13,7 @@ export default {
   watch: ['../../../docs/bash-builder/commands/*.yaml'],
   load(): BashDataGroup[] {
     const commandsDir = path.resolve(__dirname, '../../../docs/bash-builder/commands')
-    
+
     // 如果目录不存在，返回空
     if (!fs.existsSync(commandsDir)) return []
 

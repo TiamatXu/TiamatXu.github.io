@@ -1,12 +1,10 @@
-import fs from 'fs'
 import path from 'path'
 import {
   defineConfigWithTheme,
-  type HeadConfig,
   type Plugin
 } from 'vitepress'
-import type { Config as ThemeConfig } from '@vue/theme'
-import baseConfig from '@vue/theme/config'
+import type { Config as ThemeConfig } from '../vuetheme/vitepress/config'
+import baseConfig from '../vuetheme/vitepress/config/baseConfig'
 import { headerPlugin } from './headerMdPlugin'
 // import { textAdPlugin } from './textAdMdPlugin'
 import {
@@ -16,10 +14,10 @@ import {
 
 const nav: ThemeConfig['nav'] = [
   {
-        text: 'BashBuilder',
-        activeMatch: `^/(bash-builder)/`,
-        link: '/bash-builder/'
-      },
+    text: 'BashBuilder',
+    activeMatch: `^/(bash-builder)/`,
+    link: '/bash-builder/'
+  },
   {
     text: '文档',
     activeMatch: `^/(knowledge|linux|doc-site|todo|showcase)/`,
@@ -59,7 +57,7 @@ const nav: ThemeConfig['nav'] = [
         text: 'Other',
         items: [{ text: 'Github 热力图组件', link: '/project/contribution-graph' }]
       }
-      ]
+    ]
   },
   {
     text: '关于',
@@ -199,7 +197,7 @@ export default defineConfigWithTheme<ThemeConfig>({
     ['meta', { property: 'og:image', content: 'https://tiamatxu.github.io/logo.png' }],
     // ['meta', { name: 'twitter:site', content: '@vuejs' }],
     // ['meta', { name: 'twitter:card', content: 'summary' }],
-    ['link', { rel: 'preconnect', href: 'https://tiamatxu.github.io' }],
+    ['link', { rel: 'preconnect', href: 'https://tiamatxu.github.io' }]
     // inlineScript('restorePreference.js'),
     // inlineScript('uwu.js'),
     // ['script', { src: 'https://cdn.usefathom.com/script.js', 'data-site': 'ZPMMDSYA', 'data-spa': 'auto', defer: '' }],
@@ -211,133 +209,13 @@ export default defineConfigWithTheme<ThemeConfig>({
     sidebar,
     i18n,
 
-    localeLinks: [
-      {
-        link: 'https://vuejs.org',
-        text: 'English',
-        repo: 'https://github.com/vuejs/docs'
-      },
-      {
-        link: 'https://ja.vuejs.org',
-        text: '日本語',
-        repo: 'https://github.com/vuejs-translations/docs-ja'
-      },
-      {
-        link: 'https://ua.vuejs.org',
-        text: 'Українська',
-        repo: 'https://github.com/vuejs-translations/docs-uk'
-      },
-      {
-        link: 'https://fr.vuejs.org',
-        text: 'Français',
-        repo: 'https://github.com/vuejs-translations/docs-fr'
-      },
-      {
-        link: 'https://ko.vuejs.org',
-        text: '한국어',
-        repo: 'https://github.com/vuejs-translations/docs-ko'
-      },
-      {
-        link: 'https://pt.vuejs.org',
-        text: 'Português',
-        repo: 'https://github.com/vuejs-translations/docs-pt'
-      },
-      {
-        link: 'https://bn.vuejs.org',
-        text: 'বাংলা',
-        repo: 'https://github.com/vuejs-translations/docs-bn'
-      },
-      {
-        link: 'https://it.vuejs.org',
-        text: 'Italiano',
-        repo: 'https://github.com/vuejs-translations/docs-it'
-      },
-      {
-        link: 'https://fa.vuejs.org',
-        text: 'فارسی',
-        repo: 'https://github.com/vuejs-translations/docs-fa'
-      },
-      {
-        link: 'https://ru.vuejs.org',
-        text: 'Русский',
-        repo: 'https://github.com/vuejs-translations/docs-ru'
-      },
-      {
-        link: 'https://cs.vuejs.org',
-        text: 'Čeština',
-        repo: 'https://github.com/vuejs-translations/docs-cs'
-      },
-      {
-        link: 'https://zh-hk.vuejs.org',
-        text: '繁體中文',
-        repo: 'https://github.com/vuejs-translations/docs-zh-hk'
-      },
-      {
-        link: 'https://pl.vuejs.org',
-        text: 'Polski',
-        repo: 'https://github.com/vuejs-translations/docs-pl'
-      },
-      {
-        link: '/translations/',
-        text: '帮助我们翻译！',
-        isTranslationsDesc: true
-      }
-    ],
-
-    algolia: {
-      indexName: 'vuejs_cn2',
-      appId: 'UURH1MHAF7',
-      apiKey: 'c23eb8e7895f42daeaf2bf6f63eb4bf6',
-      searchParameters: {
-        facetFilters: ['version:v3']
-      },
-      placeholder: '搜索文档',
-      translations: {
-        button: {
-          buttonText: '搜索'
-        },
-        modal: {
-          searchBox: {
-            resetButtonTitle: '清除查询条件',
-            resetButtonAriaLabel: '清除查询条件',
-            cancelButtonText: '取消',
-            cancelButtonAriaLabel: '取消'
-          },
-          startScreen: {
-            recentSearchesTitle: '搜索历史',
-            noRecentSearchesText: '没有搜索历史',
-            saveRecentSearchButtonTitle: '保存到搜索历史',
-            removeRecentSearchButtonTitle: '从搜索历史中移除',
-            favoriteSearchesTitle: '收藏',
-            removeFavoriteSearchButtonTitle: '从收藏中移除'
-          },
-          errorScreen: {
-            titleText: '无法获取结果',
-            helpText: '你可能需要检查你的网络连接'
-          },
-          footer: {
-            selectText: '选择',
-            navigateText: '切换',
-            closeText: '关闭',
-            searchByText: '搜索供应商'
-          },
-          noResultsScreen: {
-            noResultsText: '无法找到相关结果',
-            suggestedQueryText: '你可以尝试查询',
-            reportMissingResultsText: '你认为这个查询应该有结果？',
-            reportMissingResultsLinkText: '向我们反馈'
-          }
-        }
-      }
-    },
-
     // carbonAds: {
     //   code: 'CEBDT27Y',
     //   placement: 'vuejsorg'
     // },
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/TiamatXu' },
+      { icon: 'github', link: 'https://github.com/TiamatXu' }
     ],
 
     editLink: { repo: 'TiamatXu/TiamatXu.github.io#master', text: '在 GitHub 上编辑此页' },
@@ -345,7 +223,7 @@ export default defineConfigWithTheme<ThemeConfig>({
     footer: {
       license: { text: '版权声明', link: 'https://github.com/TiamatXu/TiamatXu.github.io#许可证' },
       copyright: '本个人网站采用 MIT License 进行许可。'
-    },
+    }
   },
 
   markdown: {
@@ -357,11 +235,14 @@ export default defineConfigWithTheme<ThemeConfig>({
   },
 
   vite: {
-    define: {
-      __VUE_OPTIONS_API__: false
+    resolve: {
+      alias: {
+        '@vuetheme': path.join(__dirname, '../vuetheme'),
+        '@theme': path.join(__dirname, './theme')
+      }
     },
     optimizeDeps: {
-      include: ['gsap', 'dynamics.js'],
+      include: ['gsap', 'dynamics.js']
     },
     server: {
       host: true,

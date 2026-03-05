@@ -1,5 +1,5 @@
 <script setup>
-import ContributionGraph from '@customtheme/components/ContributionGraph.vue'
+import ContributionGraph from '@theme/components/ContributionGraph.vue'
 </script>
 
 <template>

@@ -5,8 +5,8 @@ page: true
 footer: false
 ---
 
-<script setup>
-import BashIndex from '@customtheme/bash/BashIndex.vue'
+<script setup>  
+import BashIndex from '@theme/bash/BashIndex.vue'
 </script>
 
 <BashIndex></BashIndex>
