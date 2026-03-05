@@ -230,7 +230,6 @@ export default defineConfigWithTheme<ThemeConfig>({
     theme: 'github-dark',
     config(md) {
       md.use(headerPlugin).use(groupIconMdPlugin)
-      // .use(textAdPlugin)
     }
   },
 
