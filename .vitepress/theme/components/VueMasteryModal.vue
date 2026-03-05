@@ -7,14 +7,27 @@ const showWhyVue = ref(false)
 watch(
   () => showWhyVue,
   (value) => {
-    value ? (document.documentElement.style.overflow = 'hidden') : (document.documentElement.style.overflow = 'auto')
+    value
+      ? (document.documentElement.style.overflow = 'hidden')
+      : (document.documentElement.style.overflow = 'auto')
   }
 )
 </script>
 
 <template>
-  <a id="vuemastery-action" class="why-vue" @click="showWhyVue = true" href="javascript:;">
-    <svg class="icon-play" aria-labelledby="simpleicons-play-icon" role="img" viewBox="0 0 100 125" fill="#FFFFFF">
+  <a
+    id="vuemastery-action"
+    class="why-vue"
+    @click="showWhyVue = true"
+    href="javascript:;"
+  >
+    <svg
+      class="icon-play"
+      aria-labelledby="simpleicons-play-icon"
+      role="img"
+      viewBox="0 0 100 125"
+      fill="#FFFFFF"
+    >
       <title id="simpleicons-play-icon" lang="en">Play icon</title>
       <path
         d="M50,3.8C24.5,3.8,3.8,24.5,3.8,50S24.5,96.2,50,96.2S96.2,75.5,96.2,50S75.5,3.8,50,3.8z M71.2,53.3l-30.8,18  c-0.6,0.4-1.3,0.5-1.9,0.5c-0.6,0-1.3-0.1-1.9-0.5c-1.2-0.6-1.9-1.9-1.9-3.3V32c0-1.4,0.8-2.7,1.9-3.3c1.2-0.6,2.7-0.6,3.8,0  l30.8,18c1.2,0.6,1.9,1.9,1.9,3.3S72.3,52.7,71.2,53.3z"
@@ -23,14 +36,24 @@ watch(
     Why Vue
   </a>
   <Teleport v-if="showWhyVue" to="body">
-    <div @click="showWhyVue = false" class="vuemastery-modal-mask">
+    <div
+      @click="showWhyVue = false"
+      class="vuemastery-modal-mask"
+    >
       <div class="vuemastery-modal-wrapper">
         <div class="vuemastery-modal-container">
           <div class="vuemastery-modal-content">
             <div class="vuemastery-video-space">
               <iframe
                 :src="VIDEO_SOURCE"
-                style="height: 100%; left: 0; position: absolute; top: 0; width: 100%; border-radius: 6px"
+                style="
+                  height: 100%;
+                  left: 0;
+                  position: absolute;
+                  top: 0;
+                  width: 100%;
+                  border-radius: 6px;
+                "
                 frameborder="0"
                 webkitallowfullscreen
                 mozallowfullscreen
@@ -50,8 +73,7 @@ watch(
                 title="Vue.js Courses on Vue Mastery"
               >
                 Vue Mastery.</a
-              >
-              Watch Vue Mastery’s free
+              > Watch Vue Mastery’s free
               <a
                 href="https://www.vuemastery.com/courses/intro-to-vue-3/intro-to-vue3"
                 target="_blank"
@@ -73,9 +95,7 @@ watch(
   font-size: 16px;
   display: inline-block;
   border-radius: 8px;
-  transition:
-    background-color 0.5s,
-    color 0.5s;
+  transition: background-color 0.5s, color 0.5s;
   position: relative;
   font-weight: 600;
   background-color: var(--vt-c-green);

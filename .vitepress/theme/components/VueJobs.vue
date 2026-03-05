@@ -23,7 +23,9 @@ type Organization = {
 <script setup lang="ts">
 import { onMounted, computed } from 'vue'
 
-const openings = computed(() => items.value.sort(() => 0.5 - Math.random()).slice(0, 2))
+const openings = computed(() =>
+  items.value.sort(() => 0.5 - Math.random()).slice(0, 2)
+)
 
 onMounted(async () => {
   if (!items.value.length) {
@@ -35,11 +37,27 @@ onMounted(async () => {
 <template>
   <div class="vuejobs-wrapper">
     <div class="vj-container">
-      <a class="vj-item" v-for="(job, n) in openings" :key="n" :href="job.link" target="_blank">
+      <a
+        class="vj-item"
+        v-for="(job, n) in openings"
+        :key="n"
+        :href="job.link"
+        target="_blank"
+      >
         <div class="vj-company-logo">
-          <img :src="job.organization.avatar" :alt="`Logo for ${job.organization.name}`" />
+          <img
+            :src="job.organization.avatar"
+            :alt="`Logo for ${job.organization.name}`"
+          />
         </div>
-        <div style="overflow: hidden; display: flex; flex-direction: column; justify-content: center">
+        <div
+          style="
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+          "
+        >
           <div class="vj-job-title">{{ job.title }}</div>
           <div class="vj-job-info">
             {{ job.organization.name }} <span>· </span>

@@ -2,6 +2,10 @@
 .obsidian/workspace.json
 .obsidian/workspace-mobile.json
 
+### Extra Files ###
+.vitepress/theme/contribution-data.json
+.fastRequest
+
 ### OSX ###
 # General
 .DS_Store
@@ -119,7 +123,3 @@ draft.md
 ### IDEs ###
 ### folders created by IDE ###
 .idea
-
-### Extra Files ###
-.vitepress/theme/contribution-data.json
-.fastRequest

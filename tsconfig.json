@@ -1,26 +1,22 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "outDir": "dist",
-    "allowJs": true,
+    "target": "esnext",
     "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "strict": true,
-    "jsx": "preserve",
+    "moduleResolution": "bundler",
     "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "strict": true,
     "noUnusedLocals": true,
-    "lib": [
-      "ESNext",
-      "DOM"
-    ],
     "skipLibCheck": true,
+    "jsx": "preserve",
+    "baseUrl": ".",
     "paths": {
       "@vuetheme/*": ["vuetheme/*"],
       "@vuetheme": ["vuetheme/index.ts"],
-      "@customtheme/*": [".vitepress/theme/*"]
-    },
-    "types": ["vitepress/client"]
+      "@theme/*": [".vitepress/theme/*"]
+    }
   },
   "include": [
     ".github/fetch-contributions.ts",
@@ -28,7 +24,4 @@
     "docs/**/*",
     ".vitepress/**/*"
   ],
-  "exclude": [
-    "node_modules"
-  ]
 }

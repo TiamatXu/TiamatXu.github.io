@@ -17,22 +17,36 @@ import { VTLink } from '@vuetheme'
           rel="noopener"
           target="_blank"
         >
-          <input class="input" id="member_email" name="member[email]" type="email" placeholder="邮箱地址" required />
+          <input
+            class="input"
+            id="member_email"
+            name="member[email]"
+            type="email"
+            placeholder="邮箱地址"
+            required
+          />
 
           <div class="action">
-            <input class="button" id="member_submit" name="member[subscribe]" type="submit" value="订阅" />
+            <input
+              class="button"
+              id="member_submit"
+              name="member[subscribe]"
+              type="submit"
+              value="订阅"
+            />
           </div>
         </form>
       </div>
 
       <p class="help">
         你可以在
-        <VTLink class="link" href="https://news.vuejs.org/" no-icon>news.vuejs.org </VTLink>
-        阅读之前的期刊并收听我们的播客。你也可以在
-        <VTLink class="link" href="https://twitter.com/vuejs" no-icon>Twitter</VTLink>
-        关注我们，或加入我们的
-        <VTLink class="link" href="https://discord.com/invite/vue" no-icon>Discord</VTLink>
-        家园。
+        <VTLink
+          class="link"
+          href="https://news.vuejs.org/"
+          no-icon
+          >news.vuejs.org</VTLink> 阅读之前的期刊并收听我们的播客。你也可以在
+        <VTLink class="link" href="https://twitter.com/vuejs" no-icon>Twitter</VTLink> 关注我们，或加入我们的
+        <VTLink class="link" href="https://discord.com/invite/vue" no-icon>Discord</VTLink> 家园。
       </p>
     </div>
   </section>
@@ -44,9 +58,7 @@ import { VTLink } from '@vuetheme'
   border-bottom: 1px solid var(--vt-c-divider-light);
   padding: 32px 24px;
   background: var(--vt-c-bg-soft);
-  transition:
-    border-color 0.5s,
-    background-color 0.5s;
+  transition: border-color 0.5s, background-color 0.5s;
 }
 
 .dark .NewsLetter {
@@ -102,9 +114,7 @@ import { VTLink } from '@vuetheme'
   font-size: 16px;
   width: 100%;
   color: var(--vt-c-text-1);
-  transition:
-    border-color 0.25s,
-    background-color 0.25s;
+  transition: border-color 0.25s, background-color 0.25s;
 }
 
 .input:hover,

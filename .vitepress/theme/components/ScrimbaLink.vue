@@ -1,6 +1,11 @@
 <template>
   <div class="scrimba">
-    <a :href="href" target="_blank" rel="sponsored noopener" :title="title">
+    <a
+      :href="href"
+      target="_blank"
+      rel="sponsored noopener"
+      :title="title"
+    >
       <slot>Watch a free interactive tutorial on Scrimba</slot>
     </a>
   </div>
@@ -23,13 +28,11 @@ export default {
   display: flex;
   border-radius: 8px;
 }
-
 .scrimba a {
   color: var(--c-text);
   position: relative;
   padding-left: 36px;
 }
-
 .scrimba a:before {
   content: '';
   position: absolute;
@@ -41,7 +44,6 @@ export default {
   border-radius: 50%;
   background-color: #73abfe;
 }
-
 .scrimba a:after {
   content: '';
   position: absolute;

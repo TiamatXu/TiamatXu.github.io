@@ -1,16 +1,13 @@
 <script setup lang="ts">
-withDefaults(
-  defineProps<{
-    title?: string
-    description?: string
-    link?: string
-    linkText?: string
-    showDivider?: boolean
-  }>(),
-  {
-    showDivider: true
-  }
-)
+withDefaults(defineProps<{
+  title?: string
+  description?: string
+  link?: string
+  linkText?: string
+  showDivider?: boolean
+}>(), {
+  showDivider: true
+})
 </script>
 
 <template>
@@ -63,9 +60,7 @@ withDefaults(
   font-weight: 600;
   border-radius: 6px;
   text-decoration: none;
-  transition:
-    background-color 0.5s,
-    color 0.5s;
+  transition: background-color 0.5s, color 0.5s;
 }
 
 .cta-link:hover {

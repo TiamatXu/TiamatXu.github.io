@@ -53,7 +53,10 @@ function resolveList(data: SponsorData) {
     if (props.tier === 'platinum') {
       currentTier = currentTier.filter((s) => !s.priority)
     } else if (props.tier === 'special') {
-      currentTier = [...currentTier, ...data.platinum.filter((s) => s.priority)]
+      currentTier = [
+        ...currentTier,
+        ...data.platinum.filter((s) => s.priority)
+      ]
     }
   }
   return currentTier
@@ -61,7 +64,11 @@ function resolveList(data: SponsorData) {
 </script>
 
 <template>
-  <div ref="container" class="spsr-container" :class="[tier === 'platinum_china' ? 'special' : tier, placement]">
+  <div
+    ref="container"
+    class="spsr-container"
+    :class="[tier === 'platinum_china' ? 'special' : tier, placement]"
+  >
     <template v-if="data && visible">
       <a
         v-for="{ url, url_cn, img, name } of resolveList(data)"
@@ -72,13 +79,20 @@ function resolveList(data: SponsorData) {
         @click="track()"
       >
         <picture v-if="img.endsWith('png')">
-          <source type="image/avif" :srcset="`${base}/images/${img.replace(/\.png$/, '.avif')}`" />
+          <source
+            type="image/avif"
+            :srcset="`${base}/images/${img.replace(/\.png$/, '.avif')}`"
+          />
           <img :src="`${base}/images/${img}`" :alt="name" />
         </picture>
         <img v-else :src="`${base}/images/${img}`" :alt="name" />
       </a>
     </template>
-    <a v-if="placement !== 'page' && tier !== 'special'" href="/sponsor/" class="spsr-item action" @click="track(true)"
+    <a
+      v-if="placement !== 'page' && tier !== 'special'"
+      href="/sponsor/"
+      class="spsr-item action"
+      @click="track(true)"
       >成为赞助商</a
     >
     <a
