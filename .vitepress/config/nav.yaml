@@ -1,0 +1,49 @@
+- text: BashBuilder
+  activeMatch: ^/(bash-builder)/
+  link: /bash-builder/
+- text: 文档
+  activeMatch: ^/(knowledge|linux|doc-site|todo|showcase)/
+  items:
+    - text: 八股文
+      link: /knowledge/introduction
+    - text: Linux
+      link: /linux/zookeeper-docker-arrangement
+    - text: 文档
+      link: /doc-site/vitepress-deployment-guide
+    - text: TODO
+      link: /todo/todolists
+    - text: Showcase
+      link: /showcase/icons
+- text: AI 领域
+  activeMatch: ^/(AI)/
+  items:
+    - text: RAG
+      link: /AI/RAG/index
+    - text: 大模型
+      link: /AI/large-model/index
+- text: 项目
+  activeMatch: ^/project/
+  items:
+    - text: Github
+      items:
+        - text: Github 主页
+          link: https://github.com/TiamatXu
+    - text: 开发项目
+      items:
+        - text: ZooKeeper
+          link: https://www.google.com/search?q=Zookeeper
+        - text: Redis
+          link: https://www.baidu.com/s?wd=redis
+        - text: Kafka
+          link: https://www.baidu.com/s?wd=Kafka
+    - text: Other
+      items:
+        - text: Github 热力图组件
+          link: /project/contribution-graph
+- text: 关于
+  activeMatch: ^/about/
+  items:
+    - text: 关于本站
+      link: /about/website
+    - text: 关于作者
+      link: /about/author

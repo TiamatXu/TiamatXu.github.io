@@ -1,0 +1,74 @@
+/knowledge/:
+  - text: == 八股文 ==
+    items:
+      - text: 介绍
+        link: /knowledge/introduction
+      - text: 笔试指南
+        link: /knowledge/exam-tutorial
+  - text: Java
+    items:
+      - text: Java SE
+        link: /knowledge/java/basic
+      - text: 并发编程
+        link: /knowledge/java/concurrent
+      - text: JVM 虚拟机
+        link: /knowledge/java/jvm
+      - text: MQ 消息队列
+        link: /knowledge/java/msg-queue
+      - text: Spring 框架
+        link: /knowledge/java/spring
+      - text: 分布式缓存
+        link: /knowledge/java/distributed-cache
+      - text: 搜索引擎
+        link: /knowledge/java/search-engine
+      - text: 分布式事务
+        link: /knowledge/java/distributed-transaction
+      - text: 微服务 RPC
+        link: /knowledge/java/mservie
+      - text: 系统设计
+        link: /knowledge/java/sys-design
+      - text: 数据库
+        link: /knowledge/java/db
+      - text: 业务稳定性
+        link: /knowledge/java/constancy
+      - text: 海量数据处理
+        link: /knowledge/java/large-data
+      - text: 管理
+        link: /knowledge/java/manage
+      - text: 设计模式
+        link: /knowledge/java/design-pattern
+      - text: 容器 K8S
+        link: /knowledge/java/k8s
+/doc-site/:
+  - text: 文档型网站
+    items:
+      - text: VitePress 部署指南
+        link: /doc-site/vitepress-deployment-guide
+/linux/:
+  - text: 环境搭建
+    items:
+      - text: Docker-Zookeeper 集群编排
+        link: /linux/zookeeper-docker-arrangement
+  - text: 系统开荒
+    items:
+      - text: Zsh 全局配置
+        link: /linux/global-zsh-configuration
+/todo/:
+  - text: Reference
+    items:
+      - text: 参考
+        link: todo/reference
+      - text: 待办事项
+        link: todo/todolists
+  - text: 项目列表
+    items:
+      - text: 任务调度与执行系统
+        link: todo/1-distributed-task-scheduling
+      - text: 实时数据处理监控平台
+        link: /todo/2-real-time-data-processing
+      - text: 跨语言“推荐 / 排序 / 推送引擎”
+        link: /todo/3-cross-language-recommendation-engine
+      - text: 在线多人对战游戏后端
+        link: /todo/4-online-multiplayer-game-backend
+      - text: 跨语言“数据管道 + 任务中心”
+        link: /todo/5-cross-language-data-pipeline-task-center
