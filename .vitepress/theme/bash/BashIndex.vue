@@ -21,7 +21,7 @@ const allCommands = computed(() => bashGroups.flatMap(g => g.commands))
 const filteredResults = computed(() => {
   const q = query.value.toLowerCase().trim()
   if (!q) return []
-  return allCommands.value.filter(cmd => 
+  return allCommands.value.filter(cmd =>
     cmd.name.toLowerCase().includes(q) || cmd.desc.toLowerCase().includes(q)
   )
 })
@@ -30,17 +30,17 @@ function toggleOption(cmd: CommandData, flag: string) {
   if (!selections[cmd.name]) {
     selections[cmd.name] = new Set()
   }
-  
+
   const set = selections[cmd.name]
   if (set.has(flag)) {
     set.delete(flag)
   } else {
     // 简单的规则验证逻辑（复用之前的 builder 逻辑）
-    const state = { 
-      command: cmd.name, 
-      system: system.value, 
-      options: set, 
-      args: {} 
+    const state = {
+      command: cmd.name,
+      system: system.value,
+      options: set,
+      args: {}
     }
     const status = getOptionStatus(flag, cmd, state)
     if (!status.disabled) {
@@ -51,10 +51,10 @@ function toggleOption(cmd: CommandData, flag: string) {
 
 function getGeneratedCommand(cmd: CommandData) {
   const set = selections[cmd.name] || new Set()
-  const state = { 
-    command: cmd.name, 
-    system: system.value, 
-    options: set, 
+  const state = {
+    command: cmd.name,
+    system: system.value,
+    options: set,
     args: {} // 极简版暂不处理复杂位置参数
   }
   return buildCommand(cmd, state)
@@ -76,8 +76,8 @@ const systems = [
     <!-- 顶部控制栏：系统选择 -->
     <div class="top-controls">
       <div class="system-toggle">
-        <button 
-          v-for="s in systems" 
+        <button
+          v-for="s in systems"
           :key="s.id"
           :class="{ active: system === s.id }"
           @click="system = s.id as any"
@@ -126,9 +126,9 @@ const systems = [
               v-for="opt in cmd.options.filter(o => !cmd.variants?.[system]?.availableOptions || cmd.variants[system].availableOptions.includes(o.flag))"
               :key="opt.flag"
               class="option-tag"
-              :class="{ 
+              :class="{
                 selected: selections[cmd.name]?.has(opt.flag),
-                disabled: getOptionStatus(opt.flag, cmd, { command: cmd.name, system, options: selections[cmd.name] || new Set(), args: {} }).disabled 
+                disabled: getOptionStatus(opt.flag, cmd, { command: cmd.name, system, options: selections[cmd.name] || new Set(), args: {} }).disabled
               }"
               @click="toggleOption(cmd, opt.flag)"
             >
@@ -394,7 +394,13 @@ input:focus {
 }
 
 @media (max-width: 768px) {
-  .title-row { flex-direction: column; gap: 4px; }
-  .preview-row code { font-size: 12px; }
+  .title-row {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .preview-row code {
+    font-size: 12px;
+  }
 }
 </style>
