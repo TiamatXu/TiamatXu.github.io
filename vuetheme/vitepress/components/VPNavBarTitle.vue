@@ -2,7 +2,7 @@
   <a class="VPNavBarTitle" href="/">
     <slot name="navbar-title">
       <img class="logo" src="/logo.svg" alt="logo" width="24" height="24" />
-      <span class="text">TiamatXu 文档</span>
+      <span class="text">TiamatXu</span>
     </slot>
   </a>
 </template>
