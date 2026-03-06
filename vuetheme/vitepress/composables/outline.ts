@@ -1,7 +1,7 @@
 import { computed, inject, onMounted, onUnmounted, onUpdated, Ref } from 'vue'
 import { Header, useData } from 'vitepress'
 import { useMediaQuery } from '@vueuse/core'
-import { MenuItemWithLink } from '../../core'
+import { MenuItemWithLink } from '@vuetheme'
 
 export interface HeaderWithChildren extends Header {
   hidden?: boolean

@@ -38,11 +38,11 @@ defineProps<{
   border-bottom: 1px solid var(--vt-c-divider-light);
   padding: 0 12px 0 24px;
   height: var(--vt-nav-height);
-  background-color: var(--vt-c-bg);
   white-space: nowrap;
-  transition:
-    border-color 0.5s,
-    background-color 0.5s;
+  transition: border-color 0.5s, background-color 0.5s;
+  background-color: rgba(var(--vt-c-bg), 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 @media (min-width: 768px) {

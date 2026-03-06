@@ -54,7 +54,7 @@ import ContributionGraph from '@theme/components/ContributionGraph.vue'
 
 <style scoped>
 .project-index {
-  padding: 40px 20px;
+  padding: 10px 10px 78px;
   max-width: 970px;
   margin: 0 auto;
 }

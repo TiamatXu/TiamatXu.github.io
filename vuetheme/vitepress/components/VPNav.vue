@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useData } from 'vitepress'
 import { useNav } from '../composables/nav'
 import { useSidebar } from '../composables/sidebar'
 import VPNavBar from './VPNavBar.vue'
@@ -7,12 +8,13 @@ import { provide } from 'vue'
 
 const { isScreenOpen, closeScreen, toggleScreen } = useNav()
 const { hasSidebar } = useSidebar()
+const { frontmatter } = useData()
 
 provide('close-screen', closeScreen)
 </script>
 
 <template>
-  <header class="VPNav nav-bar" :class="{ stick: !hasSidebar }">
+  <header class="VPNav nav-bar" :class="{ stick: !hasSidebar, 'is-sticky': frontmatter.page }">
     <VPNavBar :is-screen-open="isScreenOpen" @toggle-screen="toggleScreen">
       <template #navbar-title>
         <slot name="navbar-title" />
@@ -28,6 +30,10 @@ provide('close-screen', closeScreen)
   top: 0;
   left: 0;
   z-index: var(--vp-z-index-nav);
+}
+
+.VPNav.is-sticky {
+  position: sticky;
 }
 
 @media (min-width: 960px) {
