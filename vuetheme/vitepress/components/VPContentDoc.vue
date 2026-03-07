@@ -88,7 +88,6 @@ const pageClass = computed(() => {
 
 .edit-link {
   margin: 0 0 32px;
-  /* text-align: center; */
 }
 
 .edit-link .vt-link {

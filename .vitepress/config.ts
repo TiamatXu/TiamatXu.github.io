@@ -1,35 +1,14 @@
-import fs from 'fs'
-import yaml from 'js-yaml'
 import path from 'path'
-import {
-  defineConfigWithTheme,
-  type Plugin
-} from 'vitepress'
+import { defineConfigWithTheme, type Plugin } from 'vitepress'
 import type { Config as ThemeConfig } from '../vuetheme/vitepress/config'
 import baseConfig from '../vuetheme/vitepress/config/baseConfig'
 import { headerPlugin } from './headerMdPlugin'
-// import { textAdPlugin } from './textAdMdPlugin'
-import {
-  groupIconMdPlugin,
-  groupIconVitePlugin
-} from 'vitepress-plugin-group-icons'
+import { groupIconMdPlugin, groupIconVitePlugin } from 'vitepress-plugin-group-icons'
+import { loadYamlConfig } from './theme/utils'
 
-const loadYamlConfig = (filePath: string) =>
-  yaml.load(fs.readFileSync(path.resolve(__dirname, filePath), 'utf-8')) as any
-const nav = loadYamlConfig('config/nav.yaml') as ThemeConfig['nav']
-const sidebar = loadYamlConfig('config/sidebar.yaml') as ThemeConfig['sidebar']
-const i18n = loadYamlConfig('config/i18n.yaml') as ThemeConfig['i18n']
-
-// function inlineScript(file: string): HeadConfig {
-//   return [
-//     'script',
-//     {},
-//     fs.readFileSync(
-//       path.resolve(__dirname, `./inlined-scripts/${file}`),
-//       'utf-8'
-//     )
-//   ]
-// }
+const nav = loadYamlConfig(path.resolve(__dirname, './config/nav.yaml')) as ThemeConfig['nav']
+const sidebar = loadYamlConfig(path.resolve(__dirname, './config/sidebar.yaml')) as ThemeConfig['sidebar']
+const i18n = loadYamlConfig(path.resolve(__dirname, './config/i18n.yaml')) as ThemeConfig['i18n']
 
 export default defineConfigWithTheme<ThemeConfig>({
   extends: baseConfig,
@@ -42,7 +21,7 @@ export default defineConfigWithTheme<ThemeConfig>({
   title: 'TiamatXu',
   description: 'TiamatXu 的个人网站，分享技术文章和个人见解。',
   srcDir: 'docs',
-  srcExclude: ['api/**'],
+  // srcExclude: ['api/**'],
 
   head: [
     ['meta', { name: 'theme-color', content: '' }],
@@ -51,24 +30,13 @@ export default defineConfigWithTheme<ThemeConfig>({
     ['meta', { property: 'og:title', content: 'TiamatXu' }],
     ['meta', { property: 'og:description', content: 'TiamatXu 的个人网站，分享技术文章和个人见解。' }],
     ['meta', { property: 'og:image', content: 'https://tiamatxu.github.io/logo.png' }],
-    // ['meta', { name: 'twitter:site', content: '@vuejs' }],
-    // ['meta', { name: 'twitter:card', content: 'summary' }],
     ['link', { rel: 'preconnect', href: 'https://tiamatxu.github.io' }]
-    // inlineScript('restorePreference.js'),
-    // inlineScript('uwu.js'),
-    // ['script', { src: 'https://cdn.usefathom.com/script.js', 'data-site': 'ZPMMDSYA', 'data-spa': 'auto', defer: '' }],
-    // ['script', { src: 'https://media.bitterbrains.com/main.js?from=vuejs&type=top', async: 'true' }]
   ],
 
   themeConfig: {
     nav,
     sidebar,
     i18n,
-
-    // carbonAds: {
-    //   code: 'CEBDT27Y',
-    //   placement: 'vuejsorg'
-    // },
 
     socialLinks: [
       { icon: 'github', link: 'https://github.com/TiamatXu' }
