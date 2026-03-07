@@ -41,8 +41,10 @@ const pageClass = computed(() => {
         <main>
           <Content class="vt-doc" :class="pageClass" />
           <p class="edit-link" v-if="config.editLink && frontmatter.editLink !== false">
-            <VTIconEdit class="vt-icon" />
-            <VTLink :href="repoUrl" :no-icon="true">{{ config.editLink.text }}</VTLink>
+            <VTLink :href="repoUrl" :no-icon="true">
+              <VTIconEdit class="vt-icon" />
+              {{ config.editLink.text }}
+            </VTLink>
           </p>
         </main>
         <VPContentDocFooter v-if="frontmatter.footer !== false" />
@@ -101,9 +103,8 @@ const pageClass = computed(() => {
   height: 18px;
   color: var(--vt-c-brand);
   display: inline-block;
-  margin-right: 8px;
   position: relative;
-  top: -1px;
+  top: -2px;
 }
 
 @media (min-width: 768px) {
