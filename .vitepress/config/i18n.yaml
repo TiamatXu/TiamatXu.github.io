@@ -10,9 +10,9 @@ deadLink:
   before: '你打开了一个不存在的链接：'
   after: 。
 deadLinkReport:
-  before: 不介意的话请提交到
+  before: 文档可能还未创建，不介意的话请提交到
   link: 这里
-  after: ，我会跟进修复。
+  after: ，我会跟进修复或完善。
 footerLicense:
   before: ''
   after: ''

@@ -25,9 +25,9 @@ const { config } = useConfig()
 
 <style scoped>
 .vt-doc {
+  margin: calc(var(--vt-nav-height) + 32px) 32px 32px;
   padding: 32px 48px;
   background-color: var(--vt-c-bg-soft);
-  margin: 32px;
   border-radius: 8px;
 }
 

@@ -50,8 +50,12 @@ function onClick({ target: el }: Event) {
   white-space: nowrap;
 }
 
-.outline-link:hover,
 .outline-link.active {
+  color: var(--vt-c-brand);
+  transition: color 0.25s;
+}
+
+.outline-link:hover{
   color: var(--vt-c-text-1);
   transition: color 0.25s;
 }
