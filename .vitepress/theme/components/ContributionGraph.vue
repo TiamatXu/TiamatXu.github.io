@@ -161,39 +161,39 @@ const handleMouseOut = () => {
     <div class="contribution-grid-wrapper">
       <table class="contribution-grid" @mouseleave="handleMouseOut">
         <thead>
-          <tr>
-            <th class="weekday-spacer"></th>
-            <th v-for="month in monthsWithColspan" :key="month.name" :colspan="month.colspan" class="month-header">
-              {{ month.name }}
-            </th>
-          </tr>
+        <tr>
+          <th class="weekday-spacer"></th>
+          <th v-for="month in monthsWithColspan" :key="month.name" :colspan="month.colspan" class="month-header">
+            {{ month.name }}
+          </th>
+        </tr>
         </thead>
         <tbody>
-          <tr v-for="(row, dayIndex) in grid" :key="dayIndex">
-            <th class="weekday-label">{{ weekdayLabels[dayIndex] }}</th>
-            <td
-              v-for="(day, weekIndex) in row"
-              :key="weekIndex"
-              :class="['contribution-cell', day ? getLevelClass(day.contributionLevel) : 'contribution-cell-empty']"
-              @mouseenter="day ? handleMouseOver($event, day) : undefined"
-              @mouseleave="handleMouseOut"
-            >
-              <a
-                v-if="day"
-                :href="`https://github.com/${githubUsername}?tab=overview&from=${day.date}&to=${day.date}`"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="cell-link"
-              />
-            </td>
-          </tr>
+        <tr v-for="(row, dayIndex) in grid" :key="dayIndex">
+          <th class="weekday-label">{{ weekdayLabels[dayIndex] }}</th>
+          <td
+            v-for="(day, weekIndex) in row"
+            :key="weekIndex"
+            :class="['contribution-cell', day ? getLevelClass(day.contributionLevel) : 'contribution-cell-empty']"
+            @mouseenter="day ? handleMouseOver($event, day) : undefined"
+            @mouseleave="handleMouseOut"
+          >
+            <a
+              v-if="day"
+              :href="`https://github.com/${githubUsername}?tab=overview&from=${day.date}&to=${day.date}`"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="cell-link"
+            />
+          </td>
+        </tr>
         </tbody>
       </table>
     </div>
 
     <div class="calendar-footer">
       <a v-if="showFooterLink" class="footer-link" href="/project/contribution-graph/">
-        Learn how to achieve the same effect.
+        How to achieve the same effect.
       </a>
       <div class="legend">
         <span class="legend-label">Less</span>
@@ -219,11 +219,7 @@ const handleMouseOut = () => {
 </template>
 
 <style>
-/* Define GitHub-like colors for contribution levels */
 :root {
-  /* Light mode defaults */
-  --color-contrib-text: #24292f;
-  --color-legend-text: rgba(36, 41, 47, 0.7);
   --color-contrib-level-0: #ebedf0;
   --color-contrib-level-1: #9be9a8;
   --color-contrib-level-2: #40c463;
@@ -232,9 +228,6 @@ const handleMouseOut = () => {
 }
 
 html.dark {
-  /* Dark mode overrides */
-  --color-contrib-text: #c9d1d9;
-  --color-legend-text: rgba(201, 209, 217, 0.7);
   --color-contrib-level-0: #222830;
   --color-contrib-level-1: #0e4429;
   --color-contrib-level-2: #006d32;
@@ -286,9 +279,7 @@ html.dark .contribution-grid-wrapper::-webkit-scrollbar-thumb:hover {
 
 <style scoped>
 .contribution-calendar * {
-  transition:
-    color 0.5s,
-    background-color 0.5s;
+  transition: color 0.5s, background-color 0.5s;
 }
 
 .error-message {
@@ -301,8 +292,7 @@ html.dark .contribution-grid-wrapper::-webkit-scrollbar-thumb:hover {
   display: inline-flex;
   flex-direction: column;
   align-items: stretch;
-  font-family:
-    -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
   max-width: 100%;
   box-sizing: border-box;
   position: relative;
@@ -320,7 +310,7 @@ html.dark .contribution-grid-wrapper::-webkit-scrollbar-thumb:hover {
 
 .contribution-grid thead {
   font-size: 12px;
-  color: var(--color-contrib-text);
+  color: var(--vt-c-text-2);
   position: relative;
   top: 5px;
 }
@@ -334,17 +324,15 @@ html.dark .contribution-grid-wrapper::-webkit-scrollbar-thumb:hover {
 
 .weekday-spacer,
 .weekday-label {
-  display: table-cell;
   position: sticky;
   left: 0;
   z-index: 1;
-  background-color: var(--vt-c-bg);
   box-shadow: 3px 0 0 0 var(--vp-c-bg-soft);
 }
 
 .weekday-label {
   font-size: 12px;
-  color: var(--color-contrib-text);
+  color: var(--vt-c-text-2);
   font-weight: normal;
   text-align: left;
   padding-right: 1px;
@@ -417,7 +405,7 @@ html.dark .contribution-grid .contribution-cell:not(.contribution-cell-empty):ho
 }
 
 .legend-label {
-  color: var(--color-legend-text);
+  color: var(--vt-c-text-2);
   margin: 0 4px;
   white-space: nowrap;
 }
@@ -436,21 +424,20 @@ html.dark .contribution-grid .contribution-cell:not(.contribution-cell-empty):ho
 }
 
 .footer-link {
-  color: var(--color-legend-text);
-  text-decoration: none;
+  color: var(--vt-c-text-3);
+  text-decoration: underline;
   text-align: left;
 }
 
 .footer-link:hover {
   color: var(--vt-c-green);
-  text-decoration: underline;
 }
 
 .contribution-tooltip {
   position: absolute;
   padding: 8px 12px;
   background-color: var(--vt-c-bg-soft);
-  color: var(--color-contrib-text);
+  color: var(--vt-c-text-2);
   border-radius: 6px;
   font-size: 14px;
   pointer-events: none;
