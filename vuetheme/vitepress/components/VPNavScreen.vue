@@ -43,7 +43,9 @@ function unlockBodyScroll() {
   left: 0;
   padding: 0 32px;
   width: 100%;
-  background-color: var(--vt-c-bg);
+  background-color: color-mix(in srgb, var(--vt-c-bg) 60%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   transition: background-color 0.5s;
   overflow-y: auto;
 }

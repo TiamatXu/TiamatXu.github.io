@@ -42,7 +42,7 @@ defineProps<{
   height: var(--vt-nav-height);
   white-space: nowrap;
   transition: border-color 0.5s, background-color 0.5s;
-  background-color: color-mix(in srgb, var(--vt-c-bg) 50%, transparent);
+  background-color: color-mix(in srgb, var(--vt-c-bg) 45%, transparent);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
