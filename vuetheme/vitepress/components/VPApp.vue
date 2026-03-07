@@ -37,7 +37,7 @@ provide('close-sidebar', closeSidebar)
 
 <template>
   <div class="VPApp">
-    <VPSkipLink />
+<!--    <VPSkipLink />-->
     <VTBackdrop class="backdrop" :show="isSidebarOpen" @click="closeSidebar" />
     <slot name="banner" />
     <VPNav>

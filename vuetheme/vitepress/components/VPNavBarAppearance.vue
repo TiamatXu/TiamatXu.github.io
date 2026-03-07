@@ -14,6 +14,7 @@ const { config } = useConfig()
 <style scoped>
 .VPNavBarAppearance {
   display: none;
+  align-items: center;
 }
 
 @media (min-width: 1280px) {
@@ -21,16 +22,11 @@ const { config } = useConfig()
     display: flex;
   }
 
-  .VPNavBarAppearance::before,
   .VPNavBarAppearance::after {
     width: 1px;
     height: 24px;
     background-color: var(--vt-c-divider-light);
     content: '';
-  }
-
-  .VPNavBarAppearance::before {
-    margin-right: 12px;
   }
 
   .VPNavBarAppearance::after {
