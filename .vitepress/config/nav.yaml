@@ -30,12 +30,8 @@
           link: https://github.com/TiamatXu
     - text: 开发项目
       items:
-        - text: ZooKeeper
-          link: https://www.google.com/search?q=Zookeeper
-        - text: Redis
-          link: https://www.baidu.com/s?wd=redis
-        - text: Kafka
-          link: https://www.baidu.com/s?wd=Kafka
+        - text: Null
+          link: /null
     - text: Other
       items:
         - text: Github 热力图组件
