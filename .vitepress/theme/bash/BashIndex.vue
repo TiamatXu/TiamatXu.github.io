@@ -159,6 +159,7 @@ const systems = [
   max-width: 900px;
   margin: 0 auto;
   padding: 40px 20px;
+  min-height: calc(100vh - var(--vt-nav-height) - 82px);
   font-family: var(--vt-font-family-base);
 }
 

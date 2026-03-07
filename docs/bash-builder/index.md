@@ -1,8 +1,7 @@
 ---
 title: Bash 命令构建器
-sidebar: false
 page: true
-footer: false
+footer: true
 ---
 
 <script setup>  
