@@ -39,7 +39,7 @@ const { page } = useData()
 
 .VPNavBarMenuLink.active {
   border-bottom: 2px solid var(--vt-c-brand);
-  color: var(--vt-c-brand);
+  height: var(--vt-nav-height);
 }
 
 .VPNavBarMenuLink:hover {
