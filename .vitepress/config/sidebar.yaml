@@ -72,3 +72,24 @@
         link: /todo/4-online-multiplayer-game-backend
       - text: 跨语言“数据管道 + 任务中心”
         link: /todo/5-cross-language-data-pipeline-task-center
+/AI/:
+  - text: RAG 全览
+    items:
+      - text: 介绍
+        link: /AI/RAG/introduction
+      - text: 索引构建
+        link: /AI/RAG/indexing
+      - text: 检索
+        link: /AI/RAG/retrieval
+      - text: 生成
+        link: /AI/RAG/generation
+  - text: 检索策略
+    items:
+      - text: 基于向量的语义检索
+        link: /AI/RAG/vector-retrieval
+      - text: 基于关键词的布尔检索
+        link: /AI/RAG/boolean-retrieval
+      - text: 基于知识图谱的关系检索
+        link: /AI/RAG/knowledge-graph-retrieval
+      - text: 基于规则的过滤检索
+        link: /AI/RAG/rule-based-retrieval

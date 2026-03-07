@@ -17,10 +17,10 @@
 - text: AI 专栏
   activeMatch: ^/(AI)/
   items:
-    - text: RAG
-      link: /AI/RAG/index
-    - text: 大模型
-      link: /AI/large-model/index
+    - text: RAG (检索增强生成)
+      link: /AI/RAG/introduction
+#    - text: 大模型
+#      link: /AI/large-model/index
 - text: 项目
   activeMatch: ^/project/
   items:
