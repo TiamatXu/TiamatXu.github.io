@@ -40,16 +40,16 @@ const { config } = useConfig()
   line-height: 20px;
   font-size: 12px;
   font-weight: 500;
-  color: var(--vt-c-text-2);
+  color: var(--vt-c-text-3);
   transition: color 0.25s;
 }
 
 .link {
-  color: var(--vt-c-text-1);
+  color: var(--vt-c-text-2);
   transition: color 0.25s;
 }
 
 .link:hover {
-  color: var(--vt-c-text-2);
+  color: var(--vt-c-text-1);
 }
 </style>

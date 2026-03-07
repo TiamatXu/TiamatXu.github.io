@@ -10,6 +10,7 @@
 <style scoped>
 .VPNavBarTitle {
   display: flex;
+  color: var(--vt-c-text-2);
   align-items: center;
   padding-top: 1px;
   height: var(--vt-nav-height);
@@ -17,7 +18,8 @@
 }
 
 .VPNavBarTitle:hover {
-  opacity: 0.6;
+  opacity: 0.7;
+  color: var(--vt-c-brand);
 }
 
 .logo {
