@@ -25,7 +25,7 @@
   "scripts": {
     "dev": "vitepress",
     "build": "vitepress build",
-    "fetch-contributions": "node .github/fetch-contributions.ts",
+    "fetch-contributions": "node .vitepress/fetch-contributions.ts",
     "cf-build": "pnpm run fetch-contributions && pnpm run build",
     "preview": "vitepress preview",
     "lint": "zhlint \"docs/{linux,AI,project}/**/*.md\"",

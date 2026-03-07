@@ -4,9 +4,9 @@ import { join } from 'path'
 import { format } from 'date-fns'
 
 // --- Configuration ---
-const GITHUB_USERNAME = 'TiamatXu' // <<< 请替换为您的 GitHub 用户名
+const GITHUB_USERNAME = 'TiamatXu'
 const OUTPUT_FILE = join(process.cwd(), '.vitepress/theme/contribution-data.json')
-const M_IN_A_DAY = 1000 * 60 * 60 * 24 // Constant for milliseconds in a day
+const M_IN_A_DAY = 1000 * 60 * 60 * 24
 
 // Mapping for contribution levels
 const LEVEL_MAP: Record<string, ContributionLevel> = {

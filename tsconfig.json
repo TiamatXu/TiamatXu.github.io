@@ -19,7 +19,7 @@
     }
   },
   "include": [
-    ".github/fetch-contributions.ts",
+    ".vitepress/fetch-contributions.ts",
     "env.d.ts",
     "docs/**/*",
     ".vitepress/**/*"
