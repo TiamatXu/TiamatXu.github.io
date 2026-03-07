@@ -32,7 +32,7 @@ const { page } = useData()
   line-height: calc(var(--vt-nav-height) - 1px);
   font-size: 14px;
   font-weight: 500;
-  color: var(--vt-c-text-1);
+  color: var(--vt-c-text-2);
   transition: color 0.25s;
   white-space: nowrap;
 }
@@ -40,9 +40,10 @@ const { page } = useData()
 .VPNavBarMenuLink.active {
   border-bottom: 2px solid var(--vt-c-brand);
   height: var(--vt-nav-height);
+  color: var(--vt-c-brand);
 }
 
 .VPNavBarMenuLink:hover {
-  color: var(--vt-c-brand);
+  color: var(--vt-c-text-1);
 }
 </style>

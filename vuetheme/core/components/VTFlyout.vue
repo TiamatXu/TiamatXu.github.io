@@ -53,3 +53,9 @@ useFocusContainer({
     </div>
   </div>
 </template>
+
+<style scoped>
+.vt-flyout.active .vt-flyout-button-text {
+  color: var(--vt-c-brand);
+}
+</style>
