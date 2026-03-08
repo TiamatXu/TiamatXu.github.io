@@ -83,6 +83,16 @@
         link: /AI/RAG/retrieval
       - text: 生成
         link: /AI/RAG/generation
+  - text: 进阶优化
+    items:
+      - text: 查询优化
+        link: /AI/RAG/query-optimization
+      - text: 路由与查询构建
+        link: /AI/RAG/routing-query-construction
+      - text: 索引存储优化
+        link: /AI/RAG/indexing-optimization
+      - text: 高级 RAG 架构
+        link: /AI/RAG/sophisticated-rag
   - text: 检索策略
     items:
       - text: 基于向量的语义检索
@@ -93,3 +103,7 @@
         link: /AI/RAG/knowledge-graph-retrieval
       - text: 基于规则的过滤检索
         link: /AI/RAG/rule-based-retrieval
+  - text: 效果评估
+    items:
+      - text: 评估指标与框架
+        link: /AI/RAG/evaluation
