@@ -12,8 +12,8 @@
 #      link: /doc-site/vitepress-deployment-guide
 #    - text: TODO
 #      link: /todo/todolists
-    - text: Showcase
-      link: /showcase/icons
+#    - text: Showcase
+#      link: /showcase/icons
 - text: AI 专栏
   activeMatch: ^/(AI)/
   items:
