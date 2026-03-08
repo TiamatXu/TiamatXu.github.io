@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { inject, ref } from 'vue'
 import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
 import VPNavScreenMenu from './VPNavScreenMenu.vue'
 import VPNavScreenAppearance from './VPNavScreenAppearance.vue'
@@ -11,6 +11,7 @@ defineProps<{
 }>()
 
 const screen = ref<HTMLElement | null>(null)
+const closeScreen = inject('close-screen') as () => void
 
 function lockBodyScroll() {
   disableBodyScroll(screen.value!, { reserveScrollBarGap: true })
@@ -23,7 +24,7 @@ function unlockBodyScroll() {
 
 <template>
   <transition name="fade" @enter="lockBodyScroll" @after-leave="unlockBodyScroll">
-    <div v-if="open" class="VPNavScreen" ref="screen">
+    <div v-if="open" class="VPNavScreen" ref="screen" @click.self="closeScreen">
       <div class="container">
         <VPNavScreenMenu class="menu" />
         <VPNavBarScreenLocale />
