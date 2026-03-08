@@ -13,3 +13,41 @@
 ## 向量检索
 
 向量检索的核心是计算查询向量与文档向量之间的相似度，把用户问题也转换成向量，然后在向量数据库中搜索：
+
+```python
+# 用户问题向量化
+question = "2023年第四季度的营收增长率是多少？"
+question_embedding = embeddings.embed_query(question)
+
+# 向量检索（找最相似的3个）
+results = vectorstore.similarity_search_by_vector(
+    embedding=question_embedding,
+    k=3  # 返回 top-3 相关片段
+)
+
+for i, doc in enumerate(results):
+    print(f"结果 {i+1}: {doc.page_content[:100]}...")
+```
+
+## 检索策略
+
+单纯的向量检索在处理专有名词或特定数值时可能不够精确，通常采用混合搜索。
+
+1. **混合搜索 (Hybrid Search)**：结合“向量搜索”（语义相似）和“关键词搜索”（精确匹配，如 BM25）。
+2. **重排序 (Re-ranking)**：初步检索出 Top-N 个文档后，使用更强大的交叉编码器模型（Cross-Encoder）对结果进行二次打分，确保最相关的排在最前面。
+
+::: details e.g. 财务问答 Agent 检索优化
+- **问题**：“中芯国际2023年财报中的EBITDA是多少？”
+- **挑战**：向量检索可能找回一堆关于“利润”的通用描述。
+- **优化**：通过混合搜索精确锁定“EBITDA”关键词，再通过重排序将包含具体报表数据的片段置顶。
+:::
+
+## 检索效果评估指标
+
+| 指标 | 含义 | 目标 |
+| :--- | :--- | :--- |
+| **Recall@K** | 前 K 个结果中，包含多少相关文档 | 越高越好 |
+| **Precision@K** | 前 K 个结果中，有多少是真正相关的 | 越高越好 |
+| **MRR** | 第一个相关文档排名的倒数 | 越高越好 |
+| **NDCG** | 考虑排序质量的综合指标 | 越高越好 |
+
