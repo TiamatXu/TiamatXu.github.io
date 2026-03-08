@@ -1,7 +1,7 @@
 - text: BashBuilder
   activeMatch: ^/(bash-builder)/
   link: /bash-builder/
-- text: 文档
+- text: 备忘录
   activeMatch: ^/(knowledge|linux|doc-site|todo|showcase)/
   items:
     - text: 八股文
