@@ -117,7 +117,7 @@ print(f"相似度: {similarity:.3f}")  # 输出: 0.999（非常相似）
 
 ## 向量存储
 
-需要使用向量数据库 (Vector Database) 存储，向量数据库使用特别的索引算法 (如HNSW、IVF)，能在百万、千万级向量中毫秒级找到最相似的。
+需要使用向量数据库 (Vector Database) 存储，向量数据库使用特别的索引算法 (如 HNSW、IVF)，能在百万、千万级向量中毫秒级找到最相似的。
 
 普通数据库 (MySQL、MongoDB) 擅长精确查询，无法进行相似性查询。
 
@@ -125,7 +125,7 @@ print(f"相似度: {similarity:.3f}")  # 输出: 0.999（非常相似）
 
 1. Pinecone (云服务，简单好用)
 2. Milvus (开源，功能强大)
-3. FAISS (Facebook开源，本地使用)
+3. FAISS (Facebook 开源，本地使用)
 4. Weaviate (支持混合搜索)
 
 ## 完整的索引构建流程示例
