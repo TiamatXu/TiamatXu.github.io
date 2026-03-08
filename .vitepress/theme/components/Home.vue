@@ -18,7 +18,7 @@ const runningDays = Math.floor((new Date().getTime() - new Date('2025-12-25').ge
   </section>
   <section id="hero">
     <h1 class="tagline">
-      <span class="accent">Tiamat Xu<br/>个人网站</span>
+      <span class="accent">Tiamat Xu 个人网站</span>
     </h1>
     <p class="description">一个开发者的个人知识库，在这里记录我的学习与实践。</p>
   </section>
@@ -99,6 +99,7 @@ section {
 
 .tagline {
   font-size: 56px;
+  text-wrap: balance;
   line-height: 1.25;
   font-weight: 900;
   letter-spacing: -1.5px;
