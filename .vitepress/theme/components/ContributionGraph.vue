@@ -253,7 +253,6 @@ html.dark {
   border-radius: 6px;
   border: 2px solid transparent;
   background-clip: padding-box;
-  transition: background-color 0.15s ease;
 }
 
 .contribution-grid-wrapper::-webkit-scrollbar-thumb:hover {
@@ -322,19 +321,17 @@ html.dark .contribution-grid-wrapper::-webkit-scrollbar-thumb:hover {
   white-space: nowrap;
 }
 
-.weekday-spacer,
 .weekday-label {
   position: sticky;
   left: 0;
   z-index: 1;
-  box-shadow: 3px 0 0 0 var(--vp-c-bg-soft);
 }
 
 .weekday-label {
   font-size: 12px;
   color: var(--vt-c-text-2);
   font-weight: normal;
-  text-align: left;
+  text-align: right;
   padding-right: 1px;
   white-space: nowrap;
   line-height: 1;

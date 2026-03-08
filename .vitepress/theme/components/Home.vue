@@ -18,9 +18,9 @@ const runningDays = Math.floor((new Date().getTime() - new Date('2025-12-25').ge
   </section>
   <section id="hero">
     <h1 class="tagline">
-      <span class="accent">Tiamat Xu 的个人网站</span>
+      <span class="accent">Tiamat Xu<br/>个人网站</span>
     </h1>
-    <p class="description">一个开发者的个人知识库，在这里记录并分享我的学习与实践。</p>
+    <p class="description">一个开发者的个人知识库，在这里记录我的学习与实践。</p>
   </section>
 
   <!--  <section id="itab">-->
