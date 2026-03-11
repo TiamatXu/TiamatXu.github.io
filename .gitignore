@@ -5,6 +5,7 @@
 ### Extra Files ###
 .vitepress/theme/contribution-data.json
 .fastRequest
+.gemini
 
 ### OSX ###
 # General
@@ -115,7 +116,7 @@ dist/
 tmp/
 temp/
 TODOs.md
-draft.md
+draft*.*
 
 ### IDEs ###
 ### folders created by IDE ###
