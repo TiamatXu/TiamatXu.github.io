@@ -25,9 +25,10 @@ export interface CommandRule {
   flags: string[];
 }
 
+// 命令变体，现在主要用于标记来源或安装方式
 export interface CommandVariant {
-  availableOptions: string[];
-  install?: string;
+  source?: string; // 命令来源，例如 "GNU Coreutils"
+  install?: string; // 安装命令
 }
 
 export interface CommandData {
@@ -37,12 +38,17 @@ export interface CommandData {
   arguments?: CommandArgument[];
   options?: CommandOption[];
   rules?: CommandRule[];
-  variants?: Record<string, CommandVariant>;
+  source?: string; // 默认来源
+  variants?: Record<string, CommandVariant>; // 保留以兼容旧数据或记录不同发行版差异
 }
 
-export interface CommandState {
-  command: string; // 命令名称
-  system: string;  // 如 'ubuntu' | 'centos'
-  options: Set<string>; // 选中的 flag 集合
-  args: Record<string, any>; // 位置参数的值
+// 解析后的命令状态
+export interface ParsedCommand {
+  command?: CommandData;
+  tokens: string[]; // 原始 token 列表
+  activeCommandName?: string;
+  selectedOptions: CommandOption[];
+  positionalArgs: string[];
+  currentFragment: string; // 当前正在输入的片段（用于联想）
+  isOptionFragment: boolean; // 当前片段是否以 '-' 开头
 }
