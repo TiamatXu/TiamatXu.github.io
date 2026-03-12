@@ -428,8 +428,6 @@ input:focus {
   font-weight: 700;
   margin-top: 0;
   margin-bottom: 20px;
-  border-bottom: 1px solid var(--vt-c-divider-light);
-  padding-bottom: 10px;
 }
 
 .command-list {
