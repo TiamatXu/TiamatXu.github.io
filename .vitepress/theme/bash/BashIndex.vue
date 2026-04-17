@@ -56,7 +56,6 @@ function selectOption(opt: CommandOption) {
   searchInput.value?.focus()
 }
 
-// 复制逻辑
 const isCopied = ref(false)
 async function copyToClipboard() {
   if (!inputQuery.value) return
@@ -71,7 +70,7 @@ async function copyToClipboard() {
 
 function handleClickOutside(event: MouseEvent) {
   if (dropdownRef.value && !dropdownRef.value.contains(event.target as Node) &&
-      searchInput.value && !searchInput.value.contains(event.target as Node)) {
+    searchInput.value && !searchInput.value.contains(event.target as Node)) {
     showDropdown.value = false
   }
 }
@@ -256,7 +255,6 @@ input:focus {
   outline: none;
 }
 
-/* 复制按钮样式 (参照 VitePress 官方风格) */
 .copy-button {
   --vp-icon-copy: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='rgba(128,128,128,1)' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' viewBox='0 0 24 24'%3E%3Crect width='8' height='4' x='8' y='2' rx='1' ry='1'/%3E%3Cpath d='M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2'/%3E%3C/svg%3E");
   --vp-icon-copied: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='rgba(128,128,128,1)' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' viewBox='0 0 24 24'%3E%3Crect width='8' height='4' x='8' y='2' rx='1' ry='1'/%3E%3Cpath d='M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2'/%3E%3Cpath d='m9 14 2 2 4-4'/%3E%3C/svg%3E");
@@ -302,7 +300,6 @@ input:focus {
   100% { transform: scale(1); }
 }
 
-/* Copied 字样弹出效果 */
 .copy-button.copied::before {
   content: var(--vp-code-copy-copied-text-content);
   position: absolute;
@@ -320,7 +317,7 @@ input:focus {
   text-align: center;
   font-size: 12px;
   font-weight: 500;
-  color: var(--vt-c-text-dark-2);
+  color: #808080;
   background-color: var(--vt-c-bg-mute);
   white-space: nowrap;
   animation: text-slide-in 0.2s ease-out;
@@ -331,7 +328,6 @@ input:focus {
   to { opacity: 1; transform: translateX(calc(-100% - 2px)); }
 }
 
-/* 动态说明 */
 .dynamic-explanation {
   margin-top: 10px;
   padding-left: 32px;
@@ -359,7 +355,7 @@ input:focus {
   max-height: 360px;
   overflow-y: auto;
   z-index: 1000;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
   width: 100%;
 }
 
@@ -408,7 +404,6 @@ input:focus {
   font-family: var(--vp-font-family-mono);
 }
 
-/* 2. 命令仪表盘 (响应式列布局) */
 .dashboard-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -475,6 +470,7 @@ input:focus {
   .dashboard-grid {
     grid-template-columns: 1fr;
   }
+
   .bash-explorer {
     padding: 42px 24px;
   }
@@ -484,6 +480,7 @@ input:focus {
 .dropdown-fade-enter-active, .dropdown-fade-leave-active {
   transition: opacity 0.2s, transform 0.2s;
 }
+
 .dropdown-fade-enter-from, .dropdown-fade-leave-to {
   opacity: 0;
   transform: translateY(-5px);
