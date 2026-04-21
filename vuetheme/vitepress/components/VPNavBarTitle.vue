@@ -19,7 +19,6 @@
 
 .VPNavBarTitle:hover {
   opacity: 0.7;
-  color: var(--vt-c-brand);
 }
 
 .logo {

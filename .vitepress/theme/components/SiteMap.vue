@@ -64,4 +64,9 @@ const items = nav
   font-size: 0.9em;
   color: var(--vt-c-text-2);
 }
+
+#sitemap .vt-link:hover {
+  color: var(--vt-c-green);
+  text-decoration: underline;
+}
 </style>

@@ -70,7 +70,6 @@ defineProps<{
 .title {
   display: flex;
   align-items: center;
-  /* keep title pinned to left */
 }
 
 .center {

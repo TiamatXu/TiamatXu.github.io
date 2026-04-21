@@ -422,18 +422,18 @@ html.dark .contribution-grid .contribution-cell:not(.contribution-cell-empty):ho
 
 .footer-link {
   color: var(--vt-c-text-3);
-  text-decoration: underline;
   text-align: left;
 }
 
 .footer-link:hover {
+  text-decoration: underline;
   color: var(--vt-c-green);
 }
 
 .contribution-tooltip {
   position: absolute;
   padding: 8px 12px;
-  background-color: var(--vt-c-bg-soft);
+  background-color: var(--vt-c-bg-mute);
   color: var(--vt-c-text-2);
   border-radius: 6px;
   font-size: 14px;
@@ -442,6 +442,7 @@ html.dark .contribution-grid .contribution-cell:not(.contribution-cell-empty):ho
   white-space: nowrap;
   transform: translateX(-50%) translateY(-100%) translateY(-8px);
   box-sizing: border-box;
+  box-shadow: 0 4px 20px color-mix(in srgb, var(--vt-c-text-2) 60%, transparent);
 }
 
 .contribution-tooltip::after {
@@ -452,6 +453,7 @@ html.dark .contribution-grid .contribution-cell:not(.contribution-cell-empty):ho
   transform: translateX(-50%);
   border-width: 5px;
   border-style: solid;
-  border-color: var(--vt-c-bg-soft) transparent transparent transparent; /* Arrow pointing downwards */
+  box-shadow: 0 4px 20px color-mix(in srgb, var(--vt-c-text-2) 60%, transparent);
+  border-color: var(--vt-c-bg-mute) transparent transparent transparent; /* Arrow pointing downwards */
 }
 </style>
