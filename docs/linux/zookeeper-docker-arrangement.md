@@ -2,7 +2,7 @@
 
 #docker #zookeeper
 
-集群编排文件 (基于宝塔面板构建)
+集群编排文件
 
 ## 1. `docker-compose.yaml`
 
@@ -23,7 +23,7 @@ services:
       - ${APP_PATH}/zk1/data:/data
       - ${APP_PATH}/zk1/logs:/logs
     networks:
-      - baota_net
+      - bridge
     labels:
       createdBy: "Tiamat"
 
@@ -42,7 +42,7 @@ services:
       - ${APP_PATH}/zk2/data:/data
       - ${APP_PATH}/zk2/logs:/logs
     networks:
-      - baota_net
+      - bridge
     labels:
       createdBy: "Tiamat"
 
@@ -61,12 +61,12 @@ services:
       - ${APP_PATH}/zk3/data:/data
       - ${APP_PATH}/zk3/logs:/logs
     networks:
-      - baota_net
+      - bridge
     labels:
       createdBy: "Tiamat"
       
 networks:
-  baota_net:
+  bridge:
     external: true
 ```
 
