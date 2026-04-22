@@ -145,16 +145,16 @@ $ echo "source /etc/oh-my-zsh/custom/plugins/incr/incr.zsh" >> /etc/skel/.zshrc
 - 复制全局配置文件到用户主目录
 
 ```bash
-# <username> 需要替换为实际的用户名
-$ cp /etc/skel/.zshrc /home/<username>/.zshrc
+# {username} 需要替换为实际的用户名
+$ cp /etc/skel/.zshrc /home/{username}/.zshrc
 # 别忘了修改文件所有者
-$ chown <username>:<username> /home/<username>/.zshrc
+$ chown {username}:{username} /home/{username}/.zshrc
 ```
 
 - 设置默认 shell
 
 ```bash
-$ sudo chsh -s /bin/zsh <username>
+$ sudo chsh -s /bin/zsh {username}
 ```
 
 之后，用户重新登录即可生效。
