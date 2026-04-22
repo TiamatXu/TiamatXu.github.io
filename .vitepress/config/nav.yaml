@@ -19,6 +19,10 @@
   items:
     - text: RAG (检索增强生成)
       link: /AI/RAG/introduction
+    - text: 面试考点
+      link: /AI/interview/index
+    - text: AI Coding Guide
+      link: /AI/coding/claude-code
 #    - text: 大模型
 #      link: /AI/large-model/index
 - text: 项目
@@ -26,11 +30,13 @@
   items:
     - text: Github
       items:
-        - text: Github 主页
+        - text: Github HomePage
           link: https://github.com/TiamatXu
+        - text: This Site Repo
+          link: https://github.com/TiamatXu/TiamatXu.github.io
     - text: 开发项目
       items:
-        - text: Null
+        - text: 空列表
           link: /null
     - text: 其他
       items:

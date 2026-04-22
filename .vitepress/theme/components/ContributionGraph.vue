@@ -442,7 +442,7 @@ html.dark .contribution-grid .contribution-cell:not(.contribution-cell-empty):ho
   white-space: nowrap;
   transform: translateX(-50%) translateY(-100%) translateY(-8px);
   box-sizing: border-box;
-  box-shadow: 0 4px 20px color-mix(in srgb, var(--vt-c-text-2) 60%, transparent);
+  box-shadow: var(--vt-shadow-5);
 }
 
 .contribution-tooltip::after {
@@ -453,7 +453,7 @@ html.dark .contribution-grid .contribution-cell:not(.contribution-cell-empty):ho
   transform: translateX(-50%);
   border-width: 5px;
   border-style: solid;
-  box-shadow: 0 4px 20px color-mix(in srgb, var(--vt-c-text-2) 60%, transparent);
-  border-color: var(--vt-c-bg-mute) transparent transparent transparent; /* Arrow pointing downwards */
+  box-shadow: var(--vt-shadow-5);
+  border-color: var(--vt-c-bg-mute) transparent transparent transparent;
 }
 </style>

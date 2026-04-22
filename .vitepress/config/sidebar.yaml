@@ -72,7 +72,7 @@
         link: /todo/4-online-multiplayer-game-backend
       - text: 跨语言“数据管道 + 任务中心”
         link: /todo/5-cross-language-data-pipeline-task-center
-/AI/:
+/AI/RAG/:
   - text: RAG 全览
     items:
       - text: 介绍
