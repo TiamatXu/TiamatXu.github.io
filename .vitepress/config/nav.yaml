@@ -21,7 +21,7 @@
   items:
     - text: RAG (检索增强生成)
       link: /AI/RAG/introduction
-    - text: 面试考点
+    - text: AI 知识点
       link: /AI/interview/index
     - text: AI Coding Guide
       link: /AI/coding/claude-code-guide
