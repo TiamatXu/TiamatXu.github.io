@@ -1,44 +1,44 @@
-/knowledge/:
-  - text: == 八股文 ==
+/memo/:
+  - text: = 八股文备忘录 =
     items:
       - text: 介绍
-        link: /knowledge/introduction
+        link: /memo/introduction
       - text: 笔试指南
-        link: /knowledge/exam-tutorial
+        link: /memo/exam-tutorial
   - text: Java
     items:
       - text: Java SE
-        link: /knowledge/java/basic
+        link: /memo/java/basic
       - text: 并发编程
-        link: /knowledge/java/concurrent
+        link: /memo/java/concurrent
       - text: JVM 虚拟机
-        link: /knowledge/java/jvm
+        link: /memo/java/jvm
       - text: MQ 消息队列
-        link: /knowledge/java/msg-queue
+        link: /memo/java/msg-queue
       - text: Spring 框架
-        link: /knowledge/java/spring
+        link: /memo/java/spring
       - text: 分布式缓存
-        link: /knowledge/java/distributed-cache
+        link: /memo/java/distributed-cache
       - text: 搜索引擎
-        link: /knowledge/java/search-engine
+        link: /memo/java/search-engine
       - text: 分布式事务
-        link: /knowledge/java/distributed-transaction
+        link: /memo/java/distributed-transaction
       - text: 微服务 RPC
-        link: /knowledge/java/mservie
+        link: /memo/java/mservie
       - text: 系统设计
-        link: /knowledge/java/sys-design
+        link: /memo/java/sys-design
       - text: 数据库
-        link: /knowledge/java/db
+        link: /memo/java/db
       - text: 业务稳定性
-        link: /knowledge/java/constancy
+        link: /memo/java/constancy
       - text: 海量数据处理
-        link: /knowledge/java/large-data
+        link: /memo/java/large-data
       - text: 管理
-        link: /knowledge/java/manage
+        link: /memo/java/manage
       - text: 设计模式
-        link: /knowledge/java/design-pattern
+        link: /memo/java/design-pattern
       - text: 容器 K8S
-        link: /knowledge/java/k8s
+        link: /memo/java/k8s
 /doc-site/:
   - text: 文档型网站
     items:
