@@ -182,6 +182,8 @@ onUnmounted(() => {
         未找到匹配的命令或参数
       </div>
     </div>
+
+    <div style="text-align: center; margin-top: 30px; color: var(--vt-c-text-3)"><span>更多命令补充中...</span></div>
   </div>
 </template>
 
@@ -200,7 +202,7 @@ onUnmounted(() => {
 }
 
 .explorer-divider {
-  border-top: 1px solid var(--vt-c-divider-light);
+  border-top: 2px solid var(--vt-c-divider);
   margin-bottom: 48px;
 }
 
