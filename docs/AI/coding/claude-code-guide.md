@@ -62,11 +62,13 @@ CC Switch 需要 GUI 界面支持，所以这里我将其安装到 Windows11 宿
 安装包下载：[CC Switch Releases](https://github.com/farion1231/cc-switch/releases)  
 进入后选择最新版本，下载 `CC-Switch-vx.xx.x-Windows.msi` 后根据指引安装即可。
 
-**配置 claude 配置文件路径：**
+**修改 claude 配置文件路径：**
 
 1. 点击左上角齿轮图标进入设置。
 2. 选择高级设置，展开配置文件目录。
 3. 将 Claude Code 配置目录路径修改为 WSL 虚拟机中的实际路径（通常是 `\\wsl.localhost\Ubuntu-xx.xx\home\[username]\.claude`）。
+
+<img alt="claude 配置" src="https://site-bucket.tiamatxu.dpdns.org/2026/04/Snipaste_2026-04-23_16-23-09.png" title="修改 claude 配置文件路径"/>
 
 **添加模型：**
 
