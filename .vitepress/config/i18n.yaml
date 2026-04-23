@@ -7,7 +7,7 @@ previous: 上一篇
 next: 下一篇
 pageNotFound: 页面未找到
 deadLink:
-  before: '你打开了一个不存在的链接：'
+  before: 你打开了一个不存在的链接：
   after: 。
 deadLinkReport:
   before: 文档可能还未创建，不介意的话请提交到

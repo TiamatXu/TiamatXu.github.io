@@ -1,5 +1,5 @@
 ---
-title: Bash 命令构建器
+title: Linux Bash Builder
 page: true
 footer: true
 ---
