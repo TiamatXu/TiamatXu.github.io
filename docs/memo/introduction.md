@@ -16,5 +16,4 @@ lastUpdated: true
   <img alt="图片2" src="https://site-bucket.tiamatxu.dpdns.org/2026/02/20260228194902009.png" style="width: 20%; height: auto;"/>
   <img alt="图片3" src="https://site-bucket.tiamatxu.dpdns.org/2026/02/20260228194925302.png" style="width: 20%; height: auto;"/>
   <img alt="图片4" src="https://site-bucket.tiamatxu.dpdns.org/2026/02/github.jpg" style="width: 20%; height: auto;"/>
-  <img alt="图片5" src="https://site-bucket.tiamatxu.dpdns.org/github.jpg" style="width: 20%; height: auto;"/>
 </div>
