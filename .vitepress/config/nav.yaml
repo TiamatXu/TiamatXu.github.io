@@ -1,6 +1,6 @@
 - text: BashBuilder
   activeMatch: ^/(bash-builder)/
-  link: /bash-builder/
+  link: /bash-builder/index
 - text: 备忘录
   activeMatch: ^/(memo|linux|doc-site|todo|showcase)/
   items:

@@ -39,7 +39,7 @@ export default {
           const filePath = path.join(catPath, file)
           const content = fs.readFileSync(filePath, 'utf-8')
           const cmd = yaml.load(content) as CommandData
-          
+
           if (!groups[catEn]) groups[catEn] = []
           groups[catEn].push(cmd)
         })
