@@ -1,4 +1,4 @@
-# Java SE 基础
+# Java SE (Standard Edition) 基础
 
 ## String、StringBuffer、StringBuilder 的区别和使⽤场景
 

@@ -2,7 +2,7 @@
   activeMatch: ^/(bash-builder)/
   link: /bash-builder/index
 - text: 备忘录
-  activeMatch: ^/(memo|linux|doc-site|todo|showcase)/
+  activeMatch: ^/(memo|linux|windows-os-bug|doc-site|todo|showcase)/
   items:
     - text: 全栈八股文
       link: /memo/introduction
@@ -21,7 +21,7 @@
   items:
     - text: RAG (检索增强生成)
       link: /AI/RAG/introduction
-    - text: AI 核心知识
+    - text: AI 应用核心知识
       link: /AI/core-knowledge/index
     - text: AI Coding Guide
       link: /AI/coding/claude-code-guide
