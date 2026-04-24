@@ -59,7 +59,7 @@
   display: flex;
   position: absolute;
   top: calc(var(--vt-nav-height) / 2 + 15px);
-  left: 0;
+  right: 0;
   opacity: 0;
   visibility: hidden;
   transform: translateY(-4px);
