@@ -1,21 +1,25 @@
 <script lang="ts" setup>
+import { computed } from 'vue'
 import { VTIconAlignLeft } from '../../core'
 import { useSidebar } from '../composables/sidebar'
 import { useConfig } from '../composables/config'
-import { useHasOutline } from '../composables/outline'
+import { useOutlineHeaders } from '../composables/outline'
+import { useData } from 'vitepress'
 import VPLocalNavOutlineDropdown from './VPLocalNavOutlineDropdown.vue'
 
 defineProps<{ open: boolean }>()
 
 const { hasSidebar } = useSidebar()
 const { config } = useConfig()
-const hasOutline = useHasOutline()
-
+const { frontmatter } = useData()
+const headers = useOutlineHeaders()
+const hasOutline = computed(() => frontmatter.value.outline !== false && headers.value.length > 0)
 </script>
 
 <template>
   <div v-if="hasSidebar || hasOutline" class="VPLocalNav">
-    <button v-if="hasSidebar" class="menu" :aria-expanded="open" aria-controls="VPSidebarNav" @click="$emit('open-menu')">
+    <button v-if="hasSidebar" class="menu" :aria-expanded="open" aria-controls="VPSidebarNav"
+            @click="$emit('open-menu')">
       <VTIconAlignLeft class="menu-icon" />
       <span class="menu-text">{{ config.i18n?.menu || 'Menu' }}</span>
     </button>
