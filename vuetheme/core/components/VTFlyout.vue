@@ -12,6 +12,7 @@ const props = defineProps<{
   items?: (MenuItem | MenuItemChild)[]
   label?: string
   badge?: MenuBadgeItem
+  align?: 'left' | 'right'
 }>()
 
 const open = ref(false)
@@ -46,7 +47,7 @@ useFocusContainer({
       </slot>
     </button>
 
-    <div class="vt-flyout-menu">
+    <div :class="['vt-flyout-menu',props.align === 'right' ? 'vt-flyout-menu-right' : '']">
       <VTMenu :items="items">
         <slot />
       </VTMenu>

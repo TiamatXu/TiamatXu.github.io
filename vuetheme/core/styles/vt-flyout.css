@@ -59,10 +59,16 @@
   display: flex;
   position: absolute;
   top: calc(var(--vt-nav-height) / 2 + 15px);
-  right: 0;
+  left: 0;
+  right: auto;
   opacity: 0;
   visibility: hidden;
   transform: translateY(-4px);
   transition: opacity .25s, visibility .25s, transform .25s;
   max-height: calc(100vh - var(--vt-nav-height) - var(--vt-banner-height, 0px));
+}
+
+.vt-flyout-menu.vt-flyout-menu-right {
+  right: 0;
+  left: auto;
 }
