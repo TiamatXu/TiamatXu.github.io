@@ -49,7 +49,7 @@ Agent 的流程是由 LLM 动态生成的，接收到目标会自主规划执行
 
 ## Agent 工作模式
 
-**ReAct (Reasoning + Acting)**  
+**一、ReAct (Reasoning + Acting)**
 
 推理 + 行动，最经典的 Agent 模式，几乎是所有主流框架 (LangChain、LangGraph) 的默认模式。  
 **核心**：Thought (思考) → Action (行动) → Observation (观察) → Thought。根据当前状态进行思考，决定采取什么行动，执行后观察结果，再进行下一轮思考和行动。  
@@ -57,16 +57,37 @@ Agent 的流程是由 LLM 动态生成的，接收到目标会自主规划执行
 **劣**：Token 消耗大 (每步都要完整推理)、死循环 (工具反复失败)、延迟高 (每次行动都要等 LLM 响应)  
 **如何避免死循环**：最大步数限制 (通常超过 15 步就强制终止)、重复动作检测 (连续三次调用同一工具且参数相同，直接退出循环)、超时控制 (整个任务设置最大执行时间约束)
 
-**Plan-and-Execute (先规划再执行)**
+**二、Plan-and-Execute (先规划再执行)**
 
 先计划清楚，再按计划逐步执行，不需要每步重复推理过程。Planner LLM 一次性输出完整的计划，Executor 按计划执行，每步只完成当前任务。可加入**重新规划检查点**，若计划不合理则重新规划执行，减少了 Thought 成本。  
 Token 消耗：ReAct 每步都需要全局思考，假设消耗 100%，那么 Plan-and-Execute 只需规划一次 (理想状态)，执行相对更节省，消耗 20%。
 
+**三、Reflection (自反思)**
 
+让一个 Agent generate，另一个 Agent review，循环迭代直到完成目标。适合代码生成、论文、创作等对输出质量要求高，值得燃烧 Token 反复雕琢的场景。  
+自反思模式也可以用于模型**自我幻觉校准**，当发现输出的内容存疑时，可以触发验证机制，调用搜索工具核实。
 
+**四、Multi-Agent (多智能体协作)**
 
+由多个专业 (或者说领域专家) Agent 协作完成复杂任务，如：
 
+- ⭐Orchestrator (编排器协调 Agent) 负责理解需求、分配任务、汇总结果，统筹：
+  - Research Agent (搜集资料、分析数据)
+  - Coder Agent (写代码、跑测试)
+  - Reviewer Agent (代码审查、安全检查) 等
 
+主流框架特点：
+
+- LangGraph：图结构编排，状态机模型，精细控制
+- CrewAI：角色化 Agent，任务分工，上手简单
+- OpenAI SDK：官方推出，handoff 机制，工具调用原生支持
+- AutoGen：微软出品，对话式多 Agent，研究型友好
+
+:::tip 提醒
+Anthropic：不要过早引入 Multi-Agent。一个强大的单 Agent 往往比多个简单 Agent 协作更稳定、更省钱。只有任务明确需要并行处理或专业分工时，才引入多 Agent。盲目使用多 Agent，调试难度剧增，架构做的是权衡和取舍。
+:::
+
+---
 
 
 
