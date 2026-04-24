@@ -18,13 +18,17 @@ const hasOutline = computed(() => frontmatter.value.outline !== false && headers
 
 <template>
   <div v-if="hasSidebar || hasOutline" class="VPLocalNav">
-    <button v-if="hasSidebar" class="menu" :aria-expanded="open" aria-controls="VPSidebarNav"
-            @click="$emit('open-menu')">
-      <VTIconAlignLeft class="menu-icon" />
-      <span class="menu-text">{{ config.i18n?.menu || 'Menu' }}</span>
-    </button>
+    <div class="nav-left">
+      <button v-if="hasSidebar" class="menu" :aria-expanded="open" aria-controls="VPSidebarNav"
+              @click="$emit('open-menu')">
+        <VTIconAlignLeft class="menu-icon" />
+        <span class="menu-text">{{ config.i18n?.menu || 'Menu' }}</span>
+      </button>
+    </div>
 
-    <VPLocalNavOutlineDropdown v-if="hasOutline" />
+    <div class="nav-right">
+      <VPLocalNavOutlineDropdown v-if="hasOutline" />
+    </div>
   </div>
 </template>
 
@@ -37,6 +41,7 @@ const hasOutline = computed(() => frontmatter.value.outline !== false && headers
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   border-bottom: 1px solid var(--vt-c-divider-light);
   transition: border-color 0.5s, background-color 0.5s;
   background-color: color-mix(in srgb, var(--vt-c-bg) 45%, transparent);
@@ -48,6 +53,14 @@ const hasOutline = computed(() => frontmatter.value.outline !== false && headers
   .VPLocalNav {
     display: none;
   }
+}
+
+.nav-left {
+  flex: 1;
+}
+
+.nav-right {
+  flex-shrink: 0;
 }
 
 .menu {
