@@ -5,9 +5,9 @@ editLink: false
 lastUpdated: true
 ---
 
-# 八股文查询备忘录
+# 八股文备忘录
 
-八股文查询备忘录，记录了一些常用的全栈八股文。
+八股文备忘录，记录了一些常用的全栈八股文。
 
 ## CloudFlare OSS 测试
 
