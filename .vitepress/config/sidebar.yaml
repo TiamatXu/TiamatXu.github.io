@@ -107,9 +107,5 @@
     items:
       - text: 评估指标与框架
         link: /AI/RAG/evaluation
-/AI/interview/:
-  - text: AI 知识点
-    items:
-      - text: AI
-        link: /AI/interview/index
+
 

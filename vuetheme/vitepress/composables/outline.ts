@@ -12,6 +12,13 @@ export interface MenuItemWithLinkAndChildren extends MenuItemWithLink {
   hidden?: boolean
 }
 
+export function useHasOutline() {
+  const { frontmatter } = useData()
+  return computed(() => {
+    return frontmatter.value.outline !== false && useOutlineHeaders().value.length > 0
+  })
+}
+
 export function useOutlineHeaders() {
   const { page } = useData()
   const filterHeaders = inject('filter-headers', null) as any
