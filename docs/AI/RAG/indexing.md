@@ -17,7 +17,7 @@
 | 数据库 | 业务库、数仓 | 各数据库驱动 |
 | 表格 | Excel、CSV | Pandas |
 
-清洗要点：去除页眉页脚/广告等噪声、统一编码、**保留结构信息** (标题层级、表格边界)——结构是后续语义分块的重要依据。PDF 解析是最大的脏活，表格和双栏排版尤其容易碎掉，值得单独投入。
+清洗要点：去除页眉页脚/广告等噪声、统一编码、**保留结构信息** (标题层级、表格边界)——结构是后续语义分块的重要依据。PDF 解析是最大的脏活，表格和双栏排版尤其容易碎掉，值得单独投入。各格式的完整处理方案与代码见[多格式文档解析](./document-parsing)。
 
 ## 分块 (Chunking)
 
@@ -41,7 +41,7 @@ splitter = RecursiveCharacterTextSplitter(
 chunks = splitter.split_text(document)
 ```
 
-经验值：chunk 大小 200~500 token，重叠取 10%~20%。更进一步的做法 (摘要索引、父子块、上下文增强) 见[索引存储优化](./indexing-optimization)。
+经验值：chunk 大小 200~500 token，重叠取 10%~20%。四种策略的完整实现与表格处理见[分块实战](./chunking-in-practice)，更进一步的做法 (摘要索引、父子块、上下文增强) 见[索引存储优化](./indexing-optimization)。
 
 ## 向量化 (Embedding)
 

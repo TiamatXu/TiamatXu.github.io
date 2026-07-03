@@ -93,6 +93,16 @@
         link: /AI/RAG/indexing-optimization
       - text: 高级 RAG 架构
         link: /AI/RAG/sophisticated-rag
+  - text: 工程实战
+    items:
+      - text: 多格式文档解析
+        link: /AI/RAG/document-parsing
+      - text: 分块实战
+        link: /AI/RAG/chunking-in-practice
+      - text: 检索实战
+        link: /AI/RAG/retrieval-in-practice
+      - text: 检索效果评估
+        link: /AI/RAG/retrieval-evaluation
   - text: 检索策略
     items:
       - text: 基于向量的语义检索

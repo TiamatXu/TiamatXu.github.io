@@ -22,6 +22,10 @@
 | knowledge-graph-retrieval.md | 基于知识图谱的关系检索 | 实体关系抽取、GraphRAG、多跳推理 | 已完成 (2026-07-03) |
 | rule-based-retrieval.md | 基于规则的过滤检索 | 元数据过滤、权限控制、混合过滤 | 已完成 (2026-07-03) |
 | multimodal-rag.md | 多模态 RAG | 转文本/多模态 Embedding/ColPali 三路线 | 已完成 (2026-07-03) |
+| document-parsing.md | 多格式文档解析 | PDF/Word/HTML/Excel 逐格式处理方案与代码 | 已完成 (2026-07-03) |
+| chunking-in-practice.md | 分块实战 | 四种分块策略实现、表格处理、父子块落地 | 已完成 (2026-07-03) |
+| retrieval-in-practice.md | 检索实战 | 混合召回 + RRF + 重排序端到端可运行管线 | 已完成 (2026-07-03) |
+| retrieval-evaluation.md | 检索效果评估实战 | 评估集构建、指标实现、消融实验、错误分析 | 已完成 (2026-07-03) |
 
 ## Agent 系列 (docs/AI/agent/)
 
@@ -47,3 +51,4 @@
 
 - 2026-07-03 首次全量:调研完成;补写 4 篇检索策略文章;新建 Agent 系列前 4 篇;更新 sidebar.yaml (/AI/agent/ 分组)。
 - 2026-07-03 RAG 全面重构:重写 9 篇旧文 (统一结构、修正过时 API、补 2026 实践);新增 multimodal-rag.md;RAG 系列 14 篇全部完成。
+- 2026-07-03 新增「工程实战」深潜 4 篇:文档解析、分块实战、检索实战、检索评估实战,均含可运行示例代码;sidebar 新增工程实战分组;RAG 系列扩至 18 篇。

@@ -44,7 +44,7 @@ scores = reranker.predict(pairs)
 top_docs = [d for _, d in sorted(zip(scores, candidates), reverse=True)][:5]
 ```
 
-典型配比：召回取 Top 50~100，重排后只保留 Top 3~10 交给生成。重排序模型可选 BGE-Reranker (开源) 或 Cohere Rerank (API)。
+典型配比：召回取 Top 50~100，重排后只保留 Top 3~10 交给生成。重排序模型可选 BGE-Reranker (开源) 或 Cohere Rerank (API)。整条管线的可运行实现见[检索实战](./retrieval-in-practice)。
 
 ## 关键参数
 
