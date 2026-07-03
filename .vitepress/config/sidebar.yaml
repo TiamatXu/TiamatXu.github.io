@@ -140,5 +140,10 @@
         link: /AI/agent/evaluation-observability
       - text: 安全与护栏
         link: /AI/agent/safety-guardrails
+/AI/trends/:
+  - text: 热点观察
+    items:
+      - text: 半年 AI 热点项目与概念
+        link: /AI/trends/hot-ai-projects
 
 
