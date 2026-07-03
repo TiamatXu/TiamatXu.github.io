@@ -35,11 +35,11 @@
 | react-planning.md | ReAct 与规划 | ReAct 循环、任务分解、Plan-and-Execute | 已完成 (2026-07-03) |
 | tool-use.md | 工具调用 | Function Calling 原理、工具设计原则 | 已完成 (2026-07-03) |
 | mcp.md | MCP 协议 | Model Context Protocol 架构与生态 | 已完成 (2026-07-03) |
-| context-engineering.md | 上下文工程 | 上下文窗口管理、压缩、检索式上下文 | 待写 |
-| memory.md | 记忆机制 | 分层记忆 (核心/归档/召回)、Mem0/Letta 等框架 | 待写 |
-| multi-agent.md | 多智能体编排 | Orchestrator-Worker、A2A、共享状态取舍 | 待写 |
-| evaluation-observability.md | 评估与可观测性 | 轨迹追踪、评估基准、LangSmith 等平台 | 待写 |
-| safety-guardrails.md | 安全与护栏 | 权限边界、注入防御、人工审批点 | 待写 |
+| context-engineering.md | 上下文工程 | 注意力预算、压缩、JIT 上下文、外部笔记、子 Agent 隔离 | 已完成 (2026-07-03) |
+| memory.md | 记忆机制 | 三层记忆模型、写入/读取策略、文件式/Mem0/Zep 路线 | 已完成 (2026-07-03) |
+| multi-agent.md | 多智能体编排 | Orchestrator-Worker、Handoff、A2A、共享状态取舍 | 已完成 (2026-07-03) |
+| evaluation-observability.md | 评估与可观测性 | 轨迹追踪、三层评估、线上监控指标 | 已完成 (2026-07-03) |
+| safety-guardrails.md | 安全与护栏 | 致命三要素、注入防御、权限分级、沙箱限额 | 已完成 (2026-07-03) |
 
 ## 热点专题 (docs/AI/trends/)
 
@@ -52,3 +52,4 @@
 - 2026-07-03 首次全量:调研完成;补写 4 篇检索策略文章;新建 Agent 系列前 4 篇;更新 sidebar.yaml (/AI/agent/ 分组)。
 - 2026-07-03 RAG 全面重构:重写 9 篇旧文 (统一结构、修正过时 API、补 2026 实践);新增 multimodal-rag.md;RAG 系列 14 篇全部完成。
 - 2026-07-03 新增「工程实战」深潜 4 篇:文档解析、分块实战、检索实战、检索评估实战,均含可运行示例代码;sidebar 新增工程实战分组;RAG 系列扩至 18 篇。
+- 2026-07-03 Agent 系列完成剩余 5 篇:上下文工程、记忆机制、多智能体编排、评估与可观测性、安全与护栏。RAG + Agent 全部完成,下一轮进入热点专题。

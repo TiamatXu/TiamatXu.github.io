@@ -130,5 +130,15 @@
         link: /AI/agent/tool-use
       - text: MCP 协议
         link: /AI/agent/mcp
+      - text: 上下文工程
+        link: /AI/agent/context-engineering
+      - text: 记忆机制
+        link: /AI/agent/memory
+      - text: 多智能体编排
+        link: /AI/agent/multi-agent
+      - text: 评估与可观测性
+        link: /AI/agent/evaluation-observability
+      - text: 安全与护栏
+        link: /AI/agent/safety-guardrails
 
 
