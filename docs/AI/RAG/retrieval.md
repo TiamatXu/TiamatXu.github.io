@@ -1,52 +1,72 @@
 # 检索 Retrieval
 
-检索的目标是从一个大型文档集合中找到与查询相关性最强的文档。其大致流程如下：
+> **检索**是 RAG 的在线核心环节：从知识库中召回与用户问题最相关的证据。2026 年生产环境的基线不再是单一向量检索，而是“**混合召回 + 重排序**”两段式架构。
 
-1. **查询向量化**：预处理后将用户查询转换为向量表示，使用与文档相同的 Embedding 模型，确保查询和文档在同一向量空间中。
-2. **向量检索**：计算查询向量与文档向量之间的相似度 (如余弦相似度)，找到最相关的文档。
-3. **返回结果**：根据相似度排序，返回 top-k 个相关文档供后续处理。
+## 两段式架构
 
-## 查询处理
-
-用户输入的问题往往不是完美，这可能导致检索结果的相关性降低，需要进行关键词提取、问题改写。
-
-## 向量检索
-
-向量检索的核心是计算查询向量与文档向量之间的相似度，把用户问题也转换成向量，然后在向量数据库中搜索：
-
-```python
-# 用户问题向量化
-question = "2023年第四季度的营收增长率是多少？"
-question_embedding = embeddings.embed_query(question)
-
-# 向量检索（找最相似的3个）
-results = vectorstore.similarity_search_by_vector(
-    embedding=question_embedding,
-    k=3  # 返回 top-3 相关片段
-)
-
-for i, doc in enumerate(results):
-    print(f"结果 {i+1}: {doc.page_content[:100]}...")
+```text
+用户问题 → ┬─ 向量检索 (语义召回) ─┐
+           └─ BM25 检索 (词项召回) ─┴→ 融合 (RRF) → 重排序 (Cross-Encoder) → Top-K 证据
 ```
 
-## 检索策略
+第一段**召回** (Recall) 追求“别漏”，快速从海量文档中捞出候选集；第二段**重排序** (Rerank) 追求“排准”，用更贵的模型精挑细选。
 
-单纯的向量检索在处理专有名词或特定数值时可能不够精确，通常采用混合搜索。
+## 第一段：混合召回
 
-1. **混合搜索 (Hybrid Search)**：结合“向量搜索”(语义相似) 和“关键词搜索”(精确匹配，如 BM25)。
-2. **重排序 (Re-ranking)**：初步检索出 Top-N 个文档后，使用更强大的交叉编码器模型 (Cross-Encoder) 对结果进行二次打分，确保最相关的排在最前面。
+单路检索各有盲区，互补才稳：
 
-::: details e.g. 财务问答 Agent 检索优化
-- **问题**：“中芯国际 2023 年财报中的 EBITDA 是多少？”
-- **挑战**：向量检索可能找回一堆关于“利润”的通用描述。
-- **优化**：通过混合搜索精确锁定“EBITDA”关键词，再通过重排序将包含具体报表数据的片段置顶。
+- **向量检索**：捕捉语义相似，同义改写也能命中，但专有名词、错误码、编号容易漏，详见[向量检索](./vector-retrieval)
+- **BM25 关键词检索**：精确匹配词项，专有名词命中稳定，但换个说法就查不到，详见[布尔检索](./boolean-retrieval)
+
+两路结果用 **RRF** (Reciprocal Rank Fusion，倒数排名融合) 合并：文档在任一路里排名越靠前得分越高，在多路中都出现的文档被置顶，无需调权重就很稳健。
+
+```python
+def rrf(rankings: list[list[str]], k: int = 60) -> dict[str, float]:
+    scores = {}
+    for ranking in rankings:
+        for rank, doc_id in enumerate(ranking):
+            scores[doc_id] = scores.get(doc_id, 0) + 1 / (k + rank + 1)
+    return dict(sorted(scores.items(), key=lambda x: -x[1]))
+```
+
+除向量与关键词外，关系密集的场景还可以引入[知识图谱检索](./knowledge-graph-retrieval)；权限、时效等硬约束则由[规则过滤](./rule-based-retrieval)在召回前强制收窄候选集。
+
+## 第二段：重排序
+
+召回阶段用的双编码器 (Bi-Encoder) 把查询和文档**分别**编码，快但精度有限；重排序用**交叉编码器** (Cross-Encoder) 把“查询 + 文档”拼在一起过模型，逐对精细打分：
+
+```python
+from sentence_transformers import CrossEncoder
+
+reranker = CrossEncoder("BAAI/bge-reranker-v2-m3")
+pairs = [(query, doc) for doc in candidates]      # 召回的 50~100 条候选
+scores = reranker.predict(pairs)
+top_docs = [d for _, d in sorted(zip(scores, candidates), reverse=True)][:5]
+```
+
+典型配比：召回取 Top 50~100，重排后只保留 Top 3~10 交给生成。重排序模型可选 BGE-Reranker (开源) 或 Cohere Rerank (API)。
+
+## 关键参数
+
+| 参数 | 建议 | 说明 |
+|:---|:---|:---|
+| 召回 Top-N | 50~100 | 给重排序留足候选,漏了就再也找不回来 |
+| 最终 Top-K | 3~10 | 交给 LLM 的证据数,多了稀释注意力 |
+| 相似度阈值 | 按数据集校准 | 低于阈值宁可返回“未找到”,也别硬塞不相关内容 |
+
+## 常见问题
+
+- **召回了但排不上**：Top-K 太小或没做重排序，先加重排序
+- **专有名词查不到**：纯向量检索的典型症状，补 BM25 混合召回
+- **问题太模糊导致召回差**：在检索前做[查询优化](./query-optimization) (改写、分解、HyDE)
+- **多数据源不知道查哪个**：上[路由](./routing-query-construction)
+
+::: details e.g. 财务问答 Agent 的检索链路
+问题“中芯国际 2023 年报中的 EBITDA 是多少？”——BM25 精确命中“EBITDA”“2023”，向量检索补充“息税折旧摊销前利润”等同义表述的段落，RRF 融合后 80 条候选，重排序把包含具体数值表格的片段推到前 3，连同页码元数据交给生成环节。
 :::
 
-## 检索效果评估指标
+## 参考
 
-| 指标              | 含义                 | 目标   |
-|:----------------|:-------------------|:-----|
-| **Recall@K**    | 前 K 个结果中，包含多少相关文档  | 越高越好 |
-| **Precision@K** | 前 K 个结果中，有多少是真正相关的 | 越高越好 |
-| **MRR**         | 第一个相关文档排名的倒数       | 越高越好 |
-| **NDCG**        | 考虑排序质量的综合指标        | 越高越好 |
+- [RRF 论文](https://plg.uwaterloo.ca/~gvcormac/cormacksigir09-rrf.pdf)
+- [BGE-Reranker](https://huggingface.co/BAAI/bge-reranker-v2-m3)
+- [Pinecone: Rerankers and Two-Stage Retrieval](https://www.pinecone.io/learn/series/rag/rerankers/)

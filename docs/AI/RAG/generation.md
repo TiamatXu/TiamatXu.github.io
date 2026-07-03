@@ -1,91 +1,74 @@
 # 生成 Generation
 
-在检索到相关的知识片段后，最后一步是将这些片段与用户的问题组合在一起，交给 LLM 生成最终的答案。
+> **生成**是 RAG 的最后一环：把检索到的证据与用户问题组装成 Prompt，让 LLM 基于证据作答。这一环的核心目标只有一个——**答案的每个事实都要有出处** (Grounding)，检索做得再好，生成环节失守照样产出幻觉。
 
-## 提示词构建 (Prompt Engineering)
+## Prompt 组装
 
-核心是将“检索到的文档”和“用户问题”组合成一个结构化的指令。
-
-### 基础模板
+结构化模板的四要素：角色约束、证据区、问题区、行为规则。
 
 ```python
-prompt_template = """
-你是一个专业的财务分析师。请基于以下参考资料回答用户的问题。
-如果参考资料中没有相关信息，请明确告知用户，不要编造。
+PROMPT = """你是严谨的财务分析助手。仅根据 <context> 中的参考资料回答问题。
 
-参考资料：
+规则:
+1. 资料中没有的信息,明确回答“参考资料中未找到”,禁止编造
+2. 每个关键事实后用 [编号] 标注来源
+3. 数字必须与原文完全一致,不要换算或四舍五入
+
+<context>
 {context}
+</context>
 
-用户问题：
-{question}
-
-请提供详细、准确的回答，并标注信息来源。
+问题:{question}
 """
 
-# 填充内容
-context = "
-
-".join([doc.page_content for doc in retrieved_docs])
-prompt = prompt_template.format(context=context, question=question)
-```
-
-### 进阶模板 (结构化输出)
-
-```python
-advanced_prompt = """
-参考资料：
-{context}
-
-用户问题：{question}
-
-请按以下财务分析格式回答：
-1. 核心数据摘要：用一句话概括关键指标。
-2. 详细分析：结合资料展开说明，分点列出。
-3. 风险提示/注意事项：相关的财务合规或市场风险。
-4. 信息来源：标注参考了哪些财报章节。
-"""
-```
-
-## 调用 LLM 生成
-
-通常使用较低的 `temperature` (如 0.1 - 0.3) 以降低随机性，确保财务数据的准确性。
-
-```python
-from openai import OpenAI
-
-client = OpenAI()
-response = client.chat.completions.create(
-    model="gpt-4",
-    messages=[
-        {"role": "system", "content": "你是一个严谨的财务助手"},
-        {"role": "user", "content": prompt}
-    ],
-    temperature=0.1
+context = "\n\n".join(
+    f"[{i+1}] (来源: {d.metadata['source']}) {d.page_content}"
+    for i, d in enumerate(top_docs)
 )
-answer = response.choices[0].message.content
 ```
 
-## 答案后处理
+组装要点：
 
-生成后的内容可能需要进一步处理：
-1. **引用标注**：为答案中的关键事实添加脚注，链接到原始财报 PDF 的对应页码。
-2. **安全过滤**：检查答案是否包含敏感未公开数据或违反合规要求的建议。
-3. **格式美化**：将对比数据转化为 Markdown 表格。
+- **给每条证据编号并附来源元数据**，这是引用标注的前提
+- **用分隔符隔离证据与指令** (XML 标签或 Markdown 围栏)，降低文档内容干扰指令的风险
+- **证据顺序有讲究**：模型对开头和结尾的内容最敏感 (Lost in the Middle 现象)，把重排序得分最高的放两端
+- **明确拒答路径**：“未找到就说未找到”必须写进规则，否则模型会倾向于强行作答
 
-## 生成效果评估指标
+## 调用参数
 
-为了确保财务 Agent 不“胡说八道”，我们需要从多个维度评估：`
+- `temperature` 取 0~0.3：事实性问答要压制随机性
+- 结构化输出场景用 JSON Mode / Structured Outputs，而不是在提示词里恳求模型输出合法 JSON
+- 上下文再大也不要无脑塞证据：Top-K 控制在 3~10 条，证据多了反而稀释注意力、推高成本
 
-| 指标                     | 评估内容            | 评估方法           |
-|:-----------------------|:----------------|:---------------|
-| **Faithfulness (忠实度)** | 答案是否完全源于检索到的文档  | LLM 判别 / 人工核对  |
-| **Relevance (相关性)**    | 答案是否直接回答了用户的问题  | LLM 评分 / 向量相似度 |
-| **Coherence (连贯性)**    | 答案是否流畅、逻辑连贯     | 语言模型困惑度评估      |
-| **Groundedness (有据性)** | 每一句关键陈述是否都有文档支持 | 检查是否有引用标注      |
+```python
+response = client.chat.completions.create(
+    model="gpt-4o",
+    messages=[{"role": "user", "content": prompt}],
+    temperature=0.1,
+)
+```
 
-::: details e.g. 财务报告生成案例
-- **检索内容**：2023年年度报告 - 研发投入章节。
-- **用户问题**：“公司的研发投入占比有什么变化？”
-- **生成答案**：“根据2023年年报，研发投入占比从去年的 12.5% 提升至 14.2%(引用 [1])。主要投入方向为国产芯片研发。”
-- **评估**：系统会自动核对 14.2% 是否在原文中出现，以确保数据真实。
+## 后处理
+
+1. **引用核验**：程序化检查答案中的 [编号] 是否真实存在、关键数字是否能在对应证据中找到原文
+2. **安全过滤**：敏感信息 (未公开数据、个人隐私) 在返回前拦截
+3. **格式化**：对比类数据转 Markdown 表格，引用编号渲染成可点击的来源链接
+
+## 生成质量的评估维度
+
+| 指标 | 回答的问题 |
+|:---|:---|
+| Faithfulness (忠实度) | 答案是否只基于检索到的证据,有没有编造 |
+| Answer Relevancy (相关性) | 是否直接回答了用户的问题 |
+| Groundedness (有据性) | 每个关键陈述能否定位到具体出处 |
+
+自动化评估方法与 RAGAS 框架见[评估指标与框架](./evaluation)；当检索质量本身不可靠时，靠生成端补救是无底洞，应回到[高级 RAG 架构](./sophisticated-rag)引入检索质量评估与纠错闭环。
+
+::: details e.g. 财务报告问答的生成链路
+问题“研发投入占比有什么变化？”→ 证据为年报研发章节两个片段 → 生成“研发投入占比从 12.5% 提升至 14.2% [1]”→ 后处理核验：14.2% 在 [1] 原文中存在 ✅，引用编号有效 ✅ → 渲染来源链接后返回。若核验失败，直接降级为“未能从资料中确认”，宁可拒答也不输出未经核实的数字。
 :::
+
+## 参考
+
+- [Lost in the Middle 论文](https://arxiv.org/abs/2307.03172)
+- [Anthropic: Reducing Hallucinations](https://docs.anthropic.com/en/docs/test-and-evaluate/strengthen-guardrails/reduce-hallucinations)

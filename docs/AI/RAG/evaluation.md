@@ -1,52 +1,71 @@
-# 效果评估 Evaluation
+# 评估指标与框架 Evaluation
 
-如何知道你的 RAG 系统到底靠不靠谱？我们需要一套客观、量化的指标体系来衡量。
+> 没有评估的 RAG 优化是碰运气：换个分块大小、加个重排序，到底变好还是变坏？**评估体系**把“感觉”变成“数字”，是所有 RAG 优化决策的前提——本系列每篇文章里的选型建议，最终都要靠它裁决。
 
-## 评估维度 1：检索质量
+## 评估的两个维度
 
-主要评估系统是否找回了正确的“素材”。
+RAG 是两段系统，必须分开归因：**检索没找对**还是**生成没答好**？
 
-- **Recall@K (召回率)**：前 K 个结果中包含了多少真实相关的文档。
-- **Precision@K (准确率)**：检索到的文档中有多少是真正相关的。
-- **MRR (平均倒数排名)**：第一个正确答案排在第几位。排得越靠前，分值越高。
-- **NDCG**：一种综合考虑排名顺序和相关程度的指标。
+### 检索质量
 
-::: details e.g. 财务问答检索测试
-- **场景**：测试 100 个关于“财务风险点”的问题。
-- **目标**：Recall@5 达到 90% 以上，即 90% 的问题在前 5 条检索结果中能找到答案依据。
-:::
+| 指标 | 含义 | 敏感点 |
+|:---|:---|:---|
+| Recall@K | 前 K 条结果覆盖了多少相关文档 | 漏检 |
+| Precision@K | 前 K 条中有多少真正相关 | 噪声 |
+| MRR | 第一条相关结果的排名倒数 | 首位质量 |
+| NDCG | 按位置加权的综合排序质量 | 整体排序 |
 
-## 评估维度 2：生成质量
+召回阶段盯 Recall@50 (漏了就再也找不回)，重排序阶段盯 NDCG@5 / MRR (最终喂给 LLM 的就这几条)。
 
-主要评估 LLM 生成的答案是否准确、有据、切题。
+### 生成质量
 
-- **Faithfulness (忠实度)**：答案是否完全来源于检索到的文档，有没有凭空编造事实 (幻觉)。
-- **Relevance (答案相关性)**：答案是否直接回答了用户的问题，有没有答非所问。
-- **Groundedness (有据性)**：答案中的每一个核心观点是否都能在参考文档中找到原文出处。
+| 指标 | 回答的问题 | 评估方式 |
+|:---|:---|:---|
+| Faithfulness | 答案是否只基于检索证据 | LLM 裁判逐句核对 |
+| Answer Relevancy | 是否切题 | LLM 裁判 / 向量相似度 |
+| Context Precision/Recall | 喂给 LLM 的证据本身质量如何 | 连接检索与生成的桥梁指标 |
 
-## RAGAS 评估框架
+## RAGAS 框架
 
-[RAGAS](https://github.com/explodinggradients/ragas) 是目前最流行的端到端 RAG 评估工具，它使用 LLM 作为裁判，自动计算上述指标。
+[RAGAS](https://github.com/explodinggradients/ragas) 是最流行的端到端评估框架，用 LLM 作裁判自动打分：
 
 ```python
-from ragas import evaluate
-from ragas.metrics import faithfulness, answer_relevancy
+from ragas import evaluate, EvaluationDataset
+from ragas.metrics import Faithfulness, AnswerRelevancy, ContextPrecision
 
-# 准备测试集
-data = {
-    "question": ["2023年公司的净利润是多少？"],
-    "answer": ["2.5亿元"],
-    "contexts": [["财报显示，公司2023年度实现归属于上市公司股东的净利润为2.5亿元。"]],
-    "ground_truths": ["2.5亿元"]
-}
+dataset = EvaluationDataset.from_list([{
+    "user_input": "2023 年公司净利润是多少?",
+    "response": "归母净利润为 2.5 亿元 [1]",
+    "retrieved_contexts": ["财报显示,2023 年度归母净利润 2.5 亿元。"],
+    "reference": "2.5 亿元",
+}])
 
-# 自动跑分
-result = evaluate(data, metrics=[faithfulness, answer_relevancy])
-print(result)
+result = evaluate(dataset, metrics=[Faithfulness(), AnswerRelevancy(), ContextPrecision()])
 ```
 
-## 评估流程最佳实践
+同类工具：**TruLens** (RAG Triad 三角评估)、**DeepEval** (pytest 风格，适合接入 CI)、**Phoenix/Arize** (评估 + 链路追踪一体)。
 
-1. **构建金标准数据集**：人工整理一份“问题 - 标准答案 - 对应文档”的基准库。
-2. **端到端测试**：不仅测检索，也要测生成的最终效果。
-3. **回归测试**：每当修改分块大小、换了 Embedding 模型或调整了 Prompt 后，都要重新运行评估，防止性能倒退。
+> LLM 裁判本身会出错：换裁判模型分数会漂移、对长答案有偏好。关键结论要抽样人工复核，别把裁判分当真理。
+
+## 评估数据集
+
+- **金标准集**：人工整理“问题 → 标准答案 → 相关文档”三元组，100~300 条即可支撑回归测试，质量重于数量
+- **合成数据**：RAGAS 等支持从语料自动生成问答对，快速冷启动，但要人工抽检剔除低质量样本
+- **线上信号**：用户点踩、追问率、转人工率，是离线指标之外的真实反馈
+
+## 工程实践
+
+1. **先建评估集，再做优化**——顺序反了，一切调参都是盲调
+2. **回归测试**：改分块、换 Embedding、调 Prompt 后全量重跑，防止 A 处优化 B 处劣化
+3. **接入 CI**：评估分数低于阈值就阻断上线 (DeepEval 天然支持)
+4. **分段归因**：先看 Context 指标定位是检索问题还是生成问题，再去对应环节调优——检索差就回[检索](./retrieval)与[查询优化](./query-optimization)，生成差就回[生成](./generation)
+
+::: details e.g. 一次真实的优化决策
+财务问答系统 Faithfulness 只有 0.72。分段归因发现 Context Precision 仅 0.55——问题在检索不在生成。加重排序后 Context Precision 升到 0.83,Faithfulness 随之到 0.91，全程没动生成端一行代码。没有分段指标，大概率会先去改 Prompt，白忙一场。
+:::
+
+## 参考
+
+- [RAGAS 文档](https://docs.ragas.io/)
+- [DeepEval](https://github.com/confident-ai/deepeval)
+- [TruLens RAG Triad](https://www.trulens.org/getting_started/core_concepts/rag_triad/)

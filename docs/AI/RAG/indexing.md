@@ -1,161 +1,77 @@
 # 索引构建 Indexing
 
-RAG 的“预处理”阶段，把原始文档转化为机器能快速检索的数据格式。大致流程如下：
+> **索引构建**是 RAG 的离线预处理阶段：把原始文档变成“机器能按语义快速检索”的结构。管线上游的质量上限在这里就被决定了——分块切坏了，后面检索和生成怎么调都救不回来。
 
-1. 数据收集：使用对应工具从各种来源 (PDF、数据库、网络等) 收集文本数据。
-2. 预处理：清洗文本 (去除噪声、特殊字符、多余空格等)，统一格式、编码。
-3. **分块**：根据语义或长度 (分块策略) 切割文档，将长文本分成小片段 (chunk)。
-4. **向量化 (Embedding)**：使用嵌入模型将文本转化为向量表示。向量具有维度，语义相似的文本在向量空间中距离较近。
-5. 存储：将向量和对应的文本片段存储在索引数据库中 (如 FAISS、Pinecone、Weaviate 等)
+## 流程总览
 
-提供的能力：快速向量相似度搜索、文档实时检索、用户查询
-
-## 数据收集
-
-| 来源类型 | 渠道 etc.               | 工具 etc.                |
-|------|-----------------------|------------------------|
-| 文档   | TXT Word Markdown PDF | pyPDF2 python-docx     |
-| 网络   | 网页、文库、百科              | requests BeautifulSoup |
-| 数据库  | 关系型、非关系型              | database drivers       |
-| 实时信息 | 邮件、聊天记录               | 协议                     |
-| 表格   | Excel、Csv             | Pandas                 |
-
-::: details e.g. 财务报告智能生成系统 | 财务知识问答 Agent
-
-- 财务报告模板 (PDF)
-- 财务知识库 (数据库)
-- 财务法规政策 (Word 文档)
-- 财务分析案例 (网页)
-- 财务数据表格 (Excel)
-  :::
-
-## 预处理
-
-例如：文档预处理
-
-```python
-def preprocess_document(doc):
-    """去除多余空格，统一小写等"""
-    return re.sub(r'\s+', ' ', doc).strip().lower()
+```text
+数据收集 → 清洗 → 分块 (Chunking) → 向量化 (Embedding) → 向量库存储
 ```
+
+## 数据收集与清洗
+
+| 来源 | 示例 | 常用工具 |
+|:---|:---|:---|
+| 文档 | PDF、Word、Markdown | PyMuPDF、python-docx、Unstructured |
+| 网页 | 官网、Wiki、博客 | requests + BeautifulSoup、Firecrawl |
+| 数据库 | 业务库、数仓 | 各数据库驱动 |
+| 表格 | Excel、CSV | Pandas |
+
+清洗要点：去除页眉页脚/广告等噪声、统一编码、**保留结构信息** (标题层级、表格边界)——结构是后续语义分块的重要依据。PDF 解析是最大的脏活，表格和双栏排版尤其容易碎掉，值得单独投入。
 
 ## 分块 (Chunking)
 
-目的：将文档切分为小皮段，提高检索效率和相关性，避免一次检索过多无关信息，同时保持语义完整性。
+分块的目标是让每个 chunk **语义完整且聚焦**：太大则检索不精确、无关内容稀释上下文；太小则语义残缺。
 
-常见分块策略：
-
-1. 固定大小分块 (简单但语义可能不完整)
-
-```python
-# 例：按 400 字符分块
-chunk_size = 400
-chunks = [text[i:i+chunk_size] for i in range(0, len(text), chunk_size)]
-
-# 带重叠的滑动窗口分块，避免信息丢失
-chunk_size = 300
-overlap = 50  # 重叠50字符
-chunks = []
-for i in range(0, len(text), chunk_size - overlap):
-    chunks.append(text[i:i+chunk_size])
-```
-
-2. 基于语义分块 (更复杂但保持语义完整)
+| 策略 | 做法 | 适用 |
+|:---|:---|:---|
+| 固定大小 + 重叠 | 按字符/token 数滑窗切分 | 结构松散的纯文本,兜底方案 |
+| 递归字符分块 | 按分隔符优先级 (段落 → 句子) 递归切 | 通用默认选择 |
+| 结构感知分块 | 按标题/章节/表格边界切 | Markdown、HTML、财报等结构化文档 |
+| 语义分块 | 按相邻句向量相似度突变点切 | 高价值语料,成本较高 |
 
 ```python
-# 段落分块（保留逻辑结构）、按换行符或段落标记分割
-chunks = text.split('\n\n')
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 
-# 按句号、问号、感叹号等结束标记分割
-import nltk
-sentences = nltk.sent_tokenize(text)
+splitter = RecursiveCharacterTextSplitter(
+    chunk_size=500,
+    chunk_overlap=75,  # 约 15%,避免关键信息被切断
+    separators=["\n\n", "\n", "。", "！", "？", "，"],
+)
+chunks = splitter.split_text(document)
 ```
 
-参数：
-
-- 块大小 (Chunk Size)：太小 → 语义不完整；太大 → 检索不精确。(建议：200-500 tokens (约 150-400 个汉字))
-- 重叠 (Overlap)：避免关键信息被切断。(建议：`chunk_size * [0.1, 0.2]`)
+经验值：chunk 大小 200~500 token，重叠取 10%~20%。更进一步的做法 (摘要索引、父子块、上下文增强) 见[索引存储优化](./indexing-optimization)。
 
 ## 向量化 (Embedding)
 
-文本分块后还是人类语言，需要转换为向量，语义相似的文本在向量空间较为接近。核心是使用预训练的嵌入模型 (如 OpenAI 的
-text-embedding-3-small)，将文本转化为固定维度的向量表示。
+用 Embedding 模型把每个 chunk 编码成高维向量，语义相近的文本在向量空间中彼此靠近——这是[向量检索](./vector-retrieval)的基础。
 
-解决的核心问题：传统的关键词匹配无法捕捉语义相似性，而向量化可以通过计算向量之间的距离 (如余弦相似度) 来衡量文本的语义相关性。
+选型看三点：**榜单效果** (MTEB / 中文看 C-MTEB)、**维度与成本** (维度越高存储与计算越贵)、**语言匹配** (中文语料选中文优化模型)。
 
-常见嵌入模型：不同的模型有不同的维度大小和适用场景，选择时需综合考虑文本类型、语言、计算资源等因素。
+| 模型 | 维度 | 特点 |
+|:---|:---|:---|
+| OpenAI text-embedding-3-large | 3072 | 效果强,支持降维截断 |
+| OpenAI text-embedding-3-small | 1536 | 性价比高的通用选择 |
+| BGE-M3 | 1024 | 开源,中文强,同时输出稠密/稀疏向量 |
+| Qwen3-Embedding | 可变 | 开源,多语言榜单前列 |
 
-| 模型                           | 维度   | 优势      | 适用场景   |
-|------------------------------|------|---------|--------|
-| OpenAItext-embedding-3-small | 1536 | 效果好，速度快 | 通用场景   |
-| OpenAItext-embedding-3-large | 3072 | 效果最好    | 	高精度需求 |
-| BGE-large-zh                 | 1024 | 中文友好    | 	中文为主  |
-| Sentence-BERT                | 768	 | 开源免费    | 资源有限   |
-
-```python
-# 使用OpenAI的Embedding模型
-from openai import OpenAI
-
-client = OpenAI()
-text = "阿司匹林是一种解热镇痛药"
-response = client.embeddings.create(model="text-embedding-3-small", input=text)
-vector = response.data[0].embedding
-print(f"向量维度: {len(vector)}")  # 输出: 1536
-print(f"前5个值: {vector[:5]}")    # 输出: [0.023, -0.014, 0.089, ...]
-```
-
-```python
-# 余弦相似度计算
-from sklearn.metrics.pairwise import cosine_similarity
-import numpy as np
-
-vec1 = np.array([0.1, 0.3, 0.5])
-vec2 = np.array([0.12, 0.29, 0.51])
-similarity = cosine_similarity([vec1], [vec2])[0][0]
-print(f"相似度: {similarity:.3f}")  # 输出: 0.999（非常相似）
-```
+> 注意：**换 Embedding 模型必须全量重建索引**——不同模型的向量空间互不兼容。选型时把“未来迁移成本”也算进去。
 
 ## 向量存储
 
-需要使用向量数据库 (Vector Database) 存储，向量数据库使用特别的索引算法 (如 HNSW、IVF)，能在百万、千万级向量中毫秒级找到最相似的。
+普通数据库只会精确匹配，向量数据库靠 ANN 索引 (HNSW、IVF) 在千万级向量中做毫秒级近似最近邻搜索，算法细节见[向量检索](./vector-retrieval)。
 
-普通数据库 (MySQL、MongoDB) 擅长精确查询，无法进行相似性查询。
+- **Milvus / Qdrant / Weaviate**：开源自建，功能全，支持混合检索与元数据过滤
+- **Pinecone**：全托管云服务，省运维
+- **pgvector / Elasticsearch**：在已有技术栈上加向量能力，中小规模最务实
+- **FAISS / Chroma**：本地库，适合原型与离线实验
 
-**常见的向量数据库有：**
+::: details e.g. 财务问答 Agent 的索引决策
+年报 PDF 用结构感知分块 (按章节 + 表格边界)，制度文档用递归字符分块；每个 chunk 挂上元数据 (公司、年份、章节、密级) 供[规则过滤](./rule-based-retrieval)使用；Embedding 选 BGE-M3——中文财务语料、需要私有化部署，顺带获得稀疏向量支持混合检索。
+:::
 
-1. Pinecone (云服务，简单好用)
-2. Milvus (开源，功能强大)
-3. FAISS (Facebook 开源，本地使用)
-4. Weaviate (支持混合搜索)
+## 参考
 
-## 完整的索引构建流程示例
-
-```python
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.embeddings import OpenAIEmbeddings
-from langchain.vectorstores import Pinecone
-import pinecone
-
-with open("medical_docs.txt", "r") as f:
-    document = f.read()
-
-text_splitter = RecursiveCharacterTextSplitter(
-    chunk_size=500,
-    chunk_overlap=50,
-    separators=["\n\n", "\n", "。", "！", "？", "，"]
-)
-chunks = text_splitter.split_text(document)
-
-embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
-
-pinecone.init(api_key="your-key")
-index_name = "medical-rag"
-
-vectorstore = Pinecone.from_texts(
-    texts=chunks,
-    embedding=embeddings,
-    index_name=index_name
-)
-
-print(f"成功索引了 {len(chunks)} 个文本块！")
-```
+- [Chunking Strategies (Pinecone)](https://www.pinecone.io/learn/chunking-strategies/)
+- [MTEB Leaderboard](https://huggingface.co/spaces/mteb/leaderboard)

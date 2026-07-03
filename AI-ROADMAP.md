@@ -8,20 +8,20 @@
 
 | 文件 | 标题 | 摘要 | 状态 |
 |---|---|---|---|
-| introduction.md | 介绍 | RAG 概念、流程与价值 | 已完成 |
-| indexing.md | 索引构建 | 清洗、分块、向量化、存储 | 已完成 |
-| retrieval.md | 检索 | 检索基础流程 | 需增补:补混合检索 (Dense + BM25) 与 Cross-Encoder 重排序,2026 生产基线 |
-| generation.md | 生成 | Prompt 构建与后处理 | 已完成 |
-| query-optimization.md | 查询优化 | 查询改写、扩展、分解 | 已完成 |
-| routing-query-construction.md | 路由与查询构建 | 逻辑/语义路由、结构化查询 | 已完成 |
-| indexing-optimization.md | 索引存储优化 | 分块与索引策略优化 | 已完成 |
-| sophisticated-rag.md | 高级 RAG 架构 | CRAG、Self-RAG | 需增补:补 Agentic RAG 与 Adaptive RAG (查询分类路由) |
-| evaluation.md | 评估指标与框架 | RAG 评估 | 需增补:补 RAGAS 等框架与主流基准 |
+| introduction.md | 介绍 | RAG 概念、流程、架构演进与阅读路线 | 已完成 (2026-07-03 重写) |
+| indexing.md | 索引构建 | 清洗、分块策略、Embedding 选型、向量库 | 已完成 (2026-07-03 重写) |
+| retrieval.md | 检索 | 混合召回 (Dense + BM25 + RRF) 与 Cross-Encoder 重排序 | 已完成 (2026-07-03 重写) |
+| generation.md | 生成 | Prompt 组装、Grounding、引用核验 | 已完成 (2026-07-03 重写) |
+| query-optimization.md | 查询优化 | Multi Query、RAG-Fusion、分解、Step Back、HyDE | 已完成 (2026-07-03 重写) |
+| routing-query-construction.md | 路由与查询构建 | 逻辑/语义路由、Text-to-SQL、Self-Query | 已完成 (2026-07-03 重写) |
+| indexing-optimization.md | 索引存储优化 | 父子块、多表示、上下文增强、RAPTOR、ColBERT | 已完成 (2026-07-03 重写) |
+| sophisticated-rag.md | 高级 RAG 架构 | CRAG、Self-RAG、Agentic RAG、Adaptive RAG | 已完成 (2026-07-03 重写) |
+| evaluation.md | 评估指标与框架 | 检索/生成指标、RAGAS、评估集与 CI | 已完成 (2026-07-03 重写) |
 | vector-retrieval.md | 基于向量的语义检索 | Embedding、ANN 索引、相似度度量 | 已完成 (2026-07-03) |
 | boolean-retrieval.md | 基于关键词的布尔检索 | 倒排索引、BM25、稀疏检索 | 已完成 (2026-07-03) |
 | knowledge-graph-retrieval.md | 基于知识图谱的关系检索 | 实体关系抽取、GraphRAG、多跳推理 | 已完成 (2026-07-03) |
 | rule-based-retrieval.md | 基于规则的过滤检索 | 元数据过滤、权限控制、混合过滤 | 已完成 (2026-07-03) |
-| multimodal-rag.md | 多模态 RAG | 图表/图像检索、多模态 Embedding | 待写 |
+| multimodal-rag.md | 多模态 RAG | 转文本/多模态 Embedding/ColPali 三路线 | 已完成 (2026-07-03) |
 
 ## Agent 系列 (docs/AI/agent/)
 
@@ -46,3 +46,4 @@
 ## 运行日志
 
 - 2026-07-03 首次全量:调研完成;补写 4 篇检索策略文章;新建 Agent 系列前 4 篇;更新 sidebar.yaml (/AI/agent/ 分组)。
+- 2026-07-03 RAG 全面重构:重写 9 篇旧文 (统一结构、修正过时 API、补 2026 实践);新增 multimodal-rag.md;RAG 系列 14 篇全部完成。

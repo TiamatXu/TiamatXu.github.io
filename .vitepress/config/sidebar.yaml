@@ -103,6 +103,8 @@
         link: /AI/RAG/knowledge-graph-retrieval
       - text: 基于规则的过滤检索
         link: /AI/RAG/rule-based-retrieval
+      - text: 多模态 RAG
+        link: /AI/RAG/multimodal-rag
   - text: 效果评估
     items:
       - text: 评估指标与框架
