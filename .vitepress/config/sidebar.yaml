@@ -140,6 +140,14 @@
         link: /AI/agent/evaluation-observability
       - text: 安全与护栏
         link: /AI/agent/safety-guardrails
+  - text: 架构专题
+    items:
+      - text: Agent Harness
+        link: /AI/agent/agent-harness
+      - text: Agent Skills
+        link: /AI/agent/agent-skills
+      - text: CodeAct 代码执行范式
+        link: /AI/agent/codeact
 /AI/trends/:
   - text: 热点观察
     items:

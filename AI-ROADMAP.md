@@ -40,6 +40,9 @@
 | multi-agent.md | 多智能体编排 | Orchestrator-Worker、Handoff、A2A、共享状态取舍 | 已完成 (2026-07-03) |
 | evaluation-observability.md | 评估与可观测性 | 轨迹追踪、三层评估、线上监控指标 | 已完成 (2026-07-03) |
 | safety-guardrails.md | 安全与护栏 | 致命三要素、注入防御、权限分级、沙箱限额 | 已完成 (2026-07-03) |
+| agent-harness.md | Agent Harness | 四要素、Loop Engineering、环境即 Harness、主流实现剖析 | 已完成 (2026-07-04) |
+| agent-skills.md | Agent Skills | SKILL.md、渐进式披露、与 MCP/子 Agent 分工、安全 | 已完成 (2026-07-04) |
+| codeact.md | CodeAct 代码执行范式 | 轮次坍缩、沙箱执行、与逐轮工具调用的选型 | 已完成 (2026-07-04) |
 
 ## 热点专题 (docs/AI/trends/)
 
@@ -53,4 +56,5 @@
 - 2026-07-03 RAG 全面重构:重写 9 篇旧文 (统一结构、修正过时 API、补 2026 实践);新增 multimodal-rag.md;RAG 系列 14 篇全部完成。
 - 2026-07-03 新增「工程实战」深潜 4 篇:文档解析、分块实战、检索实战、检索评估实战,均含可运行示例代码;sidebar 新增工程实战分组;RAG 系列扩至 18 篇。
 - 2026-07-03 Agent 系列完成剩余 5 篇:上下文工程、记忆机制、多智能体编排、评估与可观测性、安全与护栏。RAG + Agent 全部完成,下一轮进入热点专题。
-- 2026-07-03 热点专题完成:docs/AI/trends/hot-ai-projects.md (2026 上半年盘点),sidebar 新增 /AI/trends/ 分组。**大纲 28/28 全部完成**,后续运行仅做巡检与热点追加。
+- 2026-07-03 热点专题完成:docs/AI/trends/hot-ai-projects.md (2026 上半年盘点),sidebar 新增 /AI/trends/ 分组。大纲 28/28 全部完成。
+- 2026-07-04 应用户要求新增 Agent「架构专题」3 篇:Agent Harness (含 Loop Engineering)、Agent Skills、CodeAct,覆盖近半年最热的 Agent 架构范式。**大纲 31/31 全部完成**,后续运行仅做巡检与热点追加。
