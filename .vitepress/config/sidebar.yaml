@@ -107,5 +107,16 @@
     items:
       - text: 评估指标与框架
         link: /AI/RAG/evaluation
+/AI/agent/:
+  - text: Agent 前沿教程
+    items:
+      - text: 介绍
+        link: /AI/agent/introduction
+      - text: ReAct 与规划
+        link: /AI/agent/react-planning
+      - text: 工具调用
+        link: /AI/agent/tool-use
+      - text: MCP 协议
+        link: /AI/agent/mcp
 
 
