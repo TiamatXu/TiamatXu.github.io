@@ -21,6 +21,8 @@
   items:
     - text: RAG (检索增强生成)
       link: /AI/RAG/introduction
+    - text: Agent 前沿
+      link: /AI/agent/introduction
     - text: AI 应用核心知识
       link: /AI/core-knowledge/index
     - text: AI Coding Guide
