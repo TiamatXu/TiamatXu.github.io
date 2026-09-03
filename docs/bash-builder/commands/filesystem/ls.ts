@@ -1,0 +1,42 @@
+import type { CommandData } from '@theme/bash/types'
+
+const ls: CommandData = {
+  name: 'ls',
+  desc: '列出目录内容',
+  category: 'filesystem',
+
+  arguments: [
+    { name: 'path', type: 'path', required: false, multiple: false, default: '.', desc: '要列出的目录路径' }
+  ],
+
+  options: [
+    { flag: '-l', long: '--long', type: 'boolean', desc: '使用长格式显示文件信息' },
+    { flag: '-a', long: '--all', type: 'boolean', desc: '显示隐藏文件' },
+    { flag: '-h', type: 'boolean', desc: '以人类可读方式显示大小', requires: ['-l'] },
+    { flag: '-c', type: 'boolean', desc: '按修改时间排序' },
+    { flag: '-u', type: 'boolean', desc: '按访问时间排序' }
+  ],
+
+  rules: [
+    { type: 'conflicts', flags: ['-c', '-u'] }
+  ],
+
+  variants: {
+    ubuntu: {
+      availableOptions: ['-l', '-a', '-h', '-c', '-u'],
+      install: 'sudo apt install coreutils'
+    },
+    centos: {
+      availableOptions: ['-l', '-a', '-c', '-u'],
+      install: 'sudo yum install coreutils'
+    },
+    bsd: {
+      supported: true,
+      source: 'BSD',
+      availableOptions: ['-l', '-a', '-h', '-c', '-u'],
+      note: 'macOS 自带 BSD 版本 ls，不支持 --color、--group-directories-first 等 GNU 专属长选项，可通过 brew install coreutils 安装 GNU 版本（命令名为 gls）获得完整功能。'
+    }
+  }
+}
+
+export default ls

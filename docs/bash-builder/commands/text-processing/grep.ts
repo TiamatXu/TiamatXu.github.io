@@ -1,0 +1,38 @@
+import type { CommandData } from '@theme/bash/types'
+
+const grep: CommandData = {
+  name: 'grep',
+  desc: '强大的文本搜索工具',
+  category: 'text-processing',
+
+  arguments: [
+    { name: 'pattern', type: 'pattern', required: true, desc: '要搜索的正则表达式' },
+    { name: 'file', type: 'file', required: false, desc: '要搜索的文件路径' }
+  ],
+
+  options: [
+    { flag: '-i', long: '--ignore-case', type: 'boolean', desc: '忽略大小写' },
+    { flag: '-v', long: '--invert-match', type: 'boolean', desc: '反向选择（显示不包含模式的行）' },
+    { flag: '-r', long: '--recursive', type: 'boolean', desc: '递归搜索目录' },
+    { flag: '-n', long: '--line-number', type: 'boolean', desc: '显示行号' },
+    { flag: '-E', long: '--extended-regexp', type: 'boolean', desc: '使用扩展正则表达式' },
+    { flag: '-P', long: '--perl-regexp', type: 'boolean', desc: '使用 Perl 兼容正则表达式（PCRE）' }
+  ],
+
+  variants: {
+    ubuntu: {
+      availableOptions: ['-i', '-v', '-r', '-n', '-E', '-P']
+    },
+    centos: {
+      availableOptions: ['-i', '-v', '-r', '-n', '-E', '-P']
+    },
+    bsd: {
+      supported: true,
+      source: 'BSD',
+      availableOptions: ['-i', '-v', '-r', '-n', '-E'],
+      note: 'macOS 自带 BSD grep，默认不支持 -P（PCRE 正则），需要 brew install grep 安装 GNU 版本（命令名为 ggrep）后才能使用 --perl-regexp 等特性。'
+    }
+  }
+}
+
+export default grep

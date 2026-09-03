@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import { data as bashGroups } from './bash.data'
-import type { CommandData, CommandOption, ParsedCommand } from './types'
-import { parseCommand, matchCommandNames, matchOptions, generateExplanation } from './builder'
+import type { CommandData, CommandOption, CommandSubcommand, ParsedCommand } from './types'
+import { parseCommand, matchCommandNames, matchSubcommandNames, matchOptions, generateExplanation } from './builder'
 
 const inputQuery = ref('')
 const searchInput = ref<HTMLInputElement>()
@@ -29,12 +29,49 @@ const filteredGroups = computed(() => {
   })).filter(group => group.commands.length > 0)
 })
 
+// 命令拥有子命令体系（如 apt、systemctl）且尚未选定子命令时，联想应展示子命令而非选项
+const needsSubcommand = computed(() =>
+  !!parsed.value.command?.subcommands?.length && !parsed.value.subcommand
+)
+
+const matchedSubcommands = computed(() => {
+  if (!needsSubcommand.value) return []
+  return matchSubcommandNames(parsed.value.currentFragment, parsed.value.command!.subcommands!)
+})
+
+const activeOptionSource = computed<CommandOption[]>(() => {
+  if (needsSubcommand.value) return []
+  return parsed.value.subcommand?.options ?? parsed.value.command?.options ?? []
+})
+
 const matchedOptions = computed(() => {
-  if (!parsed.value.command) return []
-  return matchOptions(parsed.value.command, parsed.value.currentFragment, parsed.value.selectedOptions)
+  if (!parsed.value.command || needsSubcommand.value) return []
+  return matchOptions(activeOptionSource.value, parsed.value.currentFragment, parsed.value.selectedOptions)
 })
 
 const dynamicExplanation = computed(() => generateExplanation(parsed.value))
+
+const SYSTEM_LABELS: Record<string, string> = {
+  ubuntu: 'Ubuntu',
+  centos: 'CentOS',
+  bsd: 'macOS'
+}
+
+function supportBadges(cmd: CommandData) {
+  if (!cmd.variants) return []
+  return Object.entries(cmd.variants).map(([key, variant]) => {
+    const supported = variant.supported !== false
+    const title = variant.note
+      ? variant.note
+      : `${SYSTEM_LABELS[key] || key}${supported ? ' 默认支持该命令' : ' 默认不支持该命令'}`
+    return {
+      key,
+      label: SYSTEM_LABELS[key] || key,
+      supported,
+      title
+    }
+  })
+}
 
 watch(inputQuery, (val) => {
   showDropdown.value = !!val.trim()
@@ -51,6 +88,17 @@ function selectOption(opt: CommandOption) {
     currentTokens[currentTokens.length - 1] = opt.flag
   } else {
     currentTokens.push(opt.flag)
+  }
+  inputQuery.value = currentTokens.join(' ') + ' '
+  searchInput.value?.focus()
+}
+
+function selectSubcommand(sub: CommandSubcommand) {
+  const currentTokens = inputQuery.value.trimEnd().split(/\s+/)
+  if (parsed.value.currentFragment) {
+    currentTokens[currentTokens.length - 1] = sub.name
+  } else {
+    currentTokens.push(sub.name)
   }
   inputQuery.value = currentTokens.join(' ') + ' '
   searchInput.value?.focus()
@@ -133,6 +181,22 @@ onUnmounted(() => {
               </div>
             </template>
 
+            <template v-else-if="needsSubcommand">
+              <div class="dropdown-header">可用子命令</div>
+              <div
+                v-for="sub in matchedSubcommands"
+                :key="sub.name"
+                class="dropdown-item cmd-item"
+                @click="selectSubcommand(sub)"
+              >
+                <span class="cmd-name">{{ sub.name }}</span>
+                <span class="cmd-desc">{{ sub.desc }}</span>
+              </div>
+              <div v-if="matchedSubcommands.length === 0" class="empty-dropdown">
+                未识别到对应子命令
+              </div>
+            </template>
+
             <template v-else>
               <div class="dropdown-header">可用参数联想</div>
               <div
@@ -173,6 +237,15 @@ onUnmounted(() => {
             >
               <span class="command-name">{{ cmd.name }}</span>
               <span class="command-desc">{{ cmd.desc }}</span>
+              <span class="support-badges">
+                <span
+                  v-for="badge in supportBadges(cmd)"
+                  :key="badge.key"
+                  class="support-badge"
+                  :class="badge.supported ? 'badge-yes' : 'badge-no'"
+                  :title="badge.title"
+                >{{ badge.label }}</span>
+              </span>
             </li>
           </ul>
         </div>
@@ -459,6 +532,34 @@ input:focus {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  flex: 1;
+}
+
+.support-badges {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.support-badge {
+  font-size: 10px;
+  line-height: 1;
+  padding: 3px 6px;
+  border-radius: 999px;
+  white-space: nowrap;
+  font-weight: 600;
+  cursor: help;
+}
+
+.support-badge.badge-yes {
+  color: var(--vt-c-green-dark);
+  background-color: rgba(66, 184, 131, 0.14);
+}
+
+.support-badge.badge-no {
+  color: var(--vt-c-red);
+  background-color: rgba(237, 60, 80, 0.12);
 }
 
 /* 响应式适配 */

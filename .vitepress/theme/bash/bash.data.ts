@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import yaml from 'js-yaml'
+import { pathToFileURL } from 'url'
 import type { CommandData } from './types'
 
 export interface BashDataGroup {
@@ -22,29 +22,29 @@ const CATEGORY_MAP: Record<string, string> = {
 }
 
 export default {
-  watch: ['../../../docs/bash-builder/commands/**/*.yaml'],
-  load(): BashDataGroup[] {
+  watch: ['../../../docs/bash-builder/commands/**/*.ts'],
+  async load(): Promise<BashDataGroup[]> {
     const commandsDir = path.resolve(__dirname, '../../../docs/bash-builder/commands')
     if (!fs.existsSync(commandsDir)) return []
 
     const groups: Record<string, CommandData[]> = {}
 
-    // 递归读取目录
+    // 递归读取目录，每个分类目录下每个命令为独立的 .ts 模块（默认导出 CommandData）
     const categories = fs.readdirSync(commandsDir)
-    categories.forEach(catEn => {
+    for (const catEn of categories) {
       const catPath = path.join(commandsDir, catEn)
-      if (fs.statSync(catPath).isDirectory()) {
-        const files = fs.readdirSync(catPath).filter(f => f.endsWith('.yaml'))
-        files.forEach(file => {
-          const filePath = path.join(catPath, file)
-          const content = fs.readFileSync(filePath, 'utf-8')
-          const cmd = yaml.load(content) as CommandData
+      if (!fs.statSync(catPath).isDirectory()) continue
 
-          if (!groups[catEn]) groups[catEn] = []
-          groups[catEn].push(cmd)
-        })
+      const files = fs.readdirSync(catPath).filter(f => f.endsWith('.ts'))
+      for (const file of files) {
+        const filePath = path.join(catPath, file)
+        const mod = await import(pathToFileURL(filePath).href)
+        const cmd = mod.default as CommandData
+
+        if (!groups[catEn]) groups[catEn] = []
+        groups[catEn].push(cmd)
       }
-    })
+    }
 
     return Object.keys(groups).sort().map(catEn => ({
       categoryEn: catEn,
