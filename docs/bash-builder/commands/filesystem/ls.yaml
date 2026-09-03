@@ -1,6 +1,8 @@
 name: ls
 desc: 列出目录内容
 category: filesystem
+macos: true
+macosNote: macOS 自带 BSD 版本 ls，-l/-a/-h/-c/-u 等常用选项均可用；但不支持 --color、--group-directories-first 等 GNU 专属长选项，可通过 `brew install coreutils` 安装 GNU 版本（命令名为 gls）获得完整功能。
 
 arguments:
   - name: path

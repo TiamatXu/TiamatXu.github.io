@@ -18,6 +18,7 @@ export interface CommandOption {
   choices?: string[]; // 仅用于 enum 类型
   requires?: string[]; // 依赖的其他 flag
   conflicts?: string[]; // 冲突的其他 flag
+  macos?: boolean; // 该选项在 macOS 自带（BSD）版本命令中是否可用，省略默认视为可用
 }
 
 export interface CommandRule {
@@ -29,12 +30,15 @@ export interface CommandRule {
 export interface CommandVariant {
   source?: string; // 命令来源，例如 "GNU Coreutils"
   install?: string; // 安装命令
+  availableOptions?: string[]; // 该发行版/平台下可用的选项 flag 列表
 }
 
 export interface CommandData {
   name: string;
   desc: string;
   category: string;
+  macos: boolean; // 命令本身在 macOS 上是否默认可用（无需额外安装即可在终端使用）
+  macosNote?: string; // macOS 兼容性补充说明，例如行为差异、替代命令或安装方式
   arguments?: CommandArgument[];
   options?: CommandOption[];
   rules?: CommandRule[];

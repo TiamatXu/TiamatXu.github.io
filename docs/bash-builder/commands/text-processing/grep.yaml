@@ -1,6 +1,8 @@
 name: grep
 desc: 强大的文本搜索工具
 category: text-processing
+macos: true
+macosNote: macOS 自带 BSD grep，-i/-v/-r/-n/-E 等常用选项均可用；但默认不支持 -P（PCRE 正则），需要 `brew install grep` 安装 GNU 版本（命令名为 ggrep）后才能使用 --perl-regexp 等特性。
 
 arguments:
   - name: pattern
@@ -37,6 +39,12 @@ options:
     long: --extended-regexp
     type: boolean
     desc: 使用扩展正则表达式
+
+  - flag: -P
+    long: --perl-regexp
+    type: boolean
+    desc: 使用 Perl 兼容正则表达式（PCRE）
+    macos: false
 
 variants:
   ubuntu:
