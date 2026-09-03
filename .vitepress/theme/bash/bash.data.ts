@@ -18,7 +18,12 @@ const CATEGORY_MAP: Record<string, string> = {
   'package-management': '包管理',
   'archive': '压缩归档',
   'process': '进程管理',
-  'other': '其他工具'
+  'other': '其他工具',
+  'version-control': '版本控制',
+  'container': '容器编排',
+  'package-runtime': '包管理与运行时',
+  'database': '数据库客户端',
+  'middleware': '中间件'
 }
 
 export default {
